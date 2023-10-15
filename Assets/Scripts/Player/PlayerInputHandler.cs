@@ -8,14 +8,12 @@ public class PlayerInputHandler : MonoBehaviour
 {
     private PlayerInputAction _playerInputAction;
     private PlayerAttack[] _playerAttacks;
-    public Vector2 MoveVector = Vector2.zero;
-    public Vector2 LookVector = Vector2.zero;
-    public float SprintBool = 0.0f;
-    public float JumpBool = 0.0f;
-
+    public PlayerController _playerController;
+    
     private void Awake()
     {
         _playerInputAction = new PlayerInputAction();
+        _playerController = GetComponent<PlayerController>();
         _playerAttacks = GetComponents<PlayerAttack>();
     }
 
@@ -29,8 +27,6 @@ public class PlayerInputHandler : MonoBehaviour
         // Assign functions as event handlers for input values
         _playerInputAction.Player.Move.performed += OnMovement;
         _playerInputAction.Player.Move.canceled += OnMovementStopped;
-        _playerInputAction.Player.Look.performed += OnLook;
-        _playerInputAction.Player.Look.canceled += OnLookStopped;
 
         _playerInputAction.Player.Sprint.started += OnSprint;
         _playerInputAction.Player.Sprint.canceled += OnSprint;
@@ -58,8 +54,6 @@ public class PlayerInputHandler : MonoBehaviour
         // Remove the event handlers
         _playerInputAction.Player.Move.performed -= OnMovement;
         _playerInputAction.Player.Move.canceled -= OnMovementStopped;
-        _playerInputAction.Player.Look.performed -= OnLook;
-        _playerInputAction.Player.Look.canceled -= OnLookStopped;
 
         _playerInputAction.Player.Sprint.started -= OnSprint;
         _playerInputAction.Player.Sprint.canceled -= OnSprint;
@@ -80,19 +74,15 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void OnMovement(InputAction.CallbackContext value)
     {
-        MoveVector = value.ReadValue<Vector2>();
-    }
-    private void OnLook(InputAction.CallbackContext value)
-    {
-        LookVector = value.ReadValue<Vector2>();
+        _playerController.MoveVector = value.ReadValue<Vector2>();
     }
     private void OnSprint(InputAction.CallbackContext value)
     {
-        SprintBool = value.ReadValue<float>();
+        _playerController.SprintBool = value.ReadValue<float>();
     }
     private void OnJump(InputAction.CallbackContext value)
     {
-        JumpBool = value.ReadValue<float>();
+        _playerController.JumpBool = value.ReadValue<float>();
     }
 
     /*
@@ -100,11 +90,7 @@ public class PlayerInputHandler : MonoBehaviour
     */
     private void OnMovementStopped(InputAction.CallbackContext value)
     {
-        MoveVector = Vector2.zero;
-    }
-    private void OnLookStopped(InputAction.CallbackContext value)
-    {
-        LookVector = Vector2.zero;
+        _playerController.MoveVector = Vector2.zero;
     }
 
     private void OnAttack1(InputAction.CallbackContext context)

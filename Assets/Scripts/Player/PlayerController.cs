@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private PlayerInputHandler _input;
     private Rigidbody _rigidBody;
 
     /// <summary>
@@ -20,9 +19,9 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Base speed value")]
     public float BaseSpeed = 10.0f;
     [Tooltip("Base speed value")]
-    public float SprintMultiplyer = 13.0f;
-    // [Tooltip("Sprinting check")]
-    // public bool IsSprinting = false;
+    public float SprintMultiplyer = 2.0f;
+    [Tooltip("Sprinting check")]
+    public float SprintBool = 0.0f;
     [Tooltip("Speed Multiplyer")]
     public float SpeedBoost = 1.0f;
     [Tooltip("Ground Drag for simulating air resistance when running")]
@@ -38,7 +37,8 @@ public class PlayerController : MonoBehaviour
     public float JumpForce = 10f;
     [Tooltip("Gravity value for character")]
     public float Gravity = -15.0f;
-
+    [Tooltip("Jumping check")]
+    public float JumpBool = 0.0f;
     [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
     public float JumpCD = 0.1f;
     [Tooltip("Number of jumps available")]
@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Number of jumps allowed")]
     public int MaxJump = 2;
     [Tooltip("Mid air slowing multiplyer")]
-    public float AirDrag = 0.4f;
+    public float AirDrag = 8f;
 
     /// <summary>
     /// Grounded checking variables
@@ -55,10 +55,8 @@ public class PlayerController : MonoBehaviour
     [Tooltip("If the character is grounded or not")]
     public bool Grounded = false;
     [Tooltip("How deep should the raycast check for ground")]
-    public float GroundedOffset = 0.2f;
+    public float GroundedOffset = 0.1f;
     [Tooltip("Height of character")]
-    //This is to raycast to check for ground, but it's set to 3 here even thought the player capsule is 2 because the position of the 
-    //parent object of player is one higher causing an increase in height of the overall raycast position may differ for others
     public float PlayerHeight = 2f;
     [Tooltip("What layers the character can jump off of")]
     public LayerMask GroundLayers;
@@ -68,14 +66,12 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     [Header("Player Camera")]
     public PlayerCamera _playerCamera;
-    private Vector2 LookVector = Vector2.zero;
     
     /// <summary>
     /// Initialization of variables before game is loaded
     /// </summary>
     private void Awake()
     {
-        _input = GetComponent<PlayerInputHandler>();
         _rigidBody = GetComponent<Rigidbody>();
         _rigidBody.freezeRotation = true;
     }
@@ -95,9 +91,9 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        _playerCamera.UpdateCamera(_input.MoveVector);
+        _playerCamera.UpdateCamera(MoveVector);
         Movement();
-        SpeedControl();
+        //SpeedControl();
         GroundedCheck();
         Jump();
         GravityControl();
@@ -111,11 +107,11 @@ public class PlayerController : MonoBehaviour
         bool CanJump = false;
 
         // Adjust this for double jump
-        if (Grounded && JumpCount > 0)
+        if (Grounded)
         {
             CanJump = true;
         }
-        if(_input.JumpBool > 0 && CanJump)
+        if(JumpBool > 0 && CanJump)
         {
             JumpCount--;
             _rigidBody.velocity = new Vector3(_rigidBody.velocity.x, 0f, _rigidBody.velocity.z);
@@ -157,7 +153,7 @@ public class PlayerController : MonoBehaviour
         // Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
         
         Grounded = Physics.Raycast(transform.position, Vector3.down, PlayerHeight * 0.5f + GroundedOffset, GroundLayers);
-        _rigidBody.drag = Grounded ? GroundDrag : 0f;
+        _rigidBody.drag = Grounded ? GroundDrag : AirDrag;
     }
 
     /// <summary>
@@ -166,8 +162,7 @@ public class PlayerController : MonoBehaviour
     private void Movement()
     {
         // Speed calculation BaseSpeed or SprintSpeed plus SpeedBoost
-        _speed = (_input.SprintBool > 0 ? BaseSpeed * SprintMultiplyer : BaseSpeed)  + SpeedBoost;
-        MoveVector = _input.MoveVector;
+        _speed = (SprintBool > 0 ? BaseSpeed * SprintMultiplyer : BaseSpeed)  + SpeedBoost;
         //Makes sure the orientation of the movement is based on direction of where the camera is facing
         MoveDir = Orientation.forward * MoveVector.y + Orientation.right * MoveVector.x;
 
