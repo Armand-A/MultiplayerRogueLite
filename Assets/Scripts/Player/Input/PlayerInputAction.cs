@@ -107,6 +107,15 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""f7ddcb91-1678-4874-8996-d5773ae231ff"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -169,7 +178,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""9ff277f9-792f-4cea-85ac-927fc23ba514"",
                     ""path"": ""<Keyboard>/space"",
-                    ""interactions"": ""Press(behavior=1)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Player"",
                     ""action"": ""Jump"",
@@ -252,6 +261,17 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""action"": ""Attack 4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c7874345-f8ed-4e94-a7e3-21e2f4ba0742"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -275,6 +295,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Player_Attack2 = m_Player.FindAction("Attack 2", throwIfNotFound: true);
         m_Player_Attack3 = m_Player.FindAction("Attack 3", throwIfNotFound: true);
         m_Player_Attack4 = m_Player.FindAction("Attack 4", throwIfNotFound: true);
+        m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -345,6 +366,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Attack2;
     private readonly InputAction m_Player_Attack3;
     private readonly InputAction m_Player_Attack4;
+    private readonly InputAction m_Player_Dash;
     public struct PlayerActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -358,6 +380,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         public InputAction @Attack2 => m_Wrapper.m_Player_Attack2;
         public InputAction @Attack3 => m_Wrapper.m_Player_Attack3;
         public InputAction @Attack4 => m_Wrapper.m_Player_Attack4;
+        public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -394,6 +417,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Attack4.started += instance.OnAttack4;
             @Attack4.performed += instance.OnAttack4;
             @Attack4.canceled += instance.OnAttack4;
+            @Dash.started += instance.OnDash;
+            @Dash.performed += instance.OnDash;
+            @Dash.canceled += instance.OnDash;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -425,6 +451,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Attack4.started -= instance.OnAttack4;
             @Attack4.performed -= instance.OnAttack4;
             @Attack4.canceled -= instance.OnAttack4;
+            @Dash.started -= instance.OnDash;
+            @Dash.performed -= instance.OnDash;
+            @Dash.canceled -= instance.OnDash;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -462,5 +491,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         void OnAttack2(InputAction.CallbackContext context);
         void OnAttack3(InputAction.CallbackContext context);
         void OnAttack4(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
     }
 }

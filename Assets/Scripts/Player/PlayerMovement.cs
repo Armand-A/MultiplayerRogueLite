@@ -2,7 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+/// <summary>
+/// Reference
+///     https://youtu.be/f473C43s8nE
+///     https://youtu.be/UCwwn2q4Vys?list=PLO8cZuZwLyxNpkKDdu7I5K6iIpWLh9tbt
+/// </summary>
+public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody _rigidBody;
 
@@ -10,43 +15,48 @@ public class PlayerController : MonoBehaviour
     /// WASD Movement variables
     /// </summary>
     [Header("Horizontal Player Movement")]
-    [Tooltip("Movement input value")]
+    [Tooltip("Movement input vector")]
     public Vector2 MoveVector = Vector2.zero;
     [Tooltip("Object that help orient player movement direction based on camera")]
     public Transform Orientation;
     [Tooltip("Movement direction")]
-    public Vector3 MoveDir;
+    [SerializeField]
+    private Vector3 MoveDir;
     [Tooltip("Base speed value")]
-    public float BaseSpeed = 10.0f;
+    public float BaseSpeed = 20.0f;
     [Tooltip("Base speed value")]
     public float SprintMultiplyer = 2.0f;
-    [Tooltip("Sprinting check")]
+    [Tooltip("Sprinting input")]
     public float SprintBool = 0.0f;
     [Tooltip("Speed Multiplyer")]
     public float SpeedBoost = 1.0f;
     [Tooltip("Ground Drag for simulating air resistance when running")]
-    public float GroundDrag = 5.0f;
-    private float _speed = 0.0f; //Final calculated speed value
+    public float GroundDrag = 3.0f;
+    [Tooltip("How fast player's movement should be mid air")]
+    public float AirMultiplyer = 0.1f;
 
     /// <summary>
     /// Vertical Jump movement variables
     /// </summary>
+    ///
     [Header("Vertical Player Movement")]
     [Space(10)]
+    [Tooltip("Jumping input")]
+    public float JumpBool = 0.0f;
+    [Tooltip("Able to Jump")]
+    public bool CanJump = true;
     [Tooltip("The force of jump")]
     public float JumpForce = 10f;
     [Tooltip("Gravity value for character")]
     public float Gravity = -15.0f;
-    [Tooltip("Jumping check")]
-    public float JumpBool = 0.0f;
-    [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
+    [Tooltip("Time gap between jump")]
+    public float JumpGapCD = 0.5f;
+    [Tooltip("Time required before being able to jump again. Set to 0f to instantly jump again")]
     public float JumpCD = 0.1f;
     [Tooltip("Number of jumps available")]
-    public int JumpCount = 1;
+    public int JumpRemaining = 2;
     [Tooltip("Number of jumps allowed")]
     public int MaxJump = 2;
-    [Tooltip("Mid air slowing multiplyer")]
-    public float AirDrag = 8f;
 
     /// <summary>
     /// Grounded checking variables
@@ -56,6 +66,8 @@ public class PlayerController : MonoBehaviour
     public bool Grounded = false;
     [Tooltip("How deep should the raycast check for ground")]
     public float GroundedOffset = 0.1f;
+    [Tooltip("The radius of the ground raycast detection range")]
+    public float GroundedRadius = 2.0f;
     [Tooltip("Height of character")]
     public float PlayerHeight = 2f;
     [Tooltip("What layers the character can jump off of")]
@@ -66,6 +78,19 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     [Header("Player Camera")]
     public PlayerCamera _playerCamera;
+
+    [Header("Abilities")]
+    [Tooltip("Dash input")]
+    public float DashBool = 0.0f;
+    [Tooltip("Dash Cooldown")]
+    public float DashCD = 2.0f;
+
+    private CooldownTimer _jumpCDTimer;
+    private CooldownTimer _jumpGapCDTimer;
+    private CooldownTimer _dashCDTimer;
+
+    private int _jumpCount = 0;
+    private float _speed = 0.0f; //Final calculated speed value
     
     /// <summary>
     /// Initialization of variables before game is loaded
@@ -74,6 +99,28 @@ public class PlayerController : MonoBehaviour
     {
         _rigidBody = GetComponent<Rigidbody>();
         _rigidBody.freezeRotation = true;
+
+        _jumpCDTimer = new CooldownTimer(JumpCD);
+        _jumpGapCDTimer = new CooldownTimer(JumpGapCD);
+        _dashCDTimer = new CooldownTimer(DashCD);
+    }
+
+    /// <summary>
+    /// Attaching cooldown event handlers
+    /// </summary>
+    private void OnEnable()
+    {
+        _jumpCDTimer.TimerCompleteEvent+= JumpRecharge;
+        _dashCDTimer.TimerCompleteEvent += DashReset;
+    }
+
+    /// <summary>
+    /// Removing cooldown event handlers just in case
+    /// </summary>
+    private void OnDisable()
+    {
+        _jumpCDTimer.TimerCompleteEvent -= JumpRecharge;
+        _dashCDTimer.TimerCompleteEvent -= DashReset;
     }
 
     /// <summary>
@@ -87,36 +134,45 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// FixedUpdate instead of update because rigidbody works better this way
+    /// All player movement updates
     /// </summary>
     private void FixedUpdate()
     {
+        // Camera function
         _playerCamera.UpdateCamera(MoveVector);
+        // Normal Movements
+
         Movement();
         //SpeedControl();
+        //Special Movement
+
+        ///* Jump Mechanic functions
+        _jumpCDTimer.Update(Time.deltaTime);
+        _jumpGapCDTimer.Update(Time.deltaTime);
         GroundedCheck();
         Jump();
         GravityControl();
+        //*/
     }
 
     /// <summary>
     /// Jump control
     /// </summary>
     private void Jump()
-    {   
-        bool CanJump = false;
-
+    {
         // Adjust this for double jump
-        if (Grounded)
-        {
+        if ((Grounded || _jumpCount < MaxJump) && JumpRemaining > 0 && !_jumpGapCDTimer.IsActive)
             CanJump = true;
-        }
+        else
+            CanJump = false;
+
         if(JumpBool > 0 && CanJump)
         {
-            JumpCount--;
+            JumpRemaining--;
+            _jumpCount++;
             _rigidBody.velocity = new Vector3(_rigidBody.velocity.x, 0f, _rigidBody.velocity.z);
             _rigidBody.AddForce(transform.up * (JumpForce), ForceMode.Impulse);
-            Invoke(nameof(ResetJump), JumpCD);
+            _jumpGapCDTimer.Start();
         }
     }
 
@@ -127,33 +183,37 @@ public class PlayerController : MonoBehaviour
     {
         // Do I need this? Might test later
         if (!Grounded)
-        {
             _rigidBody.AddForce(new Vector3(0, Gravity, 0));
-        }
     }
 
     /// <summary>
-    /// Reset or add Jumping count
+    /// Reset or add Jumping remaining
     /// </summary>
-    private void ResetJump()
+    private void JumpRecharge()
     {
-        if (JumpCount < MaxJump)
-        {
-            JumpCount++;
-        }
+        if (JumpRemaining < MaxJump)
+            JumpRemaining++;
     }
     
     /// <summary>
-    /// Check if Character is capable of jumping
+    /// Check if Character is on a ground of somekind
     /// </summary>
     private void GroundedCheck()
     {
-        // set sphere position, with offset
-        // Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
-        // Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
+        // Sphere radius method, better with uneven ground
+        Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - PlayerHeight * 0.5f, transform.position.z);
+        Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
         
-        Grounded = Physics.Raycast(transform.position, Vector3.down, PlayerHeight * 0.5f + GroundedOffset, GroundLayers);
-        _rigidBody.drag = Grounded ? GroundDrag : AirDrag;
+        //Raycast method to detect ground
+        //Grounded = Physics.Raycast(transform.position, Vector3.down, PlayerHeight * 0.5f + GroundedOffset, GroundLayers);
+        _rigidBody.drag = Grounded ? GroundDrag : 1;
+        if (Grounded)
+        {
+            _jumpCount = 0;
+            _jumpGapCDTimer.Pause();
+            if (!_jumpCDTimer.IsActive && JumpRemaining < MaxJump)
+                _jumpCDTimer.Start();
+        }
     }
 
     /// <summary>
@@ -161,13 +221,22 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Movement()
     {
-        // Speed calculation BaseSpeed or SprintSpeed plus SpeedBoost
-        _speed = (SprintBool > 0 ? BaseSpeed * SprintMultiplyer : BaseSpeed)  + SpeedBoost;
         //Makes sure the orientation of the movement is based on direction of where the camera is facing
         MoveDir = Orientation.forward * MoveVector.y + Orientation.right * MoveVector.x;
 
+        // Speed calculation BaseSpeed or SprintSpeed plus SpeedBoost
+        if (MoveVector == Vector2.zero)
+        {
+            _speed = 0;
+            _rigidBody.velocity = new Vector3(0, _rigidBody.velocity.y, 0);
+        }
+        else
+        {
+            _speed = (SprintBool > 0 ? BaseSpeed * SprintMultiplyer : BaseSpeed) + SpeedBoost;
+        }
+
         //Calculates in midair movement
-        _speed = Grounded ? _speed : _speed * AirDrag;
+        _speed = Grounded ? _speed : _speed * AirMultiplyer;
         _rigidBody.AddForce(MoveDir.normalized * _speed);
     }
 
@@ -182,5 +251,18 @@ public class PlayerController : MonoBehaviour
             Vector3 limitedVel = flatVel.normalized * _speed;
             _rigidBody.velocity = new Vector3(limitedVel.x, _rigidBody.velocity.y, limitedVel.z);
         }
+    }
+
+    private void Dash()
+    {
+        //if (DashBool > 0)
+    }
+
+    /// <summary>
+    /// Reset Dash cooldown
+    /// </summary>
+    private void DashReset()
+    {
+        
     }
 }

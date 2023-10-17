@@ -4,16 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Reference
+///     https://youtu.be/UyUogO2DvwY?list=PLO8cZuZwLyxNpkKDdu7I5K6iIpWLh9tbt
+/// </summary>
 public class PlayerInputHandler : MonoBehaviour
 {
     private PlayerInputAction _playerInputAction;
     private PlayerAttack[] _playerAttacks;
-    public PlayerController _playerController;
+    public PlayerMovement _playerMovmement;
     
     private void Awake()
     {
         _playerInputAction = new PlayerInputAction();
-        _playerController = GetComponent<PlayerController>();
+        _playerMovmement = GetComponent<PlayerMovement>();
         _playerAttacks = GetComponents<PlayerAttack>();
     }
 
@@ -33,6 +37,9 @@ public class PlayerInputHandler : MonoBehaviour
 
         _playerInputAction.Player.Jump.started += OnJump;
         _playerInputAction.Player.Jump.canceled += OnJump;
+
+        _playerInputAction.Player.Dash.started += OnDash;
+        _playerInputAction.Player.Jump.canceled += OnDash;
 
         _playerInputAction.Player.Attack1.started += OnAttack1;
         _playerInputAction.Player.Attack2.started += OnAttack2;
@@ -74,15 +81,19 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void OnMovement(InputAction.CallbackContext value)
     {
-        _playerController.MoveVector = value.ReadValue<Vector2>();
+        _playerMovmement.MoveVector = value.ReadValue<Vector2>();
     }
     private void OnSprint(InputAction.CallbackContext value)
     {
-        _playerController.SprintBool = value.ReadValue<float>();
+        _playerMovmement.SprintBool = value.ReadValue<float>();
     }
     private void OnJump(InputAction.CallbackContext value)
     {
-        _playerController.JumpBool = value.ReadValue<float>();
+        _playerMovmement.JumpBool = value.ReadValue<float>();
+    }
+    private void OnDash(InputAction.CallbackContext value)
+    {
+        _playerMovmement.DashBool = value.ReadValue<float>();
     }
 
     /*
@@ -90,7 +101,7 @@ public class PlayerInputHandler : MonoBehaviour
     */
     private void OnMovementStopped(InputAction.CallbackContext value)
     {
-        _playerController.MoveVector = Vector2.zero;
+        _playerMovmement.MoveVector = Vector2.zero;
     }
 
     private void OnAttack1(InputAction.CallbackContext context)

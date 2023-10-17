@@ -85,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "f7ddcb91-1678-4874-8996-d5773ae231ff",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -147,7 +156,7 @@
                     "name": "",
                     "id": "9ff277f9-792f-4cea-85ac-927fc23ba514",
                     "path": "<Keyboard>/space",
-                    "interactions": "Press(behavior=1)",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Player",
                     "action": "Jump",
@@ -228,6 +237,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Attack 4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c7874345-f8ed-4e94-a7e3-21e2f4ba0742",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

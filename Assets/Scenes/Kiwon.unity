@@ -428,21 +428,28 @@ MonoBehaviour:
   MoveDir: {x: 0, y: 0, z: 0}
   BaseSpeed: 20
   SprintMultiplyer: 2
+  SprintBool: 0
   SpeedBoost: 1
   GroundDrag: 5
+  AirMultiplyer: 0.1
+  JumpBool: 0
+  CanJump: 1
   JumpForce: 10
   Gravity: -15
+  JumpGapCD: 0.5
   JumpCD: 0.1
-  JumpCount: 1
+  JumpRemaining: 2
   MaxJump: 2
-  AirDrag: 0.4
   Grounded: 1
   GroundedOffset: 0.1
+  GroundedRadius: 0.1
   PlayerHeight: 2
   GroundLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8
   _playerCamera: {fileID: 1333605031}
+  DashBool: 0
+  DashCD: 2
 --- !u!114 &704868798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -455,10 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d4cb743e479a3f48b8001003b22a0a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveVector: {x: 0, y: 0}
-  LookVector: {x: 0, y: 0}
-  SprintBool: 0
-  JumpBool: 0
+  _playerMovmement: {fileID: 0}
 --- !u!54 &704868799
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1487,7 +1491,7 @@ GameObject:
   - component: {fileID: 2049418285}
   - component: {fileID: 2049418284}
   - component: {fileID: 2049418283}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
