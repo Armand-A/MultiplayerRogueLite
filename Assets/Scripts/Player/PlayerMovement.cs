@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("How deep should the raycast check for ground")]
     public float GroundedOffset = 0.1f;
     [Tooltip("The radius of the ground raycast detection range")]
-    public float GroundedRadius = 2.0f;
+    public float GroundedRadius = 0.1f;
     [Tooltip("Height of character")]
     public float PlayerHeight = 2f;
     [Tooltip("What layers the character can jump off of")]
