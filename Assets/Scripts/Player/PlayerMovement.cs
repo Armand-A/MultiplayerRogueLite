@@ -49,8 +49,8 @@ public class PlayerMovement : MonoBehaviour
     public float JumpForce = 10f;
     [Tooltip("Gravity value for character")]
     public float Gravity = -15.0f;
-    [Tooltip("Time gap between jump")]
-    public float JumpGapCD = 0.5f;
+    [Tooltip("Interval between jumps")]
+    public float JumpIntervalCD = 0.5f;
     [Tooltip("Time required before being able to jump again. Set to 0f to instantly jump again")]
     public float JumpCD = 0.1f;
     [Tooltip("Number of jumps available")]
@@ -82,11 +82,17 @@ public class PlayerMovement : MonoBehaviour
     [Header("Abilities")]
     [Tooltip("Dash input")]
     public float DashBool = 0.0f;
+    [Tooltip("Dash input")]
+    public float DashForce = 10.0f;
     [Tooltip("Dash Cooldown")]
     public float DashCD = 2.0f;
+    [Tooltip("Dash Remaining")]
+    public int DashRemaining = 2;
+    [Tooltip("Max dash allowed")]
+    public int MaxDash = 2;
 
     private CooldownTimer _jumpCDTimer;
-    private CooldownTimer _jumpGapCDTimer;
+    private CooldownTimer _jumpIntervalTimer;
     private CooldownTimer _dashCDTimer;
 
     private int _jumpCount = 0;
@@ -101,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
         _rigidBody.freezeRotation = true;
 
         _jumpCDTimer = new CooldownTimer(JumpCD);
-        _jumpGapCDTimer = new CooldownTimer(JumpGapCD);
+        _jumpIntervalTimer = new CooldownTimer(JumpIntervalCD);
         _dashCDTimer = new CooldownTimer(DashCD);
     }
 
@@ -143,16 +149,18 @@ public class PlayerMovement : MonoBehaviour
         // Normal Movements
 
         Movement();
-        //SpeedControl();
+        SpeedControl();
         //Special Movement
+        Dash();
+        _dashCDTimer.Update(Time.deltaTime);
 
-        ///* Jump Mechanic functions
+        /* Jump Mechanic functions
         _jumpCDTimer.Update(Time.deltaTime);
-        _jumpGapCDTimer.Update(Time.deltaTime);
-        GroundedCheck();
+        _jumpIntervalTimer.Update(Time.deltaTime);
         Jump();
+        */
+        GroundedCheck();
         GravityControl();
-        //*/
     }
 
     /// <summary>
@@ -161,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         // Adjust this for double jump
-        if ((Grounded || _jumpCount < MaxJump) && JumpRemaining > 0 && !_jumpGapCDTimer.IsActive)
+        if ((Grounded || _jumpCount < MaxJump) && JumpRemaining > 0 && !_jumpIntervalTimer.IsActive)
             CanJump = true;
         else
             CanJump = false;
@@ -172,7 +180,7 @@ public class PlayerMovement : MonoBehaviour
             _jumpCount++;
             _rigidBody.velocity = new Vector3(_rigidBody.velocity.x, 0f, _rigidBody.velocity.z);
             _rigidBody.AddForce(transform.up * (JumpForce), ForceMode.Impulse);
-            _jumpGapCDTimer.Start();
+            _jumpIntervalTimer.Start();
         }
     }
 
@@ -210,7 +218,7 @@ public class PlayerMovement : MonoBehaviour
         if (Grounded)
         {
             _jumpCount = 0;
-            _jumpGapCDTimer.Pause();
+            _jumpIntervalTimer.Pause();
             if (!_jumpCDTimer.IsActive && JumpRemaining < MaxJump)
                 _jumpCDTimer.Start();
         }
@@ -224,14 +232,16 @@ public class PlayerMovement : MonoBehaviour
         //Makes sure the orientation of the movement is based on direction of where the camera is facing
         MoveDir = Orientation.forward * MoveVector.y + Orientation.right * MoveVector.x;
 
-        // Speed calculation BaseSpeed or SprintSpeed plus SpeedBoost
+        // Removing velocity when player not touching movement keys
         if (MoveVector == Vector2.zero)
         {
+            SprintBool = 0;
             _speed = 0;
             _rigidBody.velocity = new Vector3(0, _rigidBody.velocity.y, 0);
         }
         else
         {
+            // Speed calculation BaseSpeed or SprintSpeed plus SpeedBoost
             _speed = (SprintBool > 0 ? BaseSpeed * SprintMultiplyer : BaseSpeed) + SpeedBoost;
         }
 
@@ -242,11 +252,12 @@ public class PlayerMovement : MonoBehaviour
 
     /// <summary>
     /// Speed limiter
+    /// Maybe not needed?
     /// </summary>
     private void SpeedControl()
     {
         Vector3 flatVel = new Vector3(_rigidBody.velocity.x, 0f, _rigidBody.velocity.z);
-        if (flatVel.magnitude > _speed)
+        if (flatVel.magnitude > _speed && !_dashCDTimer.IsActive)
         {
             Vector3 limitedVel = flatVel.normalized * _speed;
             _rigidBody.velocity = new Vector3(limitedVel.x, _rigidBody.velocity.y, limitedVel.z);
@@ -255,7 +266,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void Dash()
     {
-        //if (DashBool > 0)
+        if (DashBool > 0 && DashRemaining > 0)
+        {
+            _rigidBody.AddForce(MoveDir.normalized * DashForce , ForceMode.Impulse);
+            DashRemaining--;
+            
+        }
+        DashBool = 0;
+        if (!_dashCDTimer.IsActive && DashRemaining < MaxDash)
+        {
+            _dashCDTimer.Start();
+        }
     }
 
     /// <summary>
@@ -263,6 +284,9 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void DashReset()
     {
-        
+        if (DashRemaining < MaxDash)
+        {
+            DashRemaining++;
+        }
     }
 }

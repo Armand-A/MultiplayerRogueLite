@@ -33,13 +33,13 @@ public class PlayerInputHandler : MonoBehaviour
         _playerInputAction.Player.Move.canceled += OnMovementStopped;
 
         _playerInputAction.Player.Sprint.started += OnSprint;
-        _playerInputAction.Player.Sprint.canceled += OnSprint;
+        //_playerInputAction.Player.Sprint.canceled += OnSprint;
 
         _playerInputAction.Player.Jump.started += OnJump;
         _playerInputAction.Player.Jump.canceled += OnJump;
 
         _playerInputAction.Player.Dash.started += OnDash;
-        _playerInputAction.Player.Jump.canceled += OnDash;
+        //_playerInputAction.Player.Jump.canceled += OnDash;
 
         _playerInputAction.Player.Attack1.started += OnAttack1;
         _playerInputAction.Player.Attack2.started += OnAttack2;
@@ -63,10 +63,13 @@ public class PlayerInputHandler : MonoBehaviour
         _playerInputAction.Player.Move.canceled -= OnMovementStopped;
 
         _playerInputAction.Player.Sprint.started -= OnSprint;
-        _playerInputAction.Player.Sprint.canceled -= OnSprint;
+        //_playerInputAction.Player.Sprint.canceled -= OnSprint;
 
         _playerInputAction.Player.Jump.started -= OnJump;
         _playerInputAction.Player.Jump.canceled -= OnJump;
+
+        _playerInputAction.Player.Dash.started -= OnDash;
+        //_playerInputAction.Player.Jump.canceled -= OnDash;
 
         _playerInputAction.Player.Attack1.started -= OnAttack1;
         _playerInputAction.Player.Attack2.started -= OnAttack2;
