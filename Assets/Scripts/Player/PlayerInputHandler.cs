@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerInputHandler : MonoBehaviour
 {
     private PlayerInputAction _playerInputAction;
-    private PlayerAttack[] _playerAttacks;
+    private PlayerAttack _playerAttack;
     public Vector2 MoveVector = Vector2.zero;
     public Vector2 LookVector = Vector2.zero;
     public float SprintBool = 0.0f;
@@ -16,7 +16,7 @@ public class PlayerInputHandler : MonoBehaviour
     private void Awake()
     {
         _playerInputAction = new PlayerInputAction();
-        _playerAttacks = GetComponents<PlayerAttack>();
+        _playerAttack = GetComponent<PlayerAttack>();
     }
 
     /*
@@ -38,15 +38,13 @@ public class PlayerInputHandler : MonoBehaviour
         _playerInputAction.Player.Jump.started += OnJump;
         _playerInputAction.Player.Jump.canceled += OnJump;
 
-        _playerInputAction.Player.Attack1.started += OnAttack1;
-        _playerInputAction.Player.Attack2.started += OnAttack2;
-        _playerInputAction.Player.Attack3.started += OnAttack3;
-        _playerInputAction.Player.Attack4.started += OnAttack4;
+        _playerInputAction.Player.EquipAttack1.started += OnEquipAttack1;
+        _playerInputAction.Player.EquipAttack2.started += OnEquipAttack2;
+        _playerInputAction.Player.EquipAttack3.started += OnEquipAttack3;
+        _playerInputAction.Player.EquipAttack4.started += OnEquipAttack4;
 
-        _playerInputAction.Player.Attack1.canceled += OnAttack1Canceled;
-        _playerInputAction.Player.Attack2.canceled += OnAttack2Canceled;
-        _playerInputAction.Player.Attack3.canceled += OnAttack3Canceled;
-        _playerInputAction.Player.Attack4.canceled += OnAttack4Canceled;
+        _playerInputAction.Player.Attack.started += OnAttack;
+        _playerInputAction.Player.CancelAttack.started += OnCancelAttack;
     }
 
     /*
@@ -67,15 +65,10 @@ public class PlayerInputHandler : MonoBehaviour
         _playerInputAction.Player.Jump.started -= OnJump;
         _playerInputAction.Player.Jump.canceled -= OnJump;
 
-        _playerInputAction.Player.Attack1.started -= OnAttack1;
-        _playerInputAction.Player.Attack2.started -= OnAttack2;
-        _playerInputAction.Player.Attack3.started -= OnAttack3;
-        _playerInputAction.Player.Attack4.started -= OnAttack4;
-
-        _playerInputAction.Player.Attack1.canceled -= OnAttack1Canceled;
-        _playerInputAction.Player.Attack2.canceled -= OnAttack2Canceled;
-        _playerInputAction.Player.Attack3.canceled -= OnAttack3Canceled;
-        _playerInputAction.Player.Attack4.canceled -= OnAttack4Canceled;
+        _playerInputAction.Player.EquipAttack1.started -= OnEquipAttack1;
+        _playerInputAction.Player.EquipAttack2.started -= OnEquipAttack2;
+        _playerInputAction.Player.EquipAttack3.started -= OnEquipAttack3;
+        _playerInputAction.Player.EquipAttack4.started -= OnEquipAttack4;
     }
 
     private void OnMovement(InputAction.CallbackContext value)
@@ -107,43 +100,33 @@ public class PlayerInputHandler : MonoBehaviour
         LookVector = Vector2.zero;
     }
 
-    private void OnAttack1(InputAction.CallbackContext context)
+    private void OnEquipAttack1(InputAction.CallbackContext context)
     {
-        _playerAttacks[0].OnAttackStarted();
+        _playerAttack.OnEquipAttack(AttackSlot.Slot1);
     }
 
-    private void OnAttack2(InputAction.CallbackContext context)
+    private void OnEquipAttack2(InputAction.CallbackContext context)
     {
-        _playerAttacks[1].OnAttackStarted();
+        _playerAttack.OnEquipAttack(AttackSlot.Slot2);
     }
 
-    private void OnAttack3(InputAction.CallbackContext context)
+    private void OnEquipAttack3(InputAction.CallbackContext context)
     {
-        _playerAttacks[2].OnAttackStarted();
+        _playerAttack.OnEquipAttack(AttackSlot.Slot3);
     }
 
-    private void OnAttack4(InputAction.CallbackContext context)
+    private void OnEquipAttack4(InputAction.CallbackContext context)
     {
-        _playerAttacks[3].OnAttackStarted();
+        _playerAttack.OnEquipAttack(AttackSlot.Slot4);
     }
 
-    private void OnAttack1Canceled(InputAction.CallbackContext context)
+    private void OnAttack(InputAction.CallbackContext value)
     {
-        _playerAttacks[0].OnAttackCanceled();
+        _playerAttack.OnAttack();
     }
 
-    private void OnAttack2Canceled(InputAction.CallbackContext context)
+    private void OnCancelAttack(InputAction.CallbackContext context)
     {
-        _playerAttacks[1].OnAttackCanceled();
-    }
-
-    private void OnAttack3Canceled(InputAction.CallbackContext context)
-    {
-        _playerAttacks[2].OnAttackCanceled();
-    }
-
-    private void OnAttack4Canceled(InputAction.CallbackContext context)
-    {
-        _playerAttacks[3].OnAttackCanceled();
+        _playerAttack.OnCancelAttack();
     }
 }

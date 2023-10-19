@@ -73,7 +73,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Attack 1"",
+                    ""name"": ""Equip Attack 1"",
                     ""type"": ""Button"",
                     ""id"": ""9def4bda-edf7-4c3e-bada-304f29ee8f54"",
                     ""expectedControlType"": ""Button"",
@@ -82,7 +82,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Attack 2"",
+                    ""name"": ""Equip Attack 2"",
                     ""type"": ""Button"",
                     ""id"": ""82bedbe7-848c-40d9-8b40-a31ed33b3193"",
                     ""expectedControlType"": ""Button"",
@@ -91,7 +91,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Attack 3"",
+                    ""name"": ""Equip Attack 3"",
                     ""type"": ""Button"",
                     ""id"": ""7d50a685-5051-4556-b214-f43fbb495db6"",
                     ""expectedControlType"": ""Button"",
@@ -100,9 +100,27 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Attack 4"",
+                    ""name"": ""Equip Attack 4"",
                     ""type"": ""Button"",
                     ""id"": ""c266df33-4ae5-48f0-b238-71d82b5a4498"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""6de8f936-e08e-4a57-b6d3-d0daaf3b3a18"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""bc5ae9e9-3cf8-4150-9743-c8688e9e98e3"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -216,7 +234,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack 1"",
+                    ""action"": ""Equip Attack 1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -227,7 +245,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack 2"",
+                    ""action"": ""Equip Attack 2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -238,7 +256,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack 3"",
+                    ""action"": ""Equip Attack 3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -249,7 +267,29 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Attack 4"",
+                    ""action"": ""Equip Attack 4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d82e8d5-bcf7-4eb5-bb02-1a945c1c4431"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fa7e6733-a88a-4f8c-997a-cf8d6b296a58"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -271,10 +311,12 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
-        m_Player_Attack1 = m_Player.FindAction("Attack 1", throwIfNotFound: true);
-        m_Player_Attack2 = m_Player.FindAction("Attack 2", throwIfNotFound: true);
-        m_Player_Attack3 = m_Player.FindAction("Attack 3", throwIfNotFound: true);
-        m_Player_Attack4 = m_Player.FindAction("Attack 4", throwIfNotFound: true);
+        m_Player_EquipAttack1 = m_Player.FindAction("Equip Attack 1", throwIfNotFound: true);
+        m_Player_EquipAttack2 = m_Player.FindAction("Equip Attack 2", throwIfNotFound: true);
+        m_Player_EquipAttack3 = m_Player.FindAction("Equip Attack 3", throwIfNotFound: true);
+        m_Player_EquipAttack4 = m_Player.FindAction("Equip Attack 4", throwIfNotFound: true);
+        m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        m_Player_CancelAttack = m_Player.FindAction("Cancel Attack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -341,10 +383,12 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Menu;
     private readonly InputAction m_Player_Look;
-    private readonly InputAction m_Player_Attack1;
-    private readonly InputAction m_Player_Attack2;
-    private readonly InputAction m_Player_Attack3;
-    private readonly InputAction m_Player_Attack4;
+    private readonly InputAction m_Player_EquipAttack1;
+    private readonly InputAction m_Player_EquipAttack2;
+    private readonly InputAction m_Player_EquipAttack3;
+    private readonly InputAction m_Player_EquipAttack4;
+    private readonly InputAction m_Player_Attack;
+    private readonly InputAction m_Player_CancelAttack;
     public struct PlayerActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -354,10 +398,12 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Menu => m_Wrapper.m_Player_Menu;
         public InputAction @Look => m_Wrapper.m_Player_Look;
-        public InputAction @Attack1 => m_Wrapper.m_Player_Attack1;
-        public InputAction @Attack2 => m_Wrapper.m_Player_Attack2;
-        public InputAction @Attack3 => m_Wrapper.m_Player_Attack3;
-        public InputAction @Attack4 => m_Wrapper.m_Player_Attack4;
+        public InputAction @EquipAttack1 => m_Wrapper.m_Player_EquipAttack1;
+        public InputAction @EquipAttack2 => m_Wrapper.m_Player_EquipAttack2;
+        public InputAction @EquipAttack3 => m_Wrapper.m_Player_EquipAttack3;
+        public InputAction @EquipAttack4 => m_Wrapper.m_Player_EquipAttack4;
+        public InputAction @Attack => m_Wrapper.m_Player_Attack;
+        public InputAction @CancelAttack => m_Wrapper.m_Player_CancelAttack;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -382,18 +428,24 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
-            @Attack1.started += instance.OnAttack1;
-            @Attack1.performed += instance.OnAttack1;
-            @Attack1.canceled += instance.OnAttack1;
-            @Attack2.started += instance.OnAttack2;
-            @Attack2.performed += instance.OnAttack2;
-            @Attack2.canceled += instance.OnAttack2;
-            @Attack3.started += instance.OnAttack3;
-            @Attack3.performed += instance.OnAttack3;
-            @Attack3.canceled += instance.OnAttack3;
-            @Attack4.started += instance.OnAttack4;
-            @Attack4.performed += instance.OnAttack4;
-            @Attack4.canceled += instance.OnAttack4;
+            @EquipAttack1.started += instance.OnEquipAttack1;
+            @EquipAttack1.performed += instance.OnEquipAttack1;
+            @EquipAttack1.canceled += instance.OnEquipAttack1;
+            @EquipAttack2.started += instance.OnEquipAttack2;
+            @EquipAttack2.performed += instance.OnEquipAttack2;
+            @EquipAttack2.canceled += instance.OnEquipAttack2;
+            @EquipAttack3.started += instance.OnEquipAttack3;
+            @EquipAttack3.performed += instance.OnEquipAttack3;
+            @EquipAttack3.canceled += instance.OnEquipAttack3;
+            @EquipAttack4.started += instance.OnEquipAttack4;
+            @EquipAttack4.performed += instance.OnEquipAttack4;
+            @EquipAttack4.canceled += instance.OnEquipAttack4;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
+            @CancelAttack.started += instance.OnCancelAttack;
+            @CancelAttack.performed += instance.OnCancelAttack;
+            @CancelAttack.canceled += instance.OnCancelAttack;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -413,18 +465,24 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
-            @Attack1.started -= instance.OnAttack1;
-            @Attack1.performed -= instance.OnAttack1;
-            @Attack1.canceled -= instance.OnAttack1;
-            @Attack2.started -= instance.OnAttack2;
-            @Attack2.performed -= instance.OnAttack2;
-            @Attack2.canceled -= instance.OnAttack2;
-            @Attack3.started -= instance.OnAttack3;
-            @Attack3.performed -= instance.OnAttack3;
-            @Attack3.canceled -= instance.OnAttack3;
-            @Attack4.started -= instance.OnAttack4;
-            @Attack4.performed -= instance.OnAttack4;
-            @Attack4.canceled -= instance.OnAttack4;
+            @EquipAttack1.started -= instance.OnEquipAttack1;
+            @EquipAttack1.performed -= instance.OnEquipAttack1;
+            @EquipAttack1.canceled -= instance.OnEquipAttack1;
+            @EquipAttack2.started -= instance.OnEquipAttack2;
+            @EquipAttack2.performed -= instance.OnEquipAttack2;
+            @EquipAttack2.canceled -= instance.OnEquipAttack2;
+            @EquipAttack3.started -= instance.OnEquipAttack3;
+            @EquipAttack3.performed -= instance.OnEquipAttack3;
+            @EquipAttack3.canceled -= instance.OnEquipAttack3;
+            @EquipAttack4.started -= instance.OnEquipAttack4;
+            @EquipAttack4.performed -= instance.OnEquipAttack4;
+            @EquipAttack4.canceled -= instance.OnEquipAttack4;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
+            @CancelAttack.started -= instance.OnCancelAttack;
+            @CancelAttack.performed -= instance.OnCancelAttack;
+            @CancelAttack.canceled -= instance.OnCancelAttack;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -458,9 +516,11 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnMenu(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
-        void OnAttack1(InputAction.CallbackContext context);
-        void OnAttack2(InputAction.CallbackContext context);
-        void OnAttack3(InputAction.CallbackContext context);
-        void OnAttack4(InputAction.CallbackContext context);
+        void OnEquipAttack1(InputAction.CallbackContext context);
+        void OnEquipAttack2(InputAction.CallbackContext context);
+        void OnEquipAttack3(InputAction.CallbackContext context);
+        void OnEquipAttack4(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
+        void OnCancelAttack(InputAction.CallbackContext context);
     }
 }

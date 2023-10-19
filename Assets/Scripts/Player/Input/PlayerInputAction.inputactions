@@ -51,7 +51,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Attack 1",
+                    "name": "Equip Attack 1",
                     "type": "Button",
                     "id": "9def4bda-edf7-4c3e-bada-304f29ee8f54",
                     "expectedControlType": "Button",
@@ -60,7 +60,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack 2",
+                    "name": "Equip Attack 2",
                     "type": "Button",
                     "id": "82bedbe7-848c-40d9-8b40-a31ed33b3193",
                     "expectedControlType": "Button",
@@ -69,7 +69,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack 3",
+                    "name": "Equip Attack 3",
                     "type": "Button",
                     "id": "7d50a685-5051-4556-b214-f43fbb495db6",
                     "expectedControlType": "Button",
@@ -78,9 +78,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack 4",
+                    "name": "Equip Attack 4",
                     "type": "Button",
                     "id": "c266df33-4ae5-48f0-b238-71d82b5a4498",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "6de8f936-e08e-4a57-b6d3-d0daaf3b3a18",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Cancel Attack",
+                    "type": "Button",
+                    "id": "bc5ae9e9-3cf8-4150-9743-c8688e9e98e3",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -194,7 +212,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack 1",
+                    "action": "Equip Attack 1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -205,7 +223,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack 2",
+                    "action": "Equip Attack 2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -216,7 +234,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack 3",
+                    "action": "Equip Attack 3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -227,7 +245,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack 4",
+                    "action": "Equip Attack 4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8d82e8d5-bcf7-4eb5-bb02-1a945c1c4431",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fa7e6733-a88a-4f8c-997a-cf8d6b296a58",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -2,124 +2,98 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum AttackType
-{
-    Melee = 0, 
-    Projectile, 
-    AreaOfEffect
+public enum AttackSlot 
+{ 
+    Slot1, 
+    Slot2, 
+    Slot3, 
+    Slot4, 
+    None, 
 }
 
 public class PlayerAttack : MonoBehaviour
 {
+    [SerializeField] float maxDistance = 15f;
+    [SerializeField] private List<AttackScriptableObject> attacks;
+
     private GameObject _camera;
-    private GameObject _player;
-    private GameObject _indicator;
+    private AttackIndicator _indicator;
 
-    public AttackType attackType;
+    private AttackSlot _equippedAttackSlot = AttackSlot.None;
 
-    [Header("Melee Properties")]
-    public float meleeRange;
-
-    [Header("Projectile Properties")]
-    public GameObject projectileIndicatorPrefab;
-    public GameObject projectilePrefab;
-
-    [Header("AreaOfEffect Properties")]
-    public float aoeRange = 9f;
-    public float aoeDistance = 15f;
-    public GameObject aoeIndicatorPrefab;
-    public GameObject aoePrefab;
+    private Vector3 _attackSrcPosition;
+    private Vector3 _attackDstPosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        _player = GameObject.FindWithTag("Player");
         _camera = GameObject.FindWithTag("MainCamera");
     }
 
     private void Update()
     {
+        if (_equippedAttackSlot != AttackSlot.None)
+        {
+            // update attack source location
+            _attackSrcPosition = transform.position;
+
+            // update attack destination location
+            _attackDstPosition = transform.position + _camera.transform.forward * maxDistance;
+            _attackDstPosition.y = transform.position.y;
+
+            _indicator.SetPositions(_attackSrcPosition, _attackDstPosition);
+        }
+    }
+
+    public void OnEquipAttack(AttackSlot attackSlot)
+    {
+        if (_equippedAttackSlot != attackSlot) Equip(attackSlot);
+        else Attack();
+    }
+
+    public void OnAttack()
+    {
+        if (_equippedAttackSlot == AttackSlot.None)
+        {
+            // TODO: basic attack?
+        }
+        else Attack();
+    }
+
+    public void OnCancelAttack()
+    {
+        if (_equippedAttackSlot == AttackSlot.None) return;
+
+        CancelAttack();
+    }
+
+    void Equip(AttackSlot attackSlot)
+    {
+        _equippedAttackSlot = attackSlot;
+        _indicator = Instantiate(attacks[(int)_equippedAttackSlot].AttackIndicator).GetComponent<AttackIndicator>();
+    }
+
+    void Attack()
+    {
         if (_indicator != null)
         {
-            switch (attackType)
-            {
-                case AttackType.Projectile:
-                    _indicator.transform.position = GetProjectilePosition();
-                    _indicator.transform.LookAt(GetProjectileLookAt());
-                    break;
-                   
-                case AttackType.AreaOfEffect:
-                    _indicator.transform.position = GetAoePosition();
-                    break;
-            }
+            Destroy(_indicator.gameObject);
+            _indicator = null;
         }
+
+        AttackBehaviour attackObject = Instantiate(attacks[(int)_equippedAttackSlot].AttackBehaviour, attacks[(int)_equippedAttackSlot].AttackBehaviour.GetIsInstantiateAtDestination() ? _attackDstPosition : _attackSrcPosition, Quaternion.identity);
+        attackObject.SetPositions(_attackSrcPosition, _attackDstPosition);
+
+        _equippedAttackSlot = AttackSlot.None;
     }
 
-    public void OnAttackStarted()
+    void CancelAttack()
     {
-        switch (attackType)
+        if (_indicator != null)
         {
-            case AttackType.Melee:
-                break;
-            
-            case AttackType.Projectile:
-                _indicator = Instantiate(projectileIndicatorPrefab, _player.transform.position, _player.transform.rotation);
-                break;
-
-            case AttackType.AreaOfEffect:
-                _indicator = Instantiate(aoeIndicatorPrefab, _player.transform.position, Quaternion.identity);
-                _indicator.transform.localScale = new Vector3(aoeRange, _indicator.transform.localScale.y, aoeRange);
-                break;
+            Destroy(_indicator.gameObject);
+            _indicator = null;
         }
-    }
-
-    public void OnAttackCanceled()
-    {
-        switch (attackType)
-        {
-            case AttackType.Projectile:
-                Destroy(_indicator);
-                _indicator = null;
-
-                GameObject projectileObject = Instantiate(projectilePrefab, GetProjectilePosition(), Quaternion.identity);
-                projectileObject.transform.LookAt(GetProjectileLookAt());
-
-                break;
-
-            case AttackType.AreaOfEffect:
-                Destroy(_indicator);
-                _indicator = null;
-
-                GameObject aoeObject = Instantiate(aoePrefab, GetAoePosition(), Quaternion.identity);
-                aoeObject.transform.localScale = new Vector3(aoeRange, aoeObject.transform.localScale.y, aoeRange);
-
-                break;
-        }
-    }
-    
-    private Vector3 GetProjectilePosition()
-    {
-        Vector3 position = _player.transform.position;
-
-        return position;
-    }
-
-
-    private Vector3 GetProjectileLookAt()
-    {
-        Vector3 projectilePosition = GetProjectilePosition();
-
-        Vector3 projectileLookAt = projectilePosition + _camera.transform.forward;
-        projectileLookAt.y = projectilePosition.y;
-
-        return projectileLookAt;
-    }
-
-    private Vector3 GetAoePosition()
-    {
-        Vector3 position = _player.transform.position + _camera.transform.forward * aoeDistance;
-        position.y = aoePrefab.transform.localScale.y / 2;
-
-        return position;
+        _equippedAttackSlot = AttackSlot.None;
     }
 }
