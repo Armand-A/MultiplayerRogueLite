@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 697d2c7cfdc971146bed4977482def6c, type: 3}
   m_Name: DemoAoeAttack
   m_EditorClassIdentifier: 
-  attackIndicator: {fileID: -739377520836126248, guid: b62020c896c68a045b6b6ab0a7e1bb00, type: 3}
-  attackBehaviour: {fileID: 2591811900313410473, guid: 112e35c928a7179428bccb2cd9c36013, type: 3}
+  attackIndicator: {fileID: 0}
+  attackBehaviour: {fileID: 0}

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "New Attack", menuName = "Attack")]
 public class AttackScriptableObject : ScriptableObject
 {
     [SerializeField] private AttackIndicator attackIndicator;

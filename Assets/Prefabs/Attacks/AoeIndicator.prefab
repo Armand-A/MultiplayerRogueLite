@@ -148,3 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd7bb7bf6724224b9459b7d928324ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 2100000, guid: ee5fb88002093684887dd6c4d1f9e7f0, type: 2}
+  normalMaterial: {fileID: 2100000, guid: c6c6441ae4974ca49865fb6e1fbb5483, type: 2}
+  radius: 4.5
+  height: 1

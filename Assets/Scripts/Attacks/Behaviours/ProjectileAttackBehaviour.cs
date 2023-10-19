@@ -7,12 +7,14 @@ public class ProjectileAttackBehaviour : AttackBehaviour
 {
     [SerializeField] float maxDisplacement = 15f;
     [SerializeField] float moveSpeed = 15f;
+    [SerializeField] float radius = .5f;
 
     private bool _hasOriented = false;
 
     private void Awake()
     {
         _hasOriented = false;
+        transform.localScale = 2 * radius * Vector3.one;
     }
 
     void Update()
