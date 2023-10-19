@@ -59,7 +59,11 @@ public class PlayerAttack : MonoBehaviour
 
     public void OnEquipAttack(AttackSlot attackSlot)
     {
-        if (_equippedAttackSlot != attackSlot) Equip(attackSlot);
+        if (_equippedAttackSlot != attackSlot)
+        {
+            CancelAttack();
+            Equip(attackSlot);
+        }
         else Attack();
     }
 
