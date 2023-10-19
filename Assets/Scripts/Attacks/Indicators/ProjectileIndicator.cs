@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProjectileIndicator : AttackIndicator
 {
-    private void Update()
+    private void LateUpdate()
     {
         transform.position = _srcPos;
         transform.LookAt(_dstPos);

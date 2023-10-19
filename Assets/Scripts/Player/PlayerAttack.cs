@@ -13,7 +13,10 @@ public enum AttackSlot
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] float maxDistance = 15f;
+    [SerializeField] float minAimDistance = 10f;
+    [SerializeField] float maxAimDistance = 30f;
+    [SerializeField] float cameraAngleForMinDistance = 10f;
+    [SerializeField] float cameraAngleForMaxDistance = 30f;
     [SerializeField] private List<AttackScriptableObject> attacks;
 
     private GameObject _camera;
@@ -38,7 +41,16 @@ public class PlayerAttack : MonoBehaviour
             _attackSrcPosition = transform.position;
 
             // update attack destination location
-            _attackDstPosition = transform.position + _camera.transform.forward * maxDistance;
+            // get angle between camera and xz-plane, clamp to min max, and clamp to min when camera looks upward
+            float cameraAngle = Vector3.Angle(_camera.transform.forward, Vector3.ProjectOnPlane(_camera.transform.forward, new Vector3(0, 1, 0)));
+            cameraAngle = Mathf.Clamp(cameraAngle, cameraAngleForMinDistance, cameraAngleForMaxDistance);
+            if (_camera.transform.forward.y > 0) cameraAngle = cameraAngleForMinDistance;
+
+            // get [0,1] value from the angle
+            float distanceValue = 1 - Mathf.InverseLerp(cameraAngleForMinDistance, cameraAngleForMaxDistance, cameraAngle);
+
+            // min angle = min distance, max angle = max distance
+            _attackDstPosition = transform.position + minAimDistance * _camera.transform.forward + (maxAimDistance - minAimDistance) * distanceValue * _camera.transform.forward;
             _attackDstPosition.y = transform.position.y;
 
             _indicator.SetPositions(_attackSrcPosition, _attackDstPosition);

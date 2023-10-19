@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AoeIndicator : AttackIndicator
 {
-    private void Update()
+    private void LateUpdate()
     {
         transform.position = _dstPos;
     }
