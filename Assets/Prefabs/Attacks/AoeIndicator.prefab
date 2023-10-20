@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7983869034695824401}
   - component: {fileID: 7548610159293807326}
   - component: {fileID: 4089985539311776040}
+  - component: {fileID: -739377520836126248}
   m_Layer: 0
   m_Name: AoeIndicator
   m_TagString: Untagged
@@ -135,3 +136,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-739377520836126248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3320721869927748649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdd7bb7bf6724224b9459b7d928324ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightMaterial: {fileID: 2100000, guid: ee5fb88002093684887dd6c4d1f9e7f0, type: 2}
+  normalMaterial: {fileID: 2100000, guid: c6c6441ae4974ca49865fb6e1fbb5483, type: 2}
+  radius: 4.5
+  height: 1

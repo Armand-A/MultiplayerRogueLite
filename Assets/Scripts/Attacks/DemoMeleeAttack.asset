@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 697d2c7cfdc971146bed4977482def6c, type: 3}
+  m_Name: DemoMeleeAttack
+  m_EditorClassIdentifier: 
+  attackIndicator: {fileID: 8459501044080214791, guid: 4ee85a53128e65946a49595223810ae7, type: 3}
+  attackBehaviour: {fileID: 7369158384718548115, guid: 56be11ae81061a14ea21b60243d49785, type: 3}

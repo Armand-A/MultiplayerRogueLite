@@ -2,25 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AreaOfEffect : MonoBehaviour
+public class AoeAttackBehaviour : AttackBehaviour
 {
-    public float timeBeforeDespawn = 1f;
+    [SerializeField] float radius = 4.5f;
+    [SerializeField] float height = 1f;
+    [SerializeField] float timeBeforeDespawn = 1f;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine("Despawn");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        StartCoroutine(Despawn());
+        transform.localScale = new Vector3(radius * 2, height, radius * 2);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (other.CompareTag("Enemy"))
         {
             Debug.Log("AreaOfEffect hits enemy");
         }
