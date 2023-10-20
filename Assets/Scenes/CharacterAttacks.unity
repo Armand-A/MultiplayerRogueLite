@@ -487,7 +487,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 299259849}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11315653, y: -0.000000018155765, z: 0.000000002067724, w: 0.9935772}
+  m_LocalRotation: {x: 0.11315655, y: 0.00000001657805, z: -0.0000000018880415, w: 0.9935772}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -792,21 +792,31 @@ MonoBehaviour:
   MoveDir: {x: 0, y: 0, z: 0}
   BaseSpeed: 20
   SprintMultiplyer: 13
+  SprintBool: 0
   SpeedBoost: 1
   GroundDrag: 5
+  AirMultiplyer: 0.1
+  JumpBool: 0
+  CanJump: 1
   JumpForce: 10
   Gravity: -15
+  JumpIntervalCD: 0.5
   JumpCD: 0.1
-  JumpCount: 1
+  JumpRemaining: 2
   MaxJump: 2
-  AirDrag: 0.4
   Grounded: 1
   GroundedOffset: 0.2
+  GroundedRadius: 0.1
   PlayerHeight: 3
   GroundLayers:
     serializedVersion: 2
     m_Bits: 4294967295
   _playerCamera: {fileID: 1272705422}
+  DashBool: 0
+  DashForce: 10
+  DashCD: 2
+  DashRemaining: 2
+  MaxDash: 2
 --- !u!114 &1085296078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -819,10 +829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d4cb743e479a3f48b8001003b22a0a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveVector: {x: 0, y: 0}
-  LookVector: {x: 0, y: 0}
-  SprintBool: 0
-  JumpBool: 0
+  _playerMovmement: {fileID: 0}
 --- !u!4 &1085296079
 Transform:
   m_ObjectHideFlags: 0
@@ -932,7 +939,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1145253683}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.066853225, y: 1e-45, z: -0, w: 0.99776286}
+  m_LocalRotation: {x: 0.06685323, y: 1e-45, z: -0, w: 0.99776286}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

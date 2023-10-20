@@ -214,6 +214,7 @@ public class PlayerMovement : MonoBehaviour
         
         //Raycast method to detect ground
         //Grounded = Physics.Raycast(transform.position, Vector3.down, PlayerHeight * 0.5f + GroundedOffset, GroundLayers);
+        
         _rigidBody.drag = Grounded ? GroundDrag : 1;
         if (Grounded)
         {

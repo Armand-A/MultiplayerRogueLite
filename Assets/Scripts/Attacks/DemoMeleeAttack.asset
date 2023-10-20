@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackIndicator: {fileID: 8459501044080214791, guid: 4ee85a53128e65946a49595223810ae7, type: 3}
   attackBehaviour: {fileID: 7369158384718548115, guid: 56be11ae81061a14ea21b60243d49785, type: 3}
+  healthCost: 0
+  manaCost: 0
+  actionCost: 2
