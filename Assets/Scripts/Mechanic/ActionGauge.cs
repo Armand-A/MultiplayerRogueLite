@@ -173,7 +173,6 @@ public class ActionGauge : MonoBehaviour
     private void UpdateBar()
     {
         float previewTotal = _currentActionValue + _previewCost;
-        Debug.Log(previewTotal);
 
         _actionGauge.fillRect = RectCost;
         _actionGauge.value = _isPreviewing ? previewTotal : _currentActionValue;
