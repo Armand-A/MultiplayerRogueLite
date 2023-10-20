@@ -2,18 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEditor.PlayerSettings;
 
 public class PlayerDetection : MonoBehaviour
 {
     [Header("Sensing Suite")]
-    public bool LOS;
+    public bool hasLOS;
     private EnemyBehaviour enemyBehaviour;
+    public LayerMask collisionLayerMask;
 
     // Start is called before the first frame update
     void Start()
     {
-        enemyBehaviour = this.transform.parent.GetComponent<EnemyBehaviour>();
-        LOS = false;
+        enemyBehaviour = transform.parent.GetComponent<EnemyBehaviour>();
+        hasLOS = false;
         gameObject.GetComponent<SphereCollider>().enabled = true;
     }
 
