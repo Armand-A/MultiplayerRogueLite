@@ -6,26 +6,23 @@ using UnityEngine.AI;
 public class PlayerDetection : MonoBehaviour
 {
     [Header("Sensing Suite")]
-    private NavMeshAgent enemy;
-    private bool playerDetected;
-    private GameObject player;
     public bool LOS;
+    private EnemyBehaviour enemyBehaviour;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerDetected = false;
-        enemy = this.transform.parent.GetComponent<NavMeshAgent>();
-        //enemy = GetComponent<NavMeshAgent>();
+        enemyBehaviour = this.transform.parent.GetComponent<EnemyBehaviour>();
         LOS = false;
+        gameObject.GetComponent<SphereCollider>().enabled = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerDetected)
+        if (enemyBehaviour.playerDetected == false && gameObject.GetComponent<SphereCollider>().enabled == false)
         {
-            enemy.SetDestination(player.transform.position);
+            gameObject.GetComponent<SphereCollider>().enabled = true;
         }
     }
 
@@ -33,18 +30,10 @@ public class PlayerDetection : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            //playerLocation = other.transform;
-            playerDetected = true;
-            player = other.gameObject;
+            enemyBehaviour.player = other.gameObject;
+            enemyBehaviour.playerDetected = true;
             Debug.Log("I see the player");
+            gameObject.GetComponent<SphereCollider>().enabled = false;
         }
     }
-
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if(collision.gameObject.name == "Player")
-    //    {
-    //        Debug.Log("Attacking");
-    //    }
-    //}
 }
