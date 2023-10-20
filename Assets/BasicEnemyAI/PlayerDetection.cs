@@ -7,7 +7,6 @@ public class PlayerDetection : MonoBehaviour
 {
     [Header("Sensing Suite")]
     private NavMeshAgent enemy;
-    //private Transform playerLocation;
     private bool playerDetected;
     private GameObject player;
     public bool LOS;
@@ -16,7 +15,8 @@ public class PlayerDetection : MonoBehaviour
     void Start()
     {
         playerDetected = false;
-        enemy = GetComponent<NavMeshAgent>();
+        enemy = this.transform.parent.GetComponent<NavMeshAgent>();
+        //enemy = GetComponent<NavMeshAgent>();
         LOS = false;
     }
 
@@ -40,19 +40,11 @@ public class PlayerDetection : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("Attacking");
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = (LOS) ? Color.green : Color.red;
-
-        if (playerDetected)
-        {
-            //Gizmos.DrawLine(transform.position, playerTransform.position);
-        }
-        Gizmos.color = (playerDetected) ? Color.green : Color.red;
-        Gizmos.DrawWireSphere(transform.position, 5.0f);
-    }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if(collision.gameObject.name == "Player")
+    //    {
+    //        Debug.Log("Attacking");
+    //    }
+    //}
 }
