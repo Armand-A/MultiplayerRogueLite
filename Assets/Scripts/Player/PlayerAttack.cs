@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum AttackSlot 
 { 
@@ -19,6 +20,8 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] float cameraAngleForMaxDistance = 30f;
     [SerializeField] private List<AttackScriptableObject> attacks;
     [SerializeField] private ActionGauge _actionGauge;
+    [SerializeField] private UnityEvent<AttackSlot> equipAttackEvent;
+    [SerializeField] private UnityEvent<AttackSlot> unequipAttackEvent;
 
     private GameObject _camera;
     private AttackIndicator _indicator;
@@ -35,6 +38,9 @@ public class PlayerAttack : MonoBehaviour
     {
         _actionGauge = GameObject.Find("ActionGauge").GetComponent<ActionGauge>();
         _camera = GameObject.FindWithTag("MainCamera");
+
+        //if (equipAttackEvent != null) equipAttackEvent = new UnityEvent<AttackSlot>();
+        //if (unequipAttackEvent != null) unequipAttackEvent = new UnityEvent<AttackSlot>();
     }
 
     private void Update()
@@ -93,6 +99,8 @@ public class PlayerAttack : MonoBehaviour
         _indicator = Instantiate(attacks[(int)_equippedAttackSlot].AttackIndicator).GetComponent<AttackIndicator>();
         _actionCost = -attacks[(int)_equippedAttackSlot].ActionCost;
         _actionGauge.CostPreview(true, _actionCost);
+
+        equipAttackEvent.Invoke(_equippedAttackSlot);
     }
 
     void Attack()
@@ -111,6 +119,8 @@ public class PlayerAttack : MonoBehaviour
         attackObject.SetPositions(_attackSrcPosition, _attackDstPosition);
 
         _equippedAttackSlot = AttackSlot.None;
+
+        unequipAttackEvent.Invoke(_equippedAttackSlot);
     }
 
     void CancelAttack()
@@ -123,5 +133,7 @@ public class PlayerAttack : MonoBehaviour
             _indicator = null;
         }
         _equippedAttackSlot = AttackSlot.None;
+
+        unequipAttackEvent.Invoke(_equippedAttackSlot);
     }
 }
