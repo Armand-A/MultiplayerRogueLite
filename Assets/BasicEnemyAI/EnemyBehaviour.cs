@@ -51,6 +51,16 @@ public class EnemyBehaviour : MonoBehaviour
             enemy.speed = 3.5f;
         }
     }
+
+    void MeleeAttack()
+    {
+
+    }
+
+    void RangedAttack()
+    {
+
+    }
     IEnumerator Cooldown()
     {
         yield return new WaitForSeconds(1);
