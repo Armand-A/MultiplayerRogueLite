@@ -35,7 +35,7 @@ public class PlayerDetection : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Player")
+        if (other.gameObject.tag == "Player")
         {
             enemyBehaviour.player = other.gameObject;
             enemyBehaviour.playerDetected = true;

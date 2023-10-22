@@ -32,7 +32,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.name == "Player")
+        if (other.gameObject.tag == "Player")
         {
             enemy.speed = 0;
             if (!onCooldown)
@@ -46,7 +46,10 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        enemy.speed = 3.5f;
+        if (other.gameObject.tag == "Player")
+        {
+            enemy.speed = 3.5f;
+        }
     }
     IEnumerator Cooldown()
     {
