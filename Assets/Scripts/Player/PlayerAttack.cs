@@ -74,7 +74,10 @@ public class PlayerAttack : MonoBehaviour
             CancelAttack();
             Equip(attackSlot);
         }
-        else Attack();
+        else
+        {
+            CancelAttack();
+        }
     }
 
     public void OnAttack()
