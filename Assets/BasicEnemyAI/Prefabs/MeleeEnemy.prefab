@@ -198,6 +198,8 @@ MonoBehaviour:
   player: {fileID: 0}
   enemy: {fileID: 0}
   ranged: 0
+  meleeAttack: {fileID: 1486913533157155873, guid: ca88db05b05ebbc41b59264c19f68043, type: 3}
+  rangedAttack: {fileID: 5135594340878383041, guid: 82604fe065dba98489816e32ddb3c2d3, type: 3}
 --- !u!1 &5199400216624520726
 GameObject:
   m_ObjectHideFlags: 0

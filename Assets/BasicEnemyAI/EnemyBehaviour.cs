@@ -10,6 +10,8 @@ public class EnemyBehaviour : MonoBehaviour
     private bool onCooldown;
     public NavMeshAgent enemy;
     public bool ranged;
+    public GameObject meleeAttack;
+    public GameObject rangedAttack;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +40,14 @@ public class EnemyBehaviour : MonoBehaviour
             if (!onCooldown)
             {
                 onCooldown = true;
-                Debug.Log("Attacking");
+                if(ranged)
+                {
+                    RangedAttack();
+                }
+                else if(!ranged)
+                {
+                    MeleeAttack();
+                }
                 StartCoroutine(Cooldown());
             }
         }
@@ -54,12 +63,12 @@ public class EnemyBehaviour : MonoBehaviour
 
     void MeleeAttack()
     {
-
+        Instantiate(meleeAttack, gameObject.transform.position, gameObject.transform.rotation);
     }
 
     void RangedAttack()
     {
-
+        Instantiate(rangedAttack, player.transform.position, player.transform.rotation);
     }
     IEnumerator Cooldown()
     {
