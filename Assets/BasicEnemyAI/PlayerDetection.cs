@@ -17,6 +17,11 @@ public class PlayerDetection : MonoBehaviour
         enemyBehaviour = transform.parent.GetComponent<EnemyBehaviour>();
         hasLOS = false;
         gameObject.GetComponent<SphereCollider>().enabled = true;
+
+        if (enemyBehaviour.ranged == true)
+        {
+            gameObject.GetComponent<SphereCollider>().radius = 7;
+        }
     }
 
     // Update is called once per frame

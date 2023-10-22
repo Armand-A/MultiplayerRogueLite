@@ -9,11 +9,16 @@ public class EnemyBehaviour : MonoBehaviour
     public GameObject player;
     private bool onCooldown;
     public NavMeshAgent enemy;
+    public bool ranged;
     // Start is called before the first frame update
     void Start()
     {
         enemy = GetComponent<NavMeshAgent>();
         onCooldown = false;
+        if(ranged)
+        {
+            gameObject.GetComponent<SphereCollider>().radius = 6;
+        }
     }
 
     // Update is called once per frame
