@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6354350704700703857}
   - component: {fileID: 3679669743592450477}
   m_Layer: 0
-  m_Name: MeleeAttack
+  m_Name: EMeleeAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

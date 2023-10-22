@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2602289563603240695}
   - component: {fileID: 9111073062533277114}
   m_Layer: 0
-  m_Name: RangedAttack
+  m_Name: ERangedAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
