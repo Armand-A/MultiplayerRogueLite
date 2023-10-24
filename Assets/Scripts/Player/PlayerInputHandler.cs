@@ -12,7 +12,7 @@ public class PlayerInputHandler : MonoBehaviour
 {
     private PlayerInputAction _playerInputAction;
     private PlayerAttack _playerAttack;
-    public PlayerMovement _playerMovmement;
+    private PlayerMovement _playerMovmement;
     
     private void Awake()
     {

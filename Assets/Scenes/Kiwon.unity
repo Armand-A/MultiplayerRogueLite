@@ -1016,7 +1016,7 @@ Transform:
   m_GameObject: {fileID: 299259849}
   serializedVersion: 2
   m_LocalRotation: {x: 0.14468265, y: -0.094902985, z: 0.0048954994, w: 0.9849042}
-  m_LocalPosition: {x: 0.00000023606749, y: 3.1716275, z: -0.0000026524067}
+  m_LocalPosition: {x: 0.00000023606741, y: 3.1716275, z: -0.0000026524067}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1590,7 +1590,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 536259456}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0498137, y: 0.000000003803124, z: -1.8968316e-10, w: 0.99875855}
+  m_LocalRotation: {x: 0.0498137, y: 0.0000000038029357, z: -1.8967376e-10, w: 0.99875855}
   m_LocalPosition: {x: 0, y: 3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1618,7 +1618,7 @@ MonoBehaviour:
   PlayerObj: {fileID: 1325465626}
   Rb: {fileID: 1085296076}
   RotationSpeed: 10
-  CurrentCamStyle: 1
+  CurrentCamStyle: 0
   NormalViewCam: {fileID: 1272705421}
   CombatCam: {fileID: 95431756}
   TopDownCam: {fileID: 1575738567}
@@ -2105,12 +2105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fc090b2bc8062a4784f0e5b950e193a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentActionValue: 0
-  BaseActionValue: 20
-  BonusActionValue: 0
-  TotalActionValue: 20
-  ActionRechargeInterval: 1
-  ActionRechargeRate: 1
   Fill: {fileID: 899940422}
   RectFill: {fileID: 899940421}
   Cost: {fileID: 753003250}
@@ -2489,10 +2483,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1085296079}
+  - component: {fileID: 1085296081}
   - component: {fileID: 1085296078}
   - component: {fileID: 1085296077}
   - component: {fileID: 1085296080}
   - component: {fileID: 1085296076}
+  - component: {fileID: 1085296084}
+  - component: {fileID: 1085296083}
+  - component: {fileID: 1085296082}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2582,7 +2580,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d4cb743e479a3f48b8001003b22a0a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerMovmement: {fileID: 0}
 --- !u!4 &1085296079
 Transform:
   m_ObjectHideFlags: 0
@@ -2621,7 +2618,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d0aaf2adf8d83ac489cb349226de0434, type: 2}
   - {fileID: 11400000, guid: 8f5ebc05ad354e54f9e41d643b6de26a, type: 2}
   - {fileID: 11400000, guid: d0aaf2adf8d83ac489cb349226de0434, type: 2}
-  _actionGauge: {fileID: 889555138}
   equipAttackEvent:
     m_PersistentCalls:
       m_Calls:
@@ -2724,6 +2720,78 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _playerData: {fileID: 0}
+  _actionGauge: {fileID: 889555138}
+--- !u!114 &1085296081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085296075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f77a699bc14408458c766c068de0e1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerHealth: {fileID: 1085296084}
+  PlayerMana: {fileID: 1085296083}
+  PlayerAction: {fileID: 1085296082}
+  ActionGaugeObject: {fileID: 889555138}
+--- !u!114 &1085296082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085296075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d205df20b784014b82f34a924d42edd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 0
+  BaseValue: 20
+  MaxValue: 100
+  TotalValue: 100
+  RechargeInterval: 1
+  RechargeRate: 2
+--- !u!114 &1085296083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085296075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2231e70241472364ba0822d750e0495f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 0
+  BaseValue: 20
+  MaxValue: 100
+  TotalValue: 100
+  RechargeInterval: 1
+  RechargeRate: 2
+--- !u!114 &1085296084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085296075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d999dfcb898c8d43b4310178fe747c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 0
+  BaseValue: 20
+  MaxValue: 100
+  TotalValue: 100
+  RechargeInterval: 1
+  RechargeRate: 2
 --- !u!1 &1090074000
 GameObject:
   m_ObjectHideFlags: 3
@@ -3029,7 +3097,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1145253683}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.048844013, y: 0.0000000061951146, z: -9.270004e-10, w: 0.9988064}
+  m_LocalRotation: {x: 0.048844013, y: 0.000000006082699, z: -9.101793e-10, w: 0.9988064}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4753,7 +4821,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1613535402}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.0000000045736708, z: -4.5736706e-10, w: 1}
+  m_LocalRotation: {x: -0, y: 0.000000004573715, z: -4.5737142e-10, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

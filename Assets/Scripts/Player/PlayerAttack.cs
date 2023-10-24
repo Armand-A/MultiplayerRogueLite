@@ -19,9 +19,11 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] float cameraAngleForMinDistance = 10f;
     [SerializeField] float cameraAngleForMaxDistance = 30f;
     [SerializeField] private List<AttackScriptableObject> attacks;
-    [SerializeField] private ActionGauge _actionGauge;
     [SerializeField] private UnityEvent<AttackSlot> equipAttackEvent;
     [SerializeField] private UnityEvent<AttackSlot> unequipAttackEvent;
+
+    [SerializeField] private PlayerData _playerData;
+    [SerializeField] private ActionGauge _actionGauge;
 
     private GameObject _camera;
     private AttackIndicator _indicator;
@@ -36,7 +38,7 @@ public class PlayerAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _actionGauge = GameObject.Find("ActionGauge").GetComponent<ActionGauge>();
+        _playerData = GetComponent<PlayerData>();
         _camera = GameObject.FindWithTag("MainCamera");
 
         //if (equipAttackEvent != null) equipAttackEvent = new UnityEvent<AttackSlot>();
@@ -108,7 +110,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack()
     {
-        if (!_actionGauge.UpdateActionValue(_actionCost))
+        if (!_playerData.PlayerAction.UpdateValue(_actionCost))
             return;
         
         if (_indicator != null)
