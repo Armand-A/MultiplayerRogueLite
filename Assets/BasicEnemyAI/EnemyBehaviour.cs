@@ -10,8 +10,10 @@ public class EnemyBehaviour : MonoBehaviour
     private bool onCooldown;
     public NavMeshAgent enemy;
     public bool ranged;
-    public GameObject meleeAttack;
-    public GameObject rangedAttack;
+    [SerializeField] private AttackScriptableObject meleeAttack;
+    [SerializeField] private AttackScriptableObject rangedAttack;
+    public int Health;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -63,12 +65,14 @@ public class EnemyBehaviour : MonoBehaviour
 
     void MeleeAttack()
     {
-        Instantiate(meleeAttack, gameObject.transform.position, gameObject.transform.rotation);
+        AttackBehaviour attackObject = Instantiate(meleeAttack.AttackBehaviour, meleeAttack.AttackBehaviour.GetIsInstantiateAtDestination() ? player.transform.position : gameObject.transform.position, Quaternion.identity);
+        attackObject.SetPositions(gameObject.transform.position, player.transform.position);
     }
 
     void RangedAttack()
     {
-        Instantiate(rangedAttack, player.transform.position, player.transform.rotation);
+        AttackBehaviour attackObject = Instantiate(rangedAttack.AttackBehaviour, rangedAttack.AttackBehaviour.GetIsInstantiateAtDestination() ? player.transform.position : gameObject.transform.position, Quaternion.identity);
+        attackObject.SetPositions(gameObject.transform.position, player.transform.position);
     }
     IEnumerator Cooldown()
     {
