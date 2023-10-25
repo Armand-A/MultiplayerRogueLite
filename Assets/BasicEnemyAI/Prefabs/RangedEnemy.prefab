@@ -123,7 +123,6 @@ GameObject:
   - component: {fileID: 1364959823603691958}
   - component: {fileID: 2857111333002116029}
   - component: {fileID: 4558061130878690413}
-  - component: {fileID: 558034296930992939}
   m_Layer: 0
   m_Name: RangedEnemy
   m_TagString: Untagged
@@ -307,37 +306,10 @@ MonoBehaviour:
   player: {fileID: 0}
   enemy: {fileID: 0}
   ranged: 1
-  meleeAttack: {fileID: 11400000, guid: 8f5ebc05ad354e54f9e41d643b6de26a, type: 2}
-  rangedAttack: {fileID: 11400000, guid: d0aaf2adf8d83ac489cb349226de0434, type: 2}
-  Health: 0
---- !u!114 &558034296930992939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6615013091452182067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fc090b2bc8062a4784f0e5b950e193a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _currentActionValue: 0
-  BaseActionValue: 20
-  BonusActionValue: 0
-  TotalActionValue: 100
-  ActionRechargeInterval: 10
-  ActionRechargeRate: 1
-  Fill: {fileID: 0}
-  RectFill: {fileID: 0}
-  Cost: {fileID: 0}
-  RectCost: {fileID: 0}
-  FillColor: {r: 0, g: 0, b: 0, a: 0}
-  CostColor: {r: 0, g: 0, b: 0, a: 0}
-  DeniedColor: {r: 0, g: 0, b: 0, a: 0}
-  ActionText: {fileID: 0}
-  NotiText: {fileID: 0}
-  NotiDuration: 2
+  Attack: {fileID: 11400000, guid: d0aaf2adf8d83ac489cb349226de0434, type: 2}
+  Health: 10
+  maxActions: 10
+  currActions: 0
 --- !u!1 &9134685626296232155
 GameObject:
   m_ObjectHideFlags: 0
