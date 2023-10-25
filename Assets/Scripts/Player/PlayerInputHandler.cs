@@ -13,12 +13,14 @@ public class PlayerInputHandler : MonoBehaviour
     private PlayerInputAction _playerInputAction;
     private PlayerAttack _playerAttack;
     public PlayerMovement _playerMovmement;
+    private PlayerInteract _playerInteract;
     
     private void Awake()
     {
         _playerInputAction = new PlayerInputAction();
         _playerMovmement = GetComponent<PlayerMovement>();
         _playerAttack = GetComponent<PlayerAttack>();
+        _playerInteract = GetComponent<PlayerInteract>();
     }
 
     /*
@@ -48,6 +50,8 @@ public class PlayerInputHandler : MonoBehaviour
 
         _playerInputAction.Player.Attack.started += OnAttack;
         _playerInputAction.Player.CancelAttack.started += OnCancelAttack;
+
+        _playerInputAction.Player.Interact.started += OnInteract;
     }
 
     /*
@@ -73,6 +77,11 @@ public class PlayerInputHandler : MonoBehaviour
         _playerInputAction.Player.EquipAttack2.started -= OnEquipAttack2;
         _playerInputAction.Player.EquipAttack3.started -= OnEquipAttack3;
         _playerInputAction.Player.EquipAttack4.started -= OnEquipAttack4;
+
+        _playerInputAction.Player.Attack.started -= OnAttack;
+        _playerInputAction.Player.CancelAttack.started -= OnCancelAttack;
+
+        _playerInputAction.Player.Interact.started -= OnInteract;
     }
 
     private void OnMovement(InputAction.CallbackContext value)
@@ -128,5 +137,10 @@ public class PlayerInputHandler : MonoBehaviour
     private void OnCancelAttack(InputAction.CallbackContext context)
     {
         _playerAttack.OnCancelAttack();
+    }
+
+    private void OnInteract(InputAction.CallbackContext context)
+    {
+        _playerInteract.OnInteractPressed();
     }
 }

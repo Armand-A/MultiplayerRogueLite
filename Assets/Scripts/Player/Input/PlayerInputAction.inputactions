@@ -112,6 +112,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "19560c4f-93f0-45ec-8880-2ece93d31720",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -282,7 +291,7 @@
                 },
                 {
                     "name": "",
-                    "id": "c7874345-f8ed-4e94-a7e3-21e2f4ba0742",
+                    "id": "0b0d2f9b-903b-4ee6-984f-d30a5c3b83e7",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
@@ -299,6 +308,17 @@
                     "processors": "",
                     "groups": "Player",
                     "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c173cc03-4355-4bf3-92e6-669ad1b0c535",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
