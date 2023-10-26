@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4cfc96c5d801f04b8d105473761ca27, type: 3}
-  m_Name: UIWindowClose
+  m_Name: ChangeEquippedAbility
   m_EditorClassIdentifier: 

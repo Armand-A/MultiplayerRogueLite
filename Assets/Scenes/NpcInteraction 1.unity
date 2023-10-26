@@ -281,6 +281,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1085296079}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &173089682 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6881205716254087370, guid: 4ae2667ef9a19ad49b197d0dc8732278, type: 3}
+  m_PrefabInstance: {fileID: 123498682995445757}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd79bc18ed9afb5499bca7e0116c4486, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &299259849
 GameObject:
   m_ObjectHideFlags: 3
@@ -352,7 +363,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 299259849}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11315655, y: 0.00000001657805, z: -0.0000000018880415, w: 0.9935772}
+  m_LocalRotation: {x: 0.11315653, y: -0.000000018155765, z: 0.000000002067724, w: 0.9935772}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -360,17 +371,6 @@ Transform:
   - {fileID: 1278329804}
   m_Father: {fileID: 1272705424}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &438952207 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5582720240253612187, guid: 4ae2667ef9a19ad49b197d0dc8732278, type: 3}
-  m_PrefabInstance: {fileID: 2105385321}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd79bc18ed9afb5499bca7e0116c4486, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &454793500
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,10 +672,10 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &687301285 stripped
+--- !u!114 &645863104 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5038101403442839959, guid: 4ae2667ef9a19ad49b197d0dc8732278, type: 3}
-  m_PrefabInstance: {fileID: 2105385321}
+  m_CorrespondingSourceObject: {fileID: 6122131516067143026, guid: 4ae2667ef9a19ad49b197d0dc8732278, type: 3}
+  m_PrefabInstance: {fileID: 123498682995445757}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -776,15 +776,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42756dc7d6cde8c4cb602caa276cef62, type: 3}
---- !u!114 &949086771 stripped
+--- !u!114 &889555138 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6881205716254087370, guid: 4ae2667ef9a19ad49b197d0dc8732278, type: 3}
-  m_PrefabInstance: {fileID: 2105385321}
+  m_CorrespondingSourceObject: {fileID: 2049525068019589911, guid: 4ae2667ef9a19ad49b197d0dc8732278, type: 3}
+  m_PrefabInstance: {fileID: 123498682995445757}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd79bc18ed9afb5499bca7e0116c4486, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fc090b2bc8062a4784f0e5b950e193a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &956644726
@@ -880,6 +880,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42756dc7d6cde8c4cb602caa276cef62, type: 3}
+--- !u!114 &1065317233 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5038101403442839959, guid: 4ae2667ef9a19ad49b197d0dc8732278, type: 3}
+  m_PrefabInstance: {fileID: 123498682995445757}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd79bc18ed9afb5499bca7e0116c4486, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1085296075
 GameObject:
   m_ObjectHideFlags: 0
@@ -1017,11 +1028,11 @@ MonoBehaviour:
   maxAimDistance: 30
   cameraAngleForMinDistance: 10
   cameraAngleForMaxDistance: 30
-  _actionGauge: {fileID: 0}
+  _actionGauge: {fileID: 889555138}
   equipAttackEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1608447856}
+      - m_Target: {fileID: 645863104}
         m_TargetAssemblyTypeName: AbilityImage, Assembly-CSharp
         m_MethodName: OnPlayerEquipAttack
         m_Mode: 0
@@ -1033,7 +1044,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 687301285}
+      - m_Target: {fileID: 1065317233}
         m_TargetAssemblyTypeName: AbilityImage, Assembly-CSharp
         m_MethodName: OnPlayerEquipAttack
         m_Mode: 0
@@ -1045,7 +1056,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 949086771}
+      - m_Target: {fileID: 173089682}
         m_TargetAssemblyTypeName: AbilityImage, Assembly-CSharp
         m_MethodName: OnPlayerEquipAttack
         m_Mode: 0
@@ -1057,7 +1068,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 438952207}
+      - m_Target: {fileID: 1533227773}
         m_TargetAssemblyTypeName: AbilityImage, Assembly-CSharp
         m_MethodName: OnPlayerEquipAttack
         m_Mode: 0
@@ -1072,7 +1083,7 @@ MonoBehaviour:
   unequipAttackEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1608447856}
+      - m_Target: {fileID: 645863104}
         m_TargetAssemblyTypeName: AbilityImage, Assembly-CSharp
         m_MethodName: OnPlayerUnequipAttack
         m_Mode: 0
@@ -1084,7 +1095,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 687301285}
+      - m_Target: {fileID: 1065317233}
         m_TargetAssemblyTypeName: AbilityImage, Assembly-CSharp
         m_MethodName: OnPlayerUnequipAttack
         m_Mode: 0
@@ -1096,7 +1107,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 949086771}
+      - m_Target: {fileID: 173089682}
         m_TargetAssemblyTypeName: AbilityImage, Assembly-CSharp
         m_MethodName: OnPlayerUnequipAttack
         m_Mode: 0
@@ -1108,7 +1119,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 438952207}
+      - m_Target: {fileID: 1533227773}
         m_TargetAssemblyTypeName: AbilityImage, Assembly-CSharp
         m_MethodName: OnPlayerUnequipAttack
         m_Mode: 0
@@ -1243,6 +1254,8 @@ GameObject:
   - component: {fileID: 1272705424}
   - component: {fileID: 1272705423}
   - component: {fileID: 1272705422}
+  - component: {fileID: 1272705426}
+  - component: {fileID: 1272705425}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: Untagged
@@ -1390,6 +1403,62 @@ Transform:
   - {fileID: 1145253685}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1272705425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272705421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad4b2e8cb0c59c241a20dea5e990b64e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 5e83524f6aac5f548b857d8a8a54544b, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1272705422}
+        m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
+        m_MethodName: EnableMouseControlCamera
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1272705426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272705421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad4b2e8cb0c59c241a20dea5e990b64e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 5b555260ed82f074693b5a8c1f0dacb7, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1272705422}
+        m_TargetAssemblyTypeName: PlayerCamera, Assembly-CSharp
+        m_MethodName: DisableMouseControlCamera
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1278329803
 GameObject:
   m_ObjectHideFlags: 3
@@ -1763,10 +1832,10 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1608447856 stripped
+--- !u!114 &1533227773 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6122131516067143026, guid: 4ae2667ef9a19ad49b197d0dc8732278, type: 3}
-  m_PrefabInstance: {fileID: 2105385321}
+  m_CorrespondingSourceObject: {fileID: 5582720240253612187, guid: 4ae2667ef9a19ad49b197d0dc8732278, type: 3}
+  m_PrefabInstance: {fileID: 123498682995445757}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -2085,7 +2154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &2105385321
+--- !u!1001 &123498682995445757
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -2095,7 +2164,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3882550723266672363, guid: 4ae2667ef9a19ad49b197d0dc8732278, type: 3}
       propertyPath: m_Name
-      value: BattleOverlayUI
+      value: BattleOverlay
+      objectReference: {fileID: 0}
+    - target: {fileID: 3882550723266672363, guid: 4ae2667ef9a19ad49b197d0dc8732278, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6716203158938128524, guid: 4ae2667ef9a19ad49b197d0dc8732278, type: 3}
       propertyPath: m_Pivot.x
@@ -2293,9 +2366,9 @@ SceneRoots:
   - {fileID: 536259460}
   - {fileID: 1272705424}
   - {fileID: 1085296079}
+  - {fileID: 123498682995445757}
   - {fileID: 557814252}
   - {fileID: 5280244667113128706}
   - {fileID: 956644726}
   - {fileID: 691585377}
   - {fileID: 1517254204}
-  - {fileID: 2105385321}

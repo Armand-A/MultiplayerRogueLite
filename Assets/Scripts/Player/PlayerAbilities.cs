@@ -10,6 +10,9 @@ public class PlayerAbilities : MonoBehaviour
     // tracks all unlocked abilities and upgrade states
     List<AttackScriptableObject> abilities = new List<AttackScriptableObject>();
 
+    // tracks the 4 equipped abilities in each slot
+    [SerializeField] List<AttackScriptableObject> equippedAbilites = new List<AttackScriptableObject>(4);
+
     private void Awake()
     {
         abilities = new List<AttackScriptableObject>(initialAbilities);
@@ -17,6 +20,7 @@ public class PlayerAbilities : MonoBehaviour
 
     public List<AttackScriptableObject> InitialAbilities { get { return initialAbilities; } }
     public List<AttackScriptableObject> Abilities { get { return abilities;  } }
+    public List<AttackScriptableObject> EquippedAbilities { get { return equippedAbilites; } }
 
     public void UpgradeAbility(AttackScriptableObject ability)
     {
@@ -26,5 +30,10 @@ public class PlayerAbilities : MonoBehaviour
 
         int index = abilities.IndexOf(ability);
         abilities[index] = ability.NextUpgrade; 
+    }
+
+    public void EquipAbilityInSlot(AttackScriptableObject newAbility, AttackSlot slot)
+    {
+        equippedAbilites[(int)slot] = newAbility;
     }
 }

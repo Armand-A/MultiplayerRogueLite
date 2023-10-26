@@ -18,7 +18,6 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] float maxAimDistance = 30f;
     [SerializeField] float cameraAngleForMinDistance = 10f;
     [SerializeField] float cameraAngleForMaxDistance = 30f;
-    [SerializeField] private List<AttackScriptableObject> attacks;
     [SerializeField] private ActionGauge _actionGauge;
     [SerializeField] private UnityEvent<AttackSlot> equipAttackEvent;
     [SerializeField] private UnityEvent<AttackSlot> unequipAttackEvent;
@@ -32,6 +31,11 @@ public class PlayerAttack : MonoBehaviour
     private Vector3 _attackDstPosition;
 
     private float _actionCost;
+
+    private void OnEnable()
+    {
+
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -98,6 +102,8 @@ public class PlayerAttack : MonoBehaviour
 
     void Equip(AttackSlot attackSlot)
     {
+        List<AttackScriptableObject> attacks = GetComponent<PlayerAbilities>().EquippedAbilities;
+
         _equippedAttackSlot = attackSlot;
         _indicator = Instantiate(attacks[(int)_equippedAttackSlot].AttackIndicator).GetComponent<AttackIndicator>();
         _actionCost = -attacks[(int)_equippedAttackSlot].ActionCost;
@@ -108,6 +114,8 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack()
     {
+        List<AttackScriptableObject> attacks = GetComponent<PlayerAbilities>().EquippedAbilities;
+
         if (!_actionGauge.UpdateActionValue(_actionCost))
             return;
         
