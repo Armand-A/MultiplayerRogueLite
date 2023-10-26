@@ -42,15 +42,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Look",
-                    "type": "Value",
-                    "id": "76a00aaa-1b14-472d-843c-ef2ff8ce3213",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Equip Attack 1",
                     "type": "Button",
                     "id": "9def4bda-edf7-4c3e-bada-304f29ee8f54",
@@ -112,6 +103,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "CamSwap",
+                    "type": "Value",
+                    "id": "22df46bf-45ad-4c3c-9c61-cc5fd5daf86f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -205,17 +205,6 @@
                 },
                 {
                     "name": "",
-                    "id": "a54417d9-a7b6-4247-8a20-25cf30df7f7c",
-                    "path": "<Pointer>/delta",
-                    "interactions": "",
-                    "processors": "InvertVector2(invertX=false),ScaleVector2(x=0.05,y=0.05)",
-                    "groups": "Player",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "1c502624-35e3-463f-bdbc-e96ce6b9509a",
                     "path": "<Keyboard>/1",
                     "interactions": "",
@@ -282,7 +271,7 @@
                 },
                 {
                     "name": "",
-                    "id": "c7874345-f8ed-4e94-a7e3-21e2f4ba0742",
+                    "id": "28828253-cf0a-4351-a5c8-a5a64f4cfbf5",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
@@ -299,6 +288,17 @@
                     "processors": "",
                     "groups": "Player",
                     "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "588e9f6e-03e5-4639-b8e1-2a5e3e59d95b",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Player",
+                    "action": "CamSwap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

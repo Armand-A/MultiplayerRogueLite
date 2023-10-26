@@ -19,6 +19,8 @@ public class PlayerCamera : MonoBehaviour
     public Transform PlayerObj; // To rotate object to face same direction as camera when moving
     [Tooltip("Player rigidbody")]
     public Rigidbody Rb;
+    [Tooltip("Top Down Camera")]
+    public GameObject Crosshair;
 
     [Header("Values")]
     [Tooltip("Camera's speed of rotation")]
@@ -68,19 +70,38 @@ public class PlayerCamera : MonoBehaviour
     }
 
     //for switching different camera styles if needed
-    public void SwitchCameraStyle(CameraStyle newStyle)
+    public void SwitchCameraStyle()
     {
         NormalViewCam.SetActive(false);
         CombatCam.SetActive(false);
         TopDownCam.SetActive(false);
+        Crosshair.SetActive(false);
 
-        if (newStyle == CameraStyle.Basic)
-            NormalViewCam.SetActive(true);
-        if (newStyle == CameraStyle.Combat)
+        // if (newStyle == CameraStyle.Basic)
+        //     NormalViewCam.SetActive(true);
+        // if (newStyle == CameraStyle.Combat)
+        //     CombatCam.SetActive(true);
+        // if (newStyle == CameraStyle.Topdown)
+        //     TopDownCam.SetActive(true);
+
+        if (CurrentCamStyle == CameraStyle.Basic)
+        {
             CombatCam.SetActive(true);
-        if (newStyle == CameraStyle.Topdown)
+            Crosshair.SetActive(true);
+            CurrentCamStyle = CameraStyle.Combat;
+        }
+        else if (CurrentCamStyle == CameraStyle.Combat)
+        {
             TopDownCam.SetActive(true);
+            CurrentCamStyle = CameraStyle.Topdown;
 
-        CurrentCamStyle = newStyle;
+        }
+        else if (CurrentCamStyle == CameraStyle.Topdown)
+        {
+            NormalViewCam.SetActive(true);
+            CurrentCamStyle = CameraStyle.Basic;
+        }
+        
+        // CurrentCamStyle = newStyle;
     }
 }

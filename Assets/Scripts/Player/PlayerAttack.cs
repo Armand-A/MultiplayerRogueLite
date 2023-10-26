@@ -22,8 +22,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private UnityEvent<AttackSlot> equipAttackEvent;
     [SerializeField] private UnityEvent<AttackSlot> unequipAttackEvent;
 
-    [SerializeField] private PlayerData _playerData;
-    [SerializeField] private ActionGauge _actionGauge;
+    private PlayerData _playerData;
 
     private GameObject _camera;
     private AttackIndicator _indicator;
@@ -103,7 +102,7 @@ public class PlayerAttack : MonoBehaviour
         _equippedAttackSlot = attackSlot;
         _indicator = Instantiate(attacks[(int)_equippedAttackSlot].AttackIndicator).GetComponent<AttackIndicator>();
         _actionCost = -attacks[(int)_equippedAttackSlot].ActionCost;
-        _actionGauge.CostPreview(true, _actionCost);
+        _playerData.PreviewActionCost(true, _actionCost);
 
         equipAttackEvent.Invoke(_equippedAttackSlot);
     }
@@ -115,7 +114,7 @@ public class PlayerAttack : MonoBehaviour
         
         if (_indicator != null)
         {
-            _actionGauge.CostPreview(false);
+            _playerData.PreviewActionCost(false);
             Destroy(_indicator.gameObject);
             _indicator = null;
         }
@@ -133,7 +132,7 @@ public class PlayerAttack : MonoBehaviour
         _actionCost = 0;
         if (_indicator != null)
         {
-            _actionGauge.CostPreview(false);
+            _playerData.PreviewActionCost(false);
             Destroy(_indicator.gameObject);
             _indicator = null;
         }
