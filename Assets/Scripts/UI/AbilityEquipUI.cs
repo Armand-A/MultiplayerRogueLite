@@ -17,7 +17,7 @@ public class AbilityEquipUI : AbilityUI
     private void OnEnable()
     {
         playerAbilities = GameObject.FindObjectOfType<PlayerAbilities>();
-        editingAbilities = playerAbilities.EquippedAbilities;
+        editingAbilities = new List<AttackScriptableObject>(playerAbilities.EquippedAbilities);
 
         foreach (AttackSlot slot in Enum.GetValues(typeof(AttackSlot)))
         {
