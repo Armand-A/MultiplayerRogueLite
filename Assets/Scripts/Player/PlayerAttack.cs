@@ -32,11 +32,6 @@ public class PlayerAttack : MonoBehaviour
 
     private float _actionCost;
 
-    private void OnEnable()
-    {
-
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -103,6 +98,7 @@ public class PlayerAttack : MonoBehaviour
     void Equip(AttackSlot attackSlot)
     {
         List<AttackScriptableObject> attacks = GetComponent<PlayerAbilities>().EquippedAbilities;
+        if (attacks[(int)attackSlot] == null) return;
 
         _equippedAttackSlot = attackSlot;
         _indicator = Instantiate(attacks[(int)_equippedAttackSlot].AttackIndicator).GetComponent<AttackIndicator>();
