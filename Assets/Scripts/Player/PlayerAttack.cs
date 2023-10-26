@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,19 +52,20 @@ public class PlayerAttack : MonoBehaviour
             // update attack source location
             _attackSrcPosition = transform.position;
 
-            // update attack destination location
-            // get angle between camera and xz-plane, clamp to min max, and clamp to min when camera looks upward
-            float cameraAngle = Vector3.Angle(_camera.transform.forward, Vector3.ProjectOnPlane(_camera.transform.forward, new Vector3(0, 1, 0)));
-            cameraAngle = Mathf.Clamp(cameraAngle, cameraAngleForMinDistance, cameraAngleForMaxDistance);
-            if (_camera.transform.forward.y > 0) cameraAngle = cameraAngleForMinDistance;
+            // get y value from camera, 1 is most downward, 0 is most upward
+            CinemachineFreeLook activeVirtualCamera = _camera.GetComponent<CinemachineBrain>().ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineFreeLook>();
+            // invert it, 0 is most downward, 1 is most upward
+            float distanceValue = 1 - activeVirtualCamera.m_YAxis.Value;
 
-            // get [0,1] value from the angle
-            float distanceValue = 1 - Mathf.InverseLerp(cameraAngleForMinDistance, cameraAngleForMaxDistance, cameraAngle);
+            // get camera's forward angle projected on xz plane
+            Vector3 cameraForwardFlatAngle = _camera.transform.forward;
+            cameraForwardFlatAngle.y = 0;
+            cameraForwardFlatAngle.Normalize();
 
             // min angle = min distance, max angle = max distance
-            _attackDstPosition = transform.position + minAimDistance * _camera.transform.forward + (maxAimDistance - minAimDistance) * distanceValue * _camera.transform.forward;
-            _attackDstPosition.y = transform.position.y;
+            _attackDstPosition = transform.position + minAimDistance * cameraForwardFlatAngle + (maxAimDistance - minAimDistance) * distanceValue * cameraForwardFlatAngle;
 
+            // update attack destination location
             _indicator.SetPositions(_attackSrcPosition, _attackDstPosition);
         }
     }
