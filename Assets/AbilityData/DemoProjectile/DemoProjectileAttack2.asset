@@ -18,5 +18,5 @@ MonoBehaviour:
   nextUpgrade: {fileID: 11400000, guid: f6e6e35d5c37b6543a37a700afd77fe3, type: 2}
   healthCost: 0
   manaCost: 0
-  actionCost: 4
+  actionCost: 5
   damage: 10

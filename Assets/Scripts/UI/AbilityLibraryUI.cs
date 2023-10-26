@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class AbilityLibraryUI : MonoBehaviour
+public class AbilityLibraryUI : AbilityUI
 {
     [SerializeField] GameObject buttonPrefab;
     [SerializeField] GameObject panel;
@@ -15,10 +15,6 @@ public class AbilityLibraryUI : MonoBehaviour
 
     private void OnEnable()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        Time.timeScale = 0;
-
         PlayerAbilities playerAbilities = GameObject.FindObjectOfType<PlayerAbilities>();
         if (playerAbilities == null) return;
         abilities = playerAbilities.Abilities;
@@ -42,17 +38,10 @@ public class AbilityLibraryUI : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        Time.timeScale = 1;
-    }
-
     public void OnButtonClicked(AttackScriptableObject ability)
     {
         if (returnAction != null) returnAction.Invoke(ability);
-        Destroy(gameObject);
+        uiManager.CloseUI();
     }
 
     public void SetReturnAction(UnityAction<AttackScriptableObject> action)

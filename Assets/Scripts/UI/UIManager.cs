@@ -4,17 +4,39 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    Stack<GameObject> activeUIStack = new Stack<GameObject>();
+    Stack<AbilityUI> activeUIStack = new Stack<AbilityUI>();
 
-    public void OpenUI(GameObject uiPrefab)
+    public void OpenUI(AbilityUI uiPrefab)
     {
-        OpenUIAndGetObject(uiPrefab);
+        OpenUIAndGet(uiPrefab);
     }
 
-    public GameObject OpenUIAndGetObject(GameObject uiPrefab)
+    public AbilityUI OpenUIAndGet(AbilityUI uiPrefab)
     {
-        GameObject uiObject = Instantiate(uiPrefab);
+        if (activeUIStack.Count == 0)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0;
+        }
+
+        AbilityUI uiObject = Instantiate(uiPrefab.gameObject).GetComponent<AbilityUI>();
+        uiObject.SetUIManager(this);
         activeUIStack.Push(uiObject);
         return uiObject;
+    }
+
+    public void CloseUI()
+    {
+        if (activeUIStack.Count == 0) return;
+        
+        Destroy(activeUIStack.Pop().gameObject);
+        
+        if (activeUIStack.Count == 0)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Time.timeScale = 1;
+        }
     }
 }
