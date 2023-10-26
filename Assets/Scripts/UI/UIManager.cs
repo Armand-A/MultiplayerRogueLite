@@ -5,6 +5,7 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     Stack<AbilityUI> activeUIStack = new Stack<AbilityUI>();
+    [SerializeField] PlayerInputHandler playerInputHandler;
 
     public void OpenUI(AbilityUI uiPrefab)
     {
@@ -18,6 +19,7 @@ public class UIManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             Time.timeScale = 0;
+            playerInputHandler.DisableInputHandling();
         }
 
         AbilityUI uiObject = Instantiate(uiPrefab.gameObject).GetComponent<AbilityUI>();
@@ -37,6 +39,7 @@ public class UIManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             Time.timeScale = 1;
+            playerInputHandler.EnableInputHandling();
         }
     }
 }

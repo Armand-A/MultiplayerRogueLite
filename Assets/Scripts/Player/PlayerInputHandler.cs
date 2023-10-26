@@ -23,6 +23,16 @@ public class PlayerInputHandler : MonoBehaviour
         _playerInteract = GetComponent<PlayerInteract>();
     }
 
+    public void DisableInputHandling()
+    {
+        _playerInputAction.Disable();
+    }
+
+    public void EnableInputHandling()
+    {
+        _playerInputAction.Enable();
+    }
+
     /*
     * When the player controller is enabled, activate its functionality
     */

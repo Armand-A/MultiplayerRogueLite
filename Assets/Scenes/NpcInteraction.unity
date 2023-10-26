@@ -352,7 +352,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 299259849}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11315653, y: -0.000000018155765, z: 0.000000002067724, w: 0.9935772}
+  m_LocalRotation: {x: 0.11315655, y: 0.00000001657805, z: -0.0000000018880415, w: 0.9935772}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -891,7 +891,7 @@ MonoBehaviour:
   maxAimDistance: 30
   cameraAngleForMinDistance: 10
   cameraAngleForMaxDistance: 30
-  _actionGauge: {fileID: 0}
+  _actionGauge: {fileID: 1363828327}
 --- !u!114 &1085296081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -997,7 +997,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1145253683}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.06685323, y: 1e-45, z: -0, w: 0.99776286}
+  m_LocalRotation: {x: 0.066853225, y: 1e-45, z: -0, w: 0.99776286}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1398,6 +1398,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1325465625}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1363828327 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2049525068019589911, guid: 4ae2667ef9a19ad49b197d0dc8732278, type: 3}
+  m_PrefabInstance: {fileID: 2105385321}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc090b2bc8062a4784f0e5b950e193a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1439436462
 GameObject:
   m_ObjectHideFlags: 0
@@ -1521,6 +1532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae801be60c16981418a663689c7e3c9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInputHandler: {fileID: 1085296078}
 --- !u!4 &1517254204
 Transform:
   m_ObjectHideFlags: 0
