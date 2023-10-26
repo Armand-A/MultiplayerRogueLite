@@ -9,7 +9,7 @@ public class AbilityLibraryUI : MonoBehaviour
 {
     [SerializeField] GameObject buttonPrefab;
     [SerializeField] GameObject panel;
-    [SerializeField] Vector2 padding;
+    [SerializeField] Vector2 gap;
     UnityAction<AttackScriptableObject> returnAction;
     List<AttackScriptableObject> abilities = new List<AttackScriptableObject>();
 
@@ -23,6 +23,10 @@ public class AbilityLibraryUI : MonoBehaviour
         if (playerAbilities == null) return;
         abilities = playerAbilities.Abilities;
 
+        Rect buttonRect = buttonPrefab.GetComponent<RectTransform>().rect;
+        float rowWidth = abilities.Count * buttonRect.width + (abilities.Count - 1) * gap.x;
+        float xCenterOffset = -(abilities.Count - 1) / 2 * (buttonRect.width + gap.x);
+
         for (int i = 0; i < abilities.Count; i++) {
             AttackScriptableObject ability = abilities[i];
 
@@ -30,8 +34,9 @@ public class AbilityLibraryUI : MonoBehaviour
 
             buttonObject.GetComponent<Button>().onClick.RemoveAllListeners();
             buttonObject.GetComponent<Button>().onClick.AddListener(() => OnButtonClicked(ability));
-            buttonObject.transform.SetParent(panel.transform, false);
-            buttonObject.transform.position += Vector3.right * i * 128;
+            RectTransform buttonRectTransform = buttonObject.GetComponent<RectTransform>();
+            buttonRectTransform.SetParent(panel.transform, false);
+            buttonObject.transform.position = new Vector3(panel.transform.position.x + i * (buttonRect.width + gap.x) + xCenterOffset, panel.transform.position.y, 0);
 
             buttonObject.GetComponent<Image>().sprite = ability.Sprite;
         }

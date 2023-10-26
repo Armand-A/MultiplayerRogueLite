@@ -192,3 +192,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPrefab: {fileID: 4924412516167744527, guid: 9a87967d3d6cbe64685e1053cc34d2b4, type: 3}
   panel: {fileID: 7072865198026809493}
+  gap: {x: 16, y: 0}
