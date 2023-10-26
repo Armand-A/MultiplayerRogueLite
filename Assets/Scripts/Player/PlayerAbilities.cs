@@ -12,6 +12,7 @@ public class PlayerAbilities : MonoBehaviour
 
     // tracks the 4 equipped abilities in each slot
     [SerializeField] List<AttackScriptableObject> equippedAbilites = new List<AttackScriptableObject>(4);
+    [SerializeField] GameEvent changeEquippedAbilityEvent;
 
     private void Awake()
     {
@@ -29,7 +30,14 @@ public class PlayerAbilities : MonoBehaviour
         if (ability.NextUpgrade == null) return;
 
         int index = abilities.IndexOf(ability);
-        abilities[index] = ability.NextUpgrade; 
+        abilities[index] = ability.NextUpgrade;
+        
+        if (equippedAbilites.Contains(ability))
+        {
+            int indexInEquipped = equippedAbilites.IndexOf(ability);
+            equippedAbilites[indexInEquipped] = ability.NextUpgrade;
+            changeEquippedAbilityEvent.Raise();
+        }
     }
 
     public void EquipAbilityInSlot(AttackScriptableObject newAbility, AttackSlot slot)

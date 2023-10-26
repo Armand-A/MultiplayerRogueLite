@@ -352,7 +352,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 299259849}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11315655, y: 0.00000001657805, z: -0.0000000018880415, w: 0.9935772}
+  m_LocalRotation: {x: 0.11315653, y: -0.000000018155765, z: 0.000000002067724, w: 0.9935772}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1153,6 +1153,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d0aaf2adf8d83ac489cb349226de0434, type: 2}
   - {fileID: 0}
   - {fileID: 0}
+  changeEquippedAbilityEvent: {fileID: 11400000, guid: 02ccb452f3d95e9469eb20b995d1c9f4, type: 2}
 --- !u!1 &1145253683
 GameObject:
   m_ObjectHideFlags: 3
@@ -1224,7 +1225,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1145253683}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.06685323, y: 1e-45, z: -0, w: 0.99776286}
+  m_LocalRotation: {x: 0.066853225, y: 1e-45, z: -0, w: 0.99776286}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2233,7 +2234,7 @@ PrefabInstance:
     - target: {fileID: 6071374978032471927, guid: 42756dc7d6cde8c4cb602caa276cef62, type: 3}
       propertyPath: actionOnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 1398615962676883078, guid: da5e6a59ad03df24ca1c3fff77043d1d, type: 3}
+      objectReference: {fileID: 9003174105408701446, guid: 772afd9b2f8afe747b203eab4eda56da, type: 3}
     - target: {fileID: 6071374978032471927, guid: 42756dc7d6cde8c4cb602caa276cef62, type: 3}
       propertyPath: actionOnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: AbilityUI, Assembly-CSharp
