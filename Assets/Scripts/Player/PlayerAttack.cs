@@ -19,13 +19,15 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] float cameraAngleForMinDistance = 10f;
     [SerializeField] float cameraAngleForMaxDistance = 30f;
     [SerializeField] private ActionGauge _actionGauge;
-    [SerializeField] private UnityEvent<AttackSlot> equipAttackEvent;
-    [SerializeField] private UnityEvent<AttackSlot> unequipAttackEvent;
+
+    UnityEvent<AttackSlot> equipAttackEvent = new UnityEvent<AttackSlot>();
+    UnityEvent unequipAttackEvent = new UnityEvent();
 
     private GameObject _camera;
     private AttackIndicator _indicator;
 
     private AttackSlot _equippedAttackSlot = AttackSlot.None;
+    public AttackSlot EquipedAttackSlot { get { return _equippedAttackSlot; } }
 
     private Vector3 _attackSrcPosition;
     private Vector3 _attackDstPosition;
@@ -105,7 +107,7 @@ public class PlayerAttack : MonoBehaviour
         _actionCost = -attacks[(int)_equippedAttackSlot].ActionCost;
         _actionGauge.CostPreview(true, _actionCost);
 
-        equipAttackEvent.Invoke(_equippedAttackSlot);
+        equipAttackEvent.Invoke(attackSlot);
     }
 
     void Attack()
@@ -127,7 +129,7 @@ public class PlayerAttack : MonoBehaviour
 
         _equippedAttackSlot = AttackSlot.None;
 
-        unequipAttackEvent.Invoke(_equippedAttackSlot);
+        unequipAttackEvent.Invoke();
     }
 
     void CancelAttack()
@@ -141,6 +143,26 @@ public class PlayerAttack : MonoBehaviour
         }
         _equippedAttackSlot = AttackSlot.None;
 
-        unequipAttackEvent.Invoke(_equippedAttackSlot);
+        unequipAttackEvent.Invoke();
+    }
+
+    public void AddEquipListener(UnityAction<AttackSlot> action)
+    {
+        equipAttackEvent.AddListener(action);
+    }
+
+    public void RemoveEquipListener(UnityAction<AttackSlot> action)
+    {
+        equipAttackEvent.RemoveListener(action);
+    }
+
+    public void AddUnequipListener(UnityAction action)
+    {
+        unequipAttackEvent.AddListener(action);
+    }
+
+    public void RemoveUnequipListener(UnityAction action)
+    {
+        unequipAttackEvent.RemoveListener(action);
     }
 }

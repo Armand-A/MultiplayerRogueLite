@@ -9,18 +9,35 @@ public class AbilityImage : MonoBehaviour
 {
     [SerializeField] private AttackSlot slot = AttackSlot.None;
     private PlayerAbilities _abilities;
+    private PlayerAttack _playerAttack;
     private AttackScriptableObject _attack;
     private Outline _outline;
     private Image _image;
 
+    private UnityAction<AttackSlot> _equipAction;
+    private UnityAction _unequipAction;
+
     private void OnEnable()
     {
+        _equipAction = (AttackSlot attackSlot) => OnPlayerEquipAttack(attackSlot);
+        _unequipAction = () => OnPlayerUnequipAttack();
+
+        _playerAttack = FindObjectOfType<PlayerAttack>();
+        _playerAttack.AddEquipListener(_equipAction);
+        _playerAttack.AddUnequipListener(_unequipAction);
+
         _abilities = FindObjectOfType<PlayerAbilities>();
         _outline = GetComponent<Outline>();
         _outline.enabled = false;
         _image = GetComponent<Image>();
 
         UpdateAttack();
+    }
+
+    private void OnDisable()
+    {
+        _playerAttack.RemoveEquipListener(_equipAction);
+        _playerAttack.RemoveUnequipListener(_unequipAction);
     }
 
     private void UpdateAttack()
@@ -36,7 +53,7 @@ public class AbilityImage : MonoBehaviour
         }
     }
 
-    public void OnPlayerEquipAttack(AttackSlot eventSlot)
+    private void OnPlayerEquipAttack(AttackSlot eventSlot)
     {
         if (slot == AttackSlot.None) return;
         if (slot != eventSlot) return;
@@ -44,7 +61,7 @@ public class AbilityImage : MonoBehaviour
         _outline.enabled = true;
     }
 
-    public void OnPlayerUnequipAttack(AttackSlot eventSlot)
+    private void OnPlayerUnequipAttack()
     {
         _outline.enabled = false;
     }
