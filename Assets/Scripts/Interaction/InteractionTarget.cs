@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InteractionTarget : MonoBehaviour
 {
     [SerializeField] GameObject selectedIndicatorObject;
+    [SerializeField] UnityEvent actionOnInteract;
 
     private void Awake()
     {
@@ -40,6 +42,6 @@ public class InteractionTarget : MonoBehaviour
 
     public void OnInteract()
     {
-        Debug.Log("interacted with " + gameObject.name);
+        actionOnInteract.Invoke();
     }
 }
