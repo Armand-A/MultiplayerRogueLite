@@ -103,6 +103,8 @@ public class PlayerAttack : MonoBehaviour
     {
         _equippedAttackSlot = attackSlot;
         _indicator = Instantiate(attacks[(int)_equippedAttackSlot].AttackIndicator).GetComponent<AttackIndicator>();
+
+        //Allows preview cost of equipped action
         _actionCost = -attacks[(int)_equippedAttackSlot].ActionCost;
         _playerData.PreviewActionCost(true, _actionCost);
 
@@ -111,12 +113,15 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack()
     {
-        if (!_playerData.PlayerAction.UpdateValue(_actionCost))
+        // Checks and consumes action points depending on if there is enough left
+        if (!_playerData.UpdateAction(_actionCost))
             return;
         
         if (_indicator != null)
         {
+            //Removes action cost preview
             _playerData.PreviewActionCost(false);
+
             Destroy(_indicator.gameObject);
             _indicator = null;
         }
@@ -134,7 +139,9 @@ public class PlayerAttack : MonoBehaviour
         _actionCost = 0;
         if (_indicator != null)
         {
+            //Removes action cost preview
             _playerData.PreviewActionCost(false);
+
             Destroy(_indicator.gameObject);
             _indicator = null;
         }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataTemplate : MonoBehaviour
+public class AttributeTemplate : MonoBehaviour
 {
     // Health, Mana, Action values
     public float Value;
@@ -58,7 +58,7 @@ public class DataTemplate : MonoBehaviour
     /// </summary>
     /// <param name="value"></param>
     /// <returns>Tells result if value was used or not</returns>
-    public bool UpdateValue(float value)
+    public virtual bool UpdateValue(float value)
     {
         if (value < 0 && Value + value < 0)
         {
