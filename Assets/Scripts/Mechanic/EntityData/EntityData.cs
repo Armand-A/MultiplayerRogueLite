@@ -7,7 +7,7 @@ public class EntityData : MonoBehaviour
     protected Health EntityHealth;
     protected Mana EntityMana;
     protected Action EntityAction; // Stamina
-    public Transform EntityTransform;
+    protected Transform EntityTransform;
 
     [Header("Data display objects")]
     [Tooltip("Action gauge script from object")]

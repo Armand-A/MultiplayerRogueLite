@@ -99,7 +99,7 @@ public class GaugeTemplate : MonoBehaviour
             //DisplayNoti(false);
             Fill.color = _fillColor;
         }
-
-        ValueText.text = _currentValue + " / " + _gauge.maxValue;
+        if (ValueText != null)
+            ValueText.text = _currentValue + " / " + _gauge.maxValue;
     }
 }
