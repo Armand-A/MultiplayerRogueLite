@@ -85,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Dash input")]
     public float DashBool = 0.0f;
     [Tooltip("Dash input")]
-    public float DashForce = 10.0f;
+    public float DashForce = 200.0f;
     [Tooltip("Dash Cooldown")]
     public float DashCD = 2.0f;
     [Tooltip("Dash Remaining")]
@@ -149,10 +149,11 @@ public class PlayerMovement : MonoBehaviour
     {
         // Camera function
         _playerCamera.UpdateCamera(MoveVector);
-        // Normal Movements
 
+        // Normal Movements
         Movement();
         SpeedControl();
+
         //Special Movement
         Dash();
         _dashCDTimer.Update(Time.deltaTime);
