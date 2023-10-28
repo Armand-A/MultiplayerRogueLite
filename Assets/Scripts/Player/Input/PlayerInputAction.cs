@@ -134,6 +134,15 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""19560c4f-93f0-45ec-8880-2ece93d31720"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -323,6 +332,17 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""action"": ""CamSwap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                 },
+                 {
+                    ""name"": """",
+                    ""id"": ""c173cc03-4355-4bf3-92e6-669ad1b0c535"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -349,6 +369,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_CancelAttack = m_Player.FindAction("Cancel Attack", throwIfNotFound: true);
         m_Player_CamSwap = m_Player.FindAction("CamSwap", throwIfNotFound: true);
+        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -422,6 +443,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_CancelAttack;
     private readonly InputAction m_Player_CamSwap;
+    private readonly InputAction m_Player_Interact;
     public struct PlayerActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -438,6 +460,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @CancelAttack => m_Wrapper.m_Player_CancelAttack;
         public InputAction @CamSwap => m_Wrapper.m_Player_CamSwap;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -483,6 +506,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @CamSwap.started += instance.OnCamSwap;
             @CamSwap.performed += instance.OnCamSwap;
             @CamSwap.canceled += instance.OnCamSwap;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -523,6 +549,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @CamSwap.started -= instance.OnCamSwap;
             @CamSwap.performed -= instance.OnCamSwap;
             @CamSwap.canceled -= instance.OnCamSwap;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -563,5 +592,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnCancelAttack(InputAction.CallbackContext context);
         void OnCamSwap(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }

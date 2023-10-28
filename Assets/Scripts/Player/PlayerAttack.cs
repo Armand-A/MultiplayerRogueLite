@@ -19,9 +19,11 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] float maxAimDistance = 30f;
     [SerializeField] float cameraAngleForMinDistance = 10f;
     [SerializeField] float cameraAngleForMaxDistance = 30f;
+    
     [SerializeField] private List<AttackScriptableObject> attacks;
-    [SerializeField] private UnityEvent<AttackSlot> equipAttackEvent;
-    [SerializeField] private UnityEvent<AttackSlot> unequipAttackEvent;
+
+    UnityEvent<AttackSlot> equipAttackEvent = new UnityEvent<AttackSlot>();
+    UnityEvent unequipAttackEvent = new UnityEvent();
 
     private PlayerData _playerData;
 
@@ -29,6 +31,7 @@ public class PlayerAttack : MonoBehaviour
     private AttackIndicator _indicator;
 
     private AttackSlot _equippedAttackSlot = AttackSlot.None;
+    public AttackSlot EquipedAttackSlot { get { return _equippedAttackSlot; } }
 
     private Vector3 _attackSrcPosition;
     private Vector3 _attackDstPosition;
@@ -101,6 +104,9 @@ public class PlayerAttack : MonoBehaviour
 
     void Equip(AttackSlot attackSlot)
     {
+        List<AttackScriptableObject> attacks = GetComponent<PlayerAbilities>().EquippedAbilities;
+        if (attacks[(int)attackSlot] == null) return;
+
         _equippedAttackSlot = attackSlot;
         _indicator = Instantiate(attacks[(int)_equippedAttackSlot].AttackIndicator).GetComponent<AttackIndicator>();
 
@@ -108,11 +114,13 @@ public class PlayerAttack : MonoBehaviour
         _actionCost = -attacks[(int)_equippedAttackSlot].ActionCost;
         _playerData.PreviewActionCost(true, _actionCost);
 
-        equipAttackEvent.Invoke(_equippedAttackSlot);
+        equipAttackEvent.Invoke(attackSlot);
     }
 
     void Attack()
     {
+        List<AttackScriptableObject> attacks = GetComponent<PlayerAbilities>().EquippedAbilities;
+        
         // Checks and consumes action points depending on if there is enough left
         if (!_playerData.UpdateAction(_actionCost))
             return;
@@ -131,7 +139,7 @@ public class PlayerAttack : MonoBehaviour
 
         _equippedAttackSlot = AttackSlot.None;
 
-        unequipAttackEvent.Invoke(_equippedAttackSlot);
+        unequipAttackEvent.Invoke();
     }
 
     void CancelAttack()
@@ -147,6 +155,26 @@ public class PlayerAttack : MonoBehaviour
         }
         _equippedAttackSlot = AttackSlot.None;
 
-        unequipAttackEvent.Invoke(_equippedAttackSlot);
+        unequipAttackEvent.Invoke();
+    }
+
+    public void AddEquipListener(UnityAction<AttackSlot> action)
+    {
+        equipAttackEvent.AddListener(action);
+    }
+
+    public void RemoveEquipListener(UnityAction<AttackSlot> action)
+    {
+        equipAttackEvent.RemoveListener(action);
+    }
+
+    public void AddUnequipListener(UnityAction action)
+    {
+        unequipAttackEvent.AddListener(action);
+    }
+
+    public void RemoveUnequipListener(UnityAction action)
+    {
+        unequipAttackEvent.RemoveListener(action);
     }
 }
