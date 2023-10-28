@@ -11,14 +11,28 @@ using UnityEngine.InputSystem;
 public class PlayerInputHandler : MonoBehaviour
 {
     private PlayerInputAction _playerInputAction;
+    private PlayerCamera _playerCamera;
     private PlayerAttack _playerAttack;
     public PlayerMovement _playerMovmement;
+    private PlayerInteract _playerInteract;
     
     private void Awake()
     {
         _playerInputAction = new PlayerInputAction();
         _playerMovmement = GetComponent<PlayerMovement>();
         _playerAttack = GetComponent<PlayerAttack>();
+        _playerCamera = GameObject.FindWithTag("MainCamera").GetComponent<PlayerCamera>();
+        _playerInteract = GetComponent<PlayerInteract>();
+    }
+
+    public void DisableInputHandling()
+    {
+        _playerInputAction.Disable();
+    }
+
+    public void EnableInputHandling()
+    {
+        _playerInputAction.Enable();
     }
 
     /*
@@ -27,6 +41,8 @@ public class PlayerInputHandler : MonoBehaviour
     private void OnEnable()
     {
         _playerInputAction.Enable();
+
+        _playerInputAction.Player.CamSwap.performed += OnCamSwap;
 
         // Assign functions as event handlers for input values
         _playerInputAction.Player.Move.performed += OnMovement;
@@ -48,6 +64,8 @@ public class PlayerInputHandler : MonoBehaviour
 
         _playerInputAction.Player.Attack.started += OnAttack;
         _playerInputAction.Player.CancelAttack.started += OnCancelAttack;
+
+        _playerInputAction.Player.Interact.started += OnInteract;
     }
 
     /*
@@ -73,6 +91,16 @@ public class PlayerInputHandler : MonoBehaviour
         _playerInputAction.Player.EquipAttack2.started -= OnEquipAttack2;
         _playerInputAction.Player.EquipAttack3.started -= OnEquipAttack3;
         _playerInputAction.Player.EquipAttack4.started -= OnEquipAttack4;
+
+        _playerInputAction.Player.Attack.started -= OnAttack;
+        _playerInputAction.Player.CancelAttack.started -= OnCancelAttack;
+
+        _playerInputAction.Player.Interact.started -= OnInteract;
+    }
+
+    private void OnCamSwap(InputAction.CallbackContext value)
+    {
+        _playerCamera.SwitchCameraStyle();
     }
 
     private void OnMovement(InputAction.CallbackContext value)
@@ -128,5 +156,10 @@ public class PlayerInputHandler : MonoBehaviour
     private void OnCancelAttack(InputAction.CallbackContext context)
     {
         _playerAttack.OnCancelAttack();
+    }
+
+    private void OnInteract(InputAction.CallbackContext context)
+    {
+        _playerInteract.OnInteractPressed();
     }
 }
