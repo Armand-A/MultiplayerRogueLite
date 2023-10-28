@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,10 +19,13 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] float maxAimDistance = 30f;
     [SerializeField] float cameraAngleForMinDistance = 10f;
     [SerializeField] float cameraAngleForMaxDistance = 30f;
-    [SerializeField] private ActionGauge _actionGauge;
+    
+    [SerializeField] private List<AttackScriptableObject> attacks;
 
     UnityEvent<AttackSlot> equipAttackEvent = new UnityEvent<AttackSlot>();
     UnityEvent unequipAttackEvent = new UnityEvent();
+
+    private PlayerData _playerData;
 
     private GameObject _camera;
     private AttackIndicator _indicator;
@@ -37,7 +41,7 @@ public class PlayerAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _actionGauge = GameObject.Find("ActionGauge").GetComponent<ActionGauge>();
+        _playerData = GetComponent<PlayerData>();
         _camera = GameObject.FindWithTag("MainCamera");
 
         //if (equipAttackEvent != null) equipAttackEvent = new UnityEvent<AttackSlot>();
@@ -51,19 +55,20 @@ public class PlayerAttack : MonoBehaviour
             // update attack source location
             _attackSrcPosition = transform.position;
 
-            // update attack destination location
-            // get angle between camera and xz-plane, clamp to min max, and clamp to min when camera looks upward
-            float cameraAngle = Vector3.Angle(_camera.transform.forward, Vector3.ProjectOnPlane(_camera.transform.forward, new Vector3(0, 1, 0)));
-            cameraAngle = Mathf.Clamp(cameraAngle, cameraAngleForMinDistance, cameraAngleForMaxDistance);
-            if (_camera.transform.forward.y > 0) cameraAngle = cameraAngleForMinDistance;
+            // get y value from camera, 1 is most downward, 0 is most upward
+            CinemachineFreeLook activeVirtualCamera = _camera.GetComponent<CinemachineBrain>().ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineFreeLook>();
+            // invert it, 0 is most downward, 1 is most upward
+            float distanceValue = 1 - activeVirtualCamera.m_YAxis.Value;
 
-            // get [0,1] value from the angle
-            float distanceValue = 1 - Mathf.InverseLerp(cameraAngleForMinDistance, cameraAngleForMaxDistance, cameraAngle);
+            // get camera's forward angle projected on xz plane
+            Vector3 cameraForwardFlatAngle = _camera.transform.forward;
+            cameraForwardFlatAngle.y = 0;
+            cameraForwardFlatAngle.Normalize();
 
             // min angle = min distance, max angle = max distance
-            _attackDstPosition = transform.position + minAimDistance * _camera.transform.forward + (maxAimDistance - minAimDistance) * distanceValue * _camera.transform.forward;
-            _attackDstPosition.y = transform.position.y;
+            _attackDstPosition = transform.position + minAimDistance * cameraForwardFlatAngle + (maxAimDistance - minAimDistance) * distanceValue * cameraForwardFlatAngle;
 
+            // update attack destination location
             _indicator.SetPositions(_attackSrcPosition, _attackDstPosition);
         }
     }
@@ -104,8 +109,10 @@ public class PlayerAttack : MonoBehaviour
 
         _equippedAttackSlot = attackSlot;
         _indicator = Instantiate(attacks[(int)_equippedAttackSlot].AttackIndicator).GetComponent<AttackIndicator>();
+
+        //Allows preview cost of equipped action
         _actionCost = -attacks[(int)_equippedAttackSlot].ActionCost;
-        _actionGauge.CostPreview(true, _actionCost);
+        _playerData.PreviewActionCost(true, _actionCost);
 
         equipAttackEvent.Invoke(attackSlot);
     }
@@ -113,13 +120,16 @@ public class PlayerAttack : MonoBehaviour
     void Attack()
     {
         List<AttackScriptableObject> attacks = GetComponent<PlayerAbilities>().EquippedAbilities;
-
-        if (!_actionGauge.UpdateActionValue(_actionCost))
+        
+        // Checks and consumes action points depending on if there is enough left
+        if (!_playerData.UpdateAction(_actionCost))
             return;
         
         if (_indicator != null)
         {
-            _actionGauge.CostPreview(false);
+            //Removes action cost preview
+            _playerData.PreviewActionCost(false);
+
             Destroy(_indicator.gameObject);
             _indicator = null;
         }
@@ -137,7 +147,9 @@ public class PlayerAttack : MonoBehaviour
         _actionCost = 0;
         if (_indicator != null)
         {
-            _actionGauge.CostPreview(false);
+            //Removes action cost preview
+            _playerData.PreviewActionCost(false);
+
             Destroy(_indicator.gameObject);
             _indicator = null;
         }

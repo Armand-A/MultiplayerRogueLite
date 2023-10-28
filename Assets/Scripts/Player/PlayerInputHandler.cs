@@ -11,6 +11,7 @@ using UnityEngine.InputSystem;
 public class PlayerInputHandler : MonoBehaviour
 {
     private PlayerInputAction _playerInputAction;
+    private PlayerCamera _playerCamera;
     private PlayerAttack _playerAttack;
     public PlayerMovement _playerMovmement;
     private PlayerInteract _playerInteract;
@@ -20,6 +21,7 @@ public class PlayerInputHandler : MonoBehaviour
         _playerInputAction = new PlayerInputAction();
         _playerMovmement = GetComponent<PlayerMovement>();
         _playerAttack = GetComponent<PlayerAttack>();
+        _playerCamera = GameObject.FindWithTag("MainCamera").GetComponent<PlayerCamera>();
         _playerInteract = GetComponent<PlayerInteract>();
     }
 
@@ -39,6 +41,8 @@ public class PlayerInputHandler : MonoBehaviour
     private void OnEnable()
     {
         _playerInputAction.Enable();
+
+        _playerInputAction.Player.CamSwap.performed += OnCamSwap;
 
         // Assign functions as event handlers for input values
         _playerInputAction.Player.Move.performed += OnMovement;
@@ -92,6 +96,11 @@ public class PlayerInputHandler : MonoBehaviour
         _playerInputAction.Player.CancelAttack.started -= OnCancelAttack;
 
         _playerInputAction.Player.Interact.started -= OnInteract;
+    }
+
+    private void OnCamSwap(InputAction.CallbackContext value)
+    {
+        _playerCamera.SwitchCameraStyle();
     }
 
     private void OnMovement(InputAction.CallbackContext value)
