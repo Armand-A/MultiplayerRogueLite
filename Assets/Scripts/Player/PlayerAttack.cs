@@ -17,8 +17,6 @@ public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] float minAimDistance = 10f;
     [SerializeField] float maxAimDistance = 30f;
-    [SerializeField] float cameraAngleForMinDistance = 10f;
-    [SerializeField] float cameraAngleForMaxDistance = 30f;
     
     [SerializeField] private List<AttackScriptableObject> attacks;
 
