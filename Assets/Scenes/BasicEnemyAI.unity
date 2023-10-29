@@ -630,7 +630,7 @@ PrefabInstance:
     - target: {fileID: 4558061130878690413, guid: 29c011fa250b8184fbbd51216962b0d3, type: 3}
       propertyPath: Attack
       value: 
-      objectReference: {fileID: 11400000, guid: 7bd6b8948d368df42b9ec757e753cf18, type: 2}
+      objectReference: {fileID: 11400000, guid: 2f536726b0491104ba9d7922e76ede9c, type: 2}
     - target: {fileID: 6615013091452182067, guid: 29c011fa250b8184fbbd51216962b0d3, type: 3}
       propertyPath: m_Name
       value: RangedEnemy

@@ -199,7 +199,8 @@ MonoBehaviour:
   player: {fileID: 0}
   enemy: {fileID: 0}
   ranged: 0
-  Attack: {fileID: 11400000, guid: 8f5ebc05ad354e54f9e41d643b6de26a, type: 2}
+  Attack: {fileID: 11400000, guid: cf8aaa852852c524aa1b73a7d57ef74e, type: 2}
+  Attack2: {fileID: 11400000, guid: 7bd6b8948d368df42b9ec757e753cf18, type: 2}
   Health: 10
   maxActions: 10
   currActions: 0

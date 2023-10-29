@@ -12,6 +12,7 @@ public class EnemyBehaviour : MonoBehaviour
     public NavMeshAgent enemy;
     public bool ranged;
     [SerializeField] private AttackScriptableObject Attack;
+    [SerializeField] private AttackScriptableObject Attack2;
     public int Health;
     [SerializeField] private float maxActions;
     [SerializeField] private float currActions;
@@ -75,8 +76,25 @@ public class EnemyBehaviour : MonoBehaviour
 
     void EAttack()
     {
-        AttackBehaviour attackObject = Instantiate(Attack.AttackBehaviour, Attack.AttackBehaviour.GetIsInstantiateAtDestination() ? player.transform.position : gameObject.transform.position, Quaternion.identity);
-        attackObject.SetPositions(gameObject.transform.position, player.transform.position);
+        if (!ranged)
+        {
+            int attack = Random.Range(1, 3);
+            if (attack == 1)
+            {
+                AttackBehaviour attackObject = Instantiate(Attack.AttackBehaviour, Attack.AttackBehaviour.GetIsInstantiateAtDestination() ? player.transform.position : gameObject.transform.position, Quaternion.identity);
+                attackObject.SetPositions(gameObject.transform.position, player.transform.position);
+            }
+            else if (attack == 2)
+            {
+                AttackBehaviour attackObject = Instantiate(Attack2.AttackBehaviour, Attack2.AttackBehaviour.GetIsInstantiateAtDestination() ? player.transform.position : gameObject.transform.position, Quaternion.identity);
+                attackObject.SetPositions(gameObject.transform.position, player.transform.position);
+            }
+        }
+        else if (ranged)
+        {
+            AttackBehaviour attackObject = Instantiate(Attack.AttackBehaviour, Attack.AttackBehaviour.GetIsInstantiateAtDestination() ? player.transform.position : gameObject.transform.position, Quaternion.identity);
+            attackObject.SetPositions(gameObject.transform.position, player.transform.position);
+        }
     }
     IEnumerator Cooldown()
     {
