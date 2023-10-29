@@ -136,6 +136,8 @@ public class PlayerAttack : MonoBehaviour
 
         AttackBehaviour attackObject = Instantiate(attacks[(int)_equippedAttackSlot].AttackBehaviour, attacks[(int)_equippedAttackSlot].AttackBehaviour.GetIsInstantiateAtDestination() ? _attackDstPosition : _attackSrcPosition, Quaternion.identity);
         attackObject.SetPositions(_attackSrcPosition, _attackDstPosition);
+        attackObject.SetDamage(attacks[(int)_equippedAttackSlot].Damage);
+        attackObject.SetIsFromPlayer(true);
 
         _equippedAttackSlot = AttackSlot.None;
 

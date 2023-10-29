@@ -16,14 +16,6 @@ public class AoeAttackBehaviour : AttackBehaviour
         transform.localScale = new Vector3(radius * 2, height, radius * 2);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            Debug.Log("AreaOfEffect hits enemy");
-        }
-    }
-
     IEnumerator Despawn()
     {
         yield return new WaitForSeconds(timeBeforeDespawn);

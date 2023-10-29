@@ -37,6 +37,11 @@ public class EntityData : MonoBehaviour
         return EntityAction.UpdateValue(actionCost);
     }
 
+    public bool UpdateHealth(float deltaHealth)
+    {
+        return EntityHealth.UpdateValue(deltaHealth);
+    }
+
     public void DeathSequence()
     {
 

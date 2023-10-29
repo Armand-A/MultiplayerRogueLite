@@ -24,14 +24,6 @@ public class ProjectileAttackBehaviour : AttackBehaviour
         CheckDespawn();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            Debug.Log("Projectile hits enemy");
-        }
-    }
-
     void Orient()
     {
         if (!_hasOriented)
