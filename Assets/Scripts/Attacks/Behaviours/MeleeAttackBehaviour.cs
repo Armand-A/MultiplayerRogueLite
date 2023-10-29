@@ -17,14 +17,6 @@ public class MeleeAttackBehaviour : AttackBehaviour
         transform.position = _srcPos + depth / 2 * transform.forward;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            Debug.Log("Melee hits enemy");
-        }
-    }
-
     IEnumerator Despawn()
     {
         yield return new WaitForSeconds(timeBeforeDespawn);

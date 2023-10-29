@@ -17,8 +17,6 @@ public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] float minAimDistance = 10f;
     [SerializeField] float maxAimDistance = 30f;
-    [SerializeField] float cameraAngleForMinDistance = 10f;
-    [SerializeField] float cameraAngleForMaxDistance = 30f;
     
     [SerializeField] private List<AttackScriptableObject> attacks;
 
@@ -136,6 +134,8 @@ public class PlayerAttack : MonoBehaviour
 
         AttackBehaviour attackObject = Instantiate(attacks[(int)_equippedAttackSlot].AttackBehaviour, attacks[(int)_equippedAttackSlot].AttackBehaviour.GetIsInstantiateAtDestination() ? _attackDstPosition : _attackSrcPosition, Quaternion.identity);
         attackObject.SetPositions(_attackSrcPosition, _attackDstPosition);
+        attackObject.SetDamage(attacks[(int)_equippedAttackSlot].Damage);
+        attackObject.SetIsFromPlayer(true);
 
         _equippedAttackSlot = AttackSlot.None;
 
