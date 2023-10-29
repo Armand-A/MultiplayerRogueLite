@@ -1916,8 +1916,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8f5ebc05ad354e54f9e41d643b6de26a, type: 2}
   - {fileID: 11400000, guid: d0aaf2adf8d83ac489cb349226de0434, type: 2}
   equippedAbilites:
-  - {fileID: 11400000, guid: 1ad0a7a5b3397cf4ba7bf752e0bdca90, type: 2}
   - {fileID: 11400000, guid: d0aaf2adf8d83ac489cb349226de0434, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   changeEquippedAbilityEvent: {fileID: 11400000, guid: 02ccb452f3d95e9469eb20b995d1c9f4, type: 2}
