@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 697d2c7cfdc971146bed4977482def6c, type: 3}
-  m_Name: DemoAoeAttack
+  m_Name: DemoProjectileAttack3
   m_EditorClassIdentifier: 
-  attackIndicator: {fileID: -739377520836126248, guid: b62020c896c68a045b6b6ab0a7e1bb00, type: 3}
-  attackBehaviour: {fileID: 2591811900313410473, guid: 112e35c928a7179428bccb2cd9c36013, type: 3}
-  sprite: {fileID: 21300000, guid: 81b10919c4cb2c34db5f89fbd2b5c1be, type: 3}
+  attackIndicator: {fileID: 3241658915310647514, guid: 92ceec922aafdc34b9abe598852e3ab9, type: 3}
+  attackBehaviour: {fileID: -7894606758665342563, guid: 98a0a27cfd814cc439ade1ab19cc3f8e, type: 3}
+  sprite: {fileID: 21300000, guid: 01c8bc4fcf7622043a67e463c06bfec5, type: 3}
+  nextUpgrade: {fileID: 0}
   healthCost: 0
   manaCost: 0
-  actionCost: 7
+  actionCost: 6
+  damage: 15

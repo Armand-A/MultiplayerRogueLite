@@ -22,8 +22,10 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Movement direction")]
     [SerializeField]
     private Vector3 MoveDir;
-    [Tooltip("Base speed value")]
-    public float BaseSpeed = 20.0f;
+    [Tooltip("Base speed force value")]
+    public float BaseSpeed = 250.0f;
+    [Tooltip("Player rigidbody mass")]
+    public float PMass = 5.0f;
     [Tooltip("Base speed value")]
     public float SprintMultiplyer = 2.0f;
     [Tooltip("Sprinting input")]
@@ -83,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Dash input")]
     public float DashBool = 0.0f;
     [Tooltip("Dash input")]
-    public float DashForce = 10.0f;
+    public float DashForce = 200.0f;
     [Tooltip("Dash Cooldown")]
     public float DashCD = 2.0f;
     [Tooltip("Dash Remaining")]
@@ -104,6 +106,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody>();
+        _rigidBody.mass = PMass;
         _rigidBody.freezeRotation = true;
 
         _jumpCDTimer = new CooldownTimer(JumpCD);
@@ -146,10 +149,11 @@ public class PlayerMovement : MonoBehaviour
     {
         // Camera function
         _playerCamera.UpdateCamera(MoveVector);
-        // Normal Movements
 
+        // Normal Movements
         Movement();
         SpeedControl();
+
         //Special Movement
         Dash();
         _dashCDTimer.Update(Time.deltaTime);
@@ -208,12 +212,12 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void GroundedCheck()
     {
-        // Sphere radius method, better with uneven ground
-        Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - PlayerHeight * 0.5f, transform.position.z);
-        Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
+        // Sphere radius method, better with uneven ground (Require layers for ground)
+        // Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - PlayerHeight * 0.5f, transform.position.z);
+        // Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
         
         //Raycast method to detect ground
-        //Grounded = Physics.Raycast(transform.position, Vector3.down, PlayerHeight * 0.5f + GroundedOffset, GroundLayers);
+        Grounded = Physics.Raycast(transform.position, Vector3.down, PlayerHeight * 0.5f + GroundedOffset, GroundLayers);
         
         _rigidBody.drag = Grounded ? GroundDrag : 1;
         if (Grounded)
@@ -234,7 +238,8 @@ public class PlayerMovement : MonoBehaviour
         MoveDir = Orientation.forward * MoveVector.y + Orientation.right * MoveVector.x;
 
         // Removing velocity when player not touching movement keys
-        if (MoveVector == Vector2.zero)
+        Vector3 flatVel = new Vector3(_rigidBody.velocity.x, 0f, _rigidBody.velocity.z);
+        if (flatVel.magnitude <= 10f && MoveVector == Vector2.zero)
         {
             SprintBool = 0;
             _speed = 0;

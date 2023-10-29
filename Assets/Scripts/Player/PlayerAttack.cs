@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,17 +17,19 @@ public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] float minAimDistance = 10f;
     [SerializeField] float maxAimDistance = 30f;
-    [SerializeField] float cameraAngleForMinDistance = 10f;
-    [SerializeField] float cameraAngleForMaxDistance = 30f;
+    
     [SerializeField] private List<AttackScriptableObject> attacks;
-    [SerializeField] private ActionGauge _actionGauge;
-    [SerializeField] private UnityEvent<AttackSlot> equipAttackEvent;
-    [SerializeField] private UnityEvent<AttackSlot> unequipAttackEvent;
+
+    UnityEvent<AttackSlot> equipAttackEvent = new UnityEvent<AttackSlot>();
+    UnityEvent unequipAttackEvent = new UnityEvent();
+
+    private PlayerData _playerData;
 
     private GameObject _camera;
     private AttackIndicator _indicator;
 
     private AttackSlot _equippedAttackSlot = AttackSlot.None;
+    public AttackSlot EquipedAttackSlot { get { return _equippedAttackSlot; } }
 
     private Vector3 _attackSrcPosition;
     private Vector3 _attackDstPosition;
@@ -36,7 +39,7 @@ public class PlayerAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _actionGauge = GameObject.Find("ActionGauge").GetComponent<ActionGauge>();
+        _playerData = GetComponent<PlayerData>();
         _camera = GameObject.FindWithTag("MainCamera");
 
         //if (equipAttackEvent != null) equipAttackEvent = new UnityEvent<AttackSlot>();
@@ -50,19 +53,20 @@ public class PlayerAttack : MonoBehaviour
             // update attack source location
             _attackSrcPosition = transform.position;
 
-            // update attack destination location
-            // get angle between camera and xz-plane, clamp to min max, and clamp to min when camera looks upward
-            float cameraAngle = Vector3.Angle(_camera.transform.forward, Vector3.ProjectOnPlane(_camera.transform.forward, new Vector3(0, 1, 0)));
-            cameraAngle = Mathf.Clamp(cameraAngle, cameraAngleForMinDistance, cameraAngleForMaxDistance);
-            if (_camera.transform.forward.y > 0) cameraAngle = cameraAngleForMinDistance;
+            // get y value from camera, 1 is most downward, 0 is most upward
+            CinemachineFreeLook activeVirtualCamera = _camera.GetComponent<CinemachineBrain>().ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineFreeLook>();
+            // invert it, 0 is most downward, 1 is most upward
+            float distanceValue = 1 - activeVirtualCamera.m_YAxis.Value;
 
-            // get [0,1] value from the angle
-            float distanceValue = 1 - Mathf.InverseLerp(cameraAngleForMinDistance, cameraAngleForMaxDistance, cameraAngle);
+            // get camera's forward angle projected on xz plane
+            Vector3 cameraForwardFlatAngle = _camera.transform.forward;
+            cameraForwardFlatAngle.y = 0;
+            cameraForwardFlatAngle.Normalize();
 
             // min angle = min distance, max angle = max distance
-            _attackDstPosition = transform.position + minAimDistance * _camera.transform.forward + (maxAimDistance - minAimDistance) * distanceValue * _camera.transform.forward;
-            _attackDstPosition.y = transform.position.y;
+            _attackDstPosition = transform.position + minAimDistance * cameraForwardFlatAngle + (maxAimDistance - minAimDistance) * distanceValue * cameraForwardFlatAngle;
 
+            // update attack destination location
             _indicator.SetPositions(_attackSrcPosition, _attackDstPosition);
         }
     }
@@ -98,32 +102,44 @@ public class PlayerAttack : MonoBehaviour
 
     void Equip(AttackSlot attackSlot)
     {
+        List<AttackScriptableObject> attacks = GetComponent<PlayerAbilities>().EquippedAbilities;
+        if (attacks[(int)attackSlot] == null) return;
+
         _equippedAttackSlot = attackSlot;
         _indicator = Instantiate(attacks[(int)_equippedAttackSlot].AttackIndicator).GetComponent<AttackIndicator>();
-        _actionCost = -attacks[(int)_equippedAttackSlot].ActionCost;
-        _actionGauge.CostPreview(true, _actionCost);
 
-        equipAttackEvent.Invoke(_equippedAttackSlot);
+        //Allows preview cost of equipped action
+        _actionCost = -attacks[(int)_equippedAttackSlot].ActionCost;
+        _playerData.PreviewActionCost(true, _actionCost);
+
+        equipAttackEvent.Invoke(attackSlot);
     }
 
     void Attack()
     {
-        if (!_actionGauge.UpdateActionValue(_actionCost))
+        List<AttackScriptableObject> attacks = GetComponent<PlayerAbilities>().EquippedAbilities;
+        
+        // Checks and consumes action points depending on if there is enough left
+        if (!_playerData.UpdateAction(_actionCost))
             return;
         
         if (_indicator != null)
         {
-            _actionGauge.CostPreview(false);
+            //Removes action cost preview
+            _playerData.PreviewActionCost(false);
+
             Destroy(_indicator.gameObject);
             _indicator = null;
         }
 
         AttackBehaviour attackObject = Instantiate(attacks[(int)_equippedAttackSlot].AttackBehaviour, attacks[(int)_equippedAttackSlot].AttackBehaviour.GetIsInstantiateAtDestination() ? _attackDstPosition : _attackSrcPosition, Quaternion.identity);
         attackObject.SetPositions(_attackSrcPosition, _attackDstPosition);
+        attackObject.SetDamage(attacks[(int)_equippedAttackSlot].Damage);
+        attackObject.SetIsFromPlayer(true);
 
         _equippedAttackSlot = AttackSlot.None;
 
-        unequipAttackEvent.Invoke(_equippedAttackSlot);
+        unequipAttackEvent.Invoke();
     }
 
     void CancelAttack()
@@ -131,12 +147,34 @@ public class PlayerAttack : MonoBehaviour
         _actionCost = 0;
         if (_indicator != null)
         {
-            _actionGauge.CostPreview(false);
+            //Removes action cost preview
+            _playerData.PreviewActionCost(false);
+
             Destroy(_indicator.gameObject);
             _indicator = null;
         }
         _equippedAttackSlot = AttackSlot.None;
 
-        unequipAttackEvent.Invoke(_equippedAttackSlot);
+        unequipAttackEvent.Invoke();
+    }
+
+    public void AddEquipListener(UnityAction<AttackSlot> action)
+    {
+        equipAttackEvent.AddListener(action);
+    }
+
+    public void RemoveEquipListener(UnityAction<AttackSlot> action)
+    {
+        equipAttackEvent.RemoveListener(action);
+    }
+
+    public void AddUnequipListener(UnityAction action)
+    {
+        unequipAttackEvent.AddListener(action);
+    }
+
+    public void RemoveUnequipListener(UnityAction action)
+    {
+        unequipAttackEvent.RemoveListener(action);
     }
 }

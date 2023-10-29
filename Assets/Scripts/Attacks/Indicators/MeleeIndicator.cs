@@ -15,6 +15,7 @@ public class MeleeIndicator : AttackIndicator
 
     private void LateUpdate()
     {
+        transform.position = _srcPos;
         transform.LookAt(_dstPos);
         transform.position = _srcPos + depth / 2 * transform.forward;
     }
