@@ -14,6 +14,7 @@ public class EntityData : MonoBehaviour
     public HealthGauge _healthGauge;
     public ActionGauge _actionGauge;
 
+    public bool CombatMode = false;
     public bool Alive = true;
 
     protected int _uniqueID;
