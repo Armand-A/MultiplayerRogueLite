@@ -23,12 +23,6 @@ public class PlayerAbilities : MonoBehaviour
         equippedAbilitiesTimers = new List<CooldownTimer>(equippedAbilites.Capacity);
         for (int i = 0; i < equippedAbilitiesTimers.Capacity; i++)
         {
-            if (equippedAbilites[i] == null)
-            {
-                equippedAbilitiesTimers.Add(null);
-                continue;
-            }
-
             CooldownTimer timer = new CooldownTimer(0);
             timer.Start();
             timer.Pause();
@@ -62,7 +56,6 @@ public class PlayerAbilities : MonoBehaviour
         {
             int indexInEquipped = equippedAbilites.IndexOf(ability);
             equippedAbilites[indexInEquipped] = ability.NextUpgrade;
-            equippedAbilitiesTimers[indexInEquipped] = new CooldownTimer(equippedAbilites[indexInEquipped].CooldownTime);
             changeEquippedAbilityEvent.Raise();
         }
     }
@@ -70,7 +63,6 @@ public class PlayerAbilities : MonoBehaviour
     public void EquipAbilityInSlot(AttackScriptableObject newAbility, AttackSlot slot)
     {
         equippedAbilites[(int)slot] = newAbility;
-        equippedAbilitiesTimers[(int)slot] = new CooldownTimer(equippedAbilites[(int)slot].CooldownTime);
     }
 
     public void StartAbilityCooldown(int index)
