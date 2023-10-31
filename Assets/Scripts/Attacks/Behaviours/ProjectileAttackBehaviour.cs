@@ -45,4 +45,14 @@ public class ProjectileAttackBehaviour : AttackBehaviour
             Destroy(gameObject);
         }
     }
+
+    protected override void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other);
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Block Attack"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }
