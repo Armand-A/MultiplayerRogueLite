@@ -288,9 +288,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Dash()
     {
-        if (DashBool > 0 && (DashRemaining > 0 || _combatMode))
+        if (DashBool > 0 && (DashRemaining > 0 || !_combatMode))
         {   
-            if (_playerData.UpdateAction(DashCost))
+            if (_playerData.UpdateAction(-DashCost))
                 _rigidBody.AddForce(MoveDir.normalized * DashForce , ForceMode.Impulse);
 
             if (_combatMode)
