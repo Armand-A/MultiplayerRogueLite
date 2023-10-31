@@ -43,11 +43,13 @@ public class PlayerAbilities : MonoBehaviour
     public List<AttackScriptableObject> Abilities { get { return abilities;  } }
     public List<AttackScriptableObject> EquippedAbilities { get { return equippedAbilites; } }
 
-    public void UpgradeAbility(AttackScriptableObject ability)
+    public bool UpgradeAbility(AttackScriptableObject ability)
     {
-        if (ability == null) return;
-        if (!abilities.Contains(ability)) return;
-        if (ability.NextUpgrade == null) return;
+        if (ability == null) return false;
+        if (!abilities.Contains(ability)) return false;
+        if (ability.NextUpgrade == null) return false;
+
+        if (!GetComponent<Currency>().Transaction((int)-ability.NextUpgradePrice)) return false;
 
         int index = abilities.IndexOf(ability);
         abilities[index] = ability.NextUpgrade;
@@ -58,6 +60,8 @@ public class PlayerAbilities : MonoBehaviour
             equippedAbilites[indexInEquipped] = ability.NextUpgrade;
             changeEquippedAbilityEvent.Raise();
         }
+
+        return true;
     }
 
     public void EquipAbilityInSlot(AttackScriptableObject newAbility, AttackSlot slot)

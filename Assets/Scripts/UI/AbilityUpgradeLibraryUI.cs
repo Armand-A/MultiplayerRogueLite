@@ -11,7 +11,7 @@ public class AbilityUpgradeLibraryUI : AbilityUI
     [SerializeField] GameObject panel;
     [SerializeField] GameObject abilityButtonsContainer;
     [SerializeField] Vector2 gap;
-    [SerializeField] AbilityUpgradeUI abilityUpgradeUI;
+    [SerializeField] AbilityUpgradePreviewUI abilityUpgradeUI;
     List<AttackScriptableObject> abilities = new List<AttackScriptableObject>();
     PlayerAbilities playerAbilities; 
 
@@ -52,10 +52,16 @@ public class AbilityUpgradeLibraryUI : AbilityUI
 
     public void OnButtonClicked(AttackScriptableObject ability)
     {
-        AbilityUpgradeUI abilityUpgradeUiObject = (AbilityUpgradeUI) uiManager.OpenUIAndGet(abilityUpgradeUI);
+        AbilityUpgradePreviewUI abilityUpgradeUiObject = (AbilityUpgradePreviewUI) uiManager.OpenUIAndGet(abilityUpgradeUI);
         abilityUpgradeUiObject.Initialize(ability, () =>
         {
-            playerAbilities.UpgradeAbility(ability);
+            if (playerAbilities.UpgradeAbility(ability))
+            {
+                uiManager.CloseUI();
+            } else
+            {
+                abilityUpgradeUiObject.ShowError("Insufficient currency");
+            }
             UpdateUI();
         });
     }
