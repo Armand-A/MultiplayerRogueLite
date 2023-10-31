@@ -15,6 +15,7 @@ public class AttackScriptableObject : ScriptableObject
     [SerializeField] private float manaCost;
     [SerializeField] private float actionCost;
     [SerializeField] private float damage;
+    [SerializeField] private float cooldownTime;
 
     public AttackIndicator AttackIndicator { get { return attackIndicator; } }
     public AttackBehaviour AttackBehaviour { get {  return attackBehaviour; } }
@@ -25,4 +26,5 @@ public class AttackScriptableObject : ScriptableObject
     public float ManaCost {get {return manaCost;}}
     public float ActionCost {get {return actionCost;}}
     public float Damage { get { return damage; } }
+    public float CooldownTime { get {  return cooldownTime; } }
 }
