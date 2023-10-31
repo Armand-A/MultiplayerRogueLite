@@ -37,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
     public float GroundDrag = 3.0f;
     [Tooltip("How fast player's movement should be mid air")]
     public float AirMultiplyer = 0.1f;
+    [Tooltip("Multiplyer for speed decrese during combat")]
+    public float CombatSpeedMultiplyer = 0.5f;
 
     /// <summary>
     /// Vertical Jump movement variables
@@ -153,6 +155,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
+        CheckCombatMode();
         // Camera function
         _playerCamera.UpdateCamera(MoveVector);
 
@@ -173,9 +176,9 @@ public class PlayerMovement : MonoBehaviour
         GravityControl();
     }
 
-    public void InCombat()
+    public void CheckCombatMode()
     {
-        
+        _combatMode = _playerData.CombatMode;
     }
 
     /// <summary>
@@ -260,6 +263,8 @@ public class PlayerMovement : MonoBehaviour
         {
             // Speed calculation BaseSpeed or SprintSpeed plus SpeedBoost
             _speed = (SprintBool > 0 ? BaseSpeed * SprintMultiplyer : BaseSpeed) + SpeedBoost;
+            if (_combatMode)
+                _speed *= CombatSpeedMultiplyer;
         }
 
         //Calculates in midair movement
@@ -283,7 +288,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Dash()
     {
-        if (DashBool > 0 && DashRemaining > 0)
+        if (DashBool > 0 && (DashRemaining > 0 || _combatMode))
         {   
             if (_playerData.UpdateAction(DashCost))
                 _rigidBody.AddForce(MoveDir.normalized * DashForce , ForceMode.Impulse);
@@ -310,6 +315,4 @@ public class PlayerMovement : MonoBehaviour
             DashRemaining++;
         }
     }
-
-    
 }

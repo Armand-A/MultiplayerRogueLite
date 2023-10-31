@@ -20,12 +20,14 @@ public class AttributeTemplate : MonoBehaviour
     public float RechargeInterval = 1.0f;
     [Tooltip("Recharge quantity per interval")]
     public float RechargeRate = 2.0f;
+    [Tooltip("In combat recharge rate modifier (Should be equal or above RechargeRate)")]
+    public float RechargeModifier = 1;
 
     protected float _defaultRechargeValue = 2.0f;
 
     private CooldownTimer _rechargeTimer;
     private bool _inCombat = false;
-    private float _rechargeModifier = 0;
+    
 
     private void Awake()
     {
@@ -84,7 +86,7 @@ public class AttributeTemplate : MonoBehaviour
     {
         if (Value < TotalValue)
         {
-            UpdateValue(RechargeRate + _rechargeModifier);
+            UpdateValue(RechargeRate - RechargeModifier);
         }
     }
 
@@ -112,10 +114,9 @@ public class AttributeTemplate : MonoBehaviour
         TotalValue = BaseValue + AddOnValue;
     }
 
-    public virtual void InCombat(bool inCombat, float modifier)
+    public virtual void InCombat(bool inCombat)
     {
         _inCombat = inCombat;
-        _rechargeModifier = modifier;
     }
 
     public void ResetRechargeRate()

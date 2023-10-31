@@ -21,13 +21,11 @@ public class EntityData : MonoBehaviour
     [Tooltip("How long until entity can exit combat mode")]
     public float CombatTimeout = 3;
     [Tooltip("Checks if entity is alive")]
-
     public bool Alive = true; //For when entity is not destroyed on death
 
     protected int _uniqueID;
     protected CooldownTimer _combatModeTimeout;
-    protected float HPRechargeModifier = -1f;
-    protected float APRechargeModifier = -1f;
+    
 
     protected virtual void Awake()
     {
@@ -78,8 +76,11 @@ public class EntityData : MonoBehaviour
 
     public void EnterCombatMode()
     {
-        CombatMode = true;
-        CombatModeProtocol();
+        if (!CombatMode)
+        {
+            CombatMode = true;
+            CombatModeProtocol();
+        }
         _combatModeTimeout.Start();
     }
 
@@ -91,13 +92,13 @@ public class EntityData : MonoBehaviour
 
     protected virtual void CombatModeProtocol()
     {
-        EntityHealth.InCombat(true, HPRechargeModifier);
-        EntityAction.InCombat(true, APRechargeModifier);
+        EntityHealth.InCombat(true);
+        EntityAction.InCombat(true);
     }
 
     protected virtual void OutOfCombat()
     {
-        EntityHealth.InCombat(false, 0);
-        EntityAction.InCombat(false, 0);
+        EntityHealth.InCombat(false);
+        EntityAction.InCombat(false);
     }
 }

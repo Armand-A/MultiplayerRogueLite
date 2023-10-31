@@ -264,6 +264,7 @@ MonoBehaviour:
   TotalValue: 0
   RechargeInterval: 1
   RechargeRate: 2
+  RechargeModifier: 1
 --- !u!114 &144196652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,6 +283,7 @@ MonoBehaviour:
   TotalValue: 0
   RechargeInterval: 1
   RechargeRate: 2
+  RechargeModifier: 1
 --- !u!114 &144196653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,6 +302,7 @@ MonoBehaviour:
   TotalValue: 0
   RechargeInterval: 1
   RechargeRate: 2
+  RechargeModifier: 1
 --- !u!114 &144196654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,6 +317,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthGauge: {fileID: 1982151343}
   _actionGauge: {fileID: 1520658878}
+  CombatMode: 0
+  CombatTimeout: 3
   Alive: 1
 --- !u!4 &144196655
 Transform:
@@ -1135,6 +1140,7 @@ MonoBehaviour:
   TotalValue: 0
   RechargeInterval: 1
   RechargeRate: 2
+  RechargeModifier: 1
 --- !u!114 &491511836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1153,6 +1159,7 @@ MonoBehaviour:
   TotalValue: 0
   RechargeInterval: 1
   RechargeRate: 2
+  RechargeModifier: 1
 --- !u!114 &491511837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1171,6 +1178,7 @@ MonoBehaviour:
   TotalValue: 0
   RechargeInterval: 1
   RechargeRate: 2
+  RechargeModifier: 1
 --- !u!114 &491511838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1185,6 +1193,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthGauge: {fileID: 293091514}
   _actionGauge: {fileID: 1858638022}
+  CombatMode: 0
+  CombatTimeout: 3
   Alive: 1
 --- !u!4 &491511839
 Transform:
@@ -1639,6 +1649,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 295507439682169401, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
+      propertyPath: CombatTimeout
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 530430278598539686, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1680,12 +1694,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1113354124278126538, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1113354124278126538, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000045736734
+      value: 0.0000000045736708
       objectReference: {fileID: 0}
     - target: {fileID: 1113354124278126538, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -4.573673e-10
+      value: -4.5736706e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1596717553995089080, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.048844013
       objectReference: {fileID: 0}
     - target: {fileID: 1596717553995089080, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.y
@@ -1693,15 +1715,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1596717553995089080, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -9.2700025e-10
+      value: -9.270004e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2355030256040997562, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.048844013
       objectReference: {fileID: 0}
     - target: {fileID: 2355030256040997562, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -6.658445e-10
+      value: 7.157972e-10
       objectReference: {fileID: 0}
     - target: {fileID: 2355030256040997562, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 9.9632996e-11
+      value: -1.0710764e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3491029275573827828, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
+      propertyPath: CombatSpeedMultiplyer
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3880204147674399567, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1714,6 +1744,10 @@ PrefabInstance:
     - target: {fileID: 5597020812433783531, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5709150045112681738, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.0498137
       objectReference: {fileID: 0}
     - target: {fileID: 5709150045112681738, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.y
@@ -3624,10 +3658,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2774912599851552801, guid: c2aee6256babf1649b97317f1c1772f7, type: 3}
+      propertyPath: CombatTimeout
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3714951229989132436, guid: c2aee6256babf1649b97317f1c1772f7, type: 3}
       propertyPath: NotiText
       value: 
       objectReference: {fileID: 1258040039}
+    - target: {fileID: 6003420987359868496, guid: c2aee6256babf1649b97317f1c1772f7, type: 3}
+      propertyPath: RechargeModifier
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6127087731749915755, guid: c2aee6256babf1649b97317f1c1772f7, type: 3}
       propertyPath: m_Name
       value: Enemy
