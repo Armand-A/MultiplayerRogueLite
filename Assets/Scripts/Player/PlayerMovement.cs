@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.RestService;
 using UnityEngine;
 
 /// <summary>
@@ -75,11 +76,6 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("What layers the character can jump off of")]
     public LayerMask GroundLayers;
 
-    /// <summary>
-    /// Player Camera script from player camera
-    /// </summary>
-    [Header("Player Camera")]
-    public PlayerCamera _playerCamera;
 
     [Header("Abilities")]
     [Tooltip("Dash input")]
@@ -90,8 +86,15 @@ public class PlayerMovement : MonoBehaviour
     public float DashCD = 2.0f;
     [Tooltip("Dash Remaining")]
     public int DashRemaining = 2;
-    [Tooltip("Max dash allowed")]
+    [Tooltip("Max dash stored")]
     public int MaxDash = 2;
+    [Tooltip("Dash action cost")]
+    public int DashCost = 2;
+
+    [Header("Other")]
+    [SerializeField]
+    private PlayerCamera _playerCamera;
+    private PlayerData _playerData;
 
     private CooldownTimer _jumpCDTimer;
     private CooldownTimer _jumpIntervalTimer;
@@ -99,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
 
     private int _jumpCount = 0;
     private float _speed = 0.0f; //Final calculated speed value
+    private bool _combatMode;
     
     /// <summary>
     /// Initialization of variables before game is loaded
@@ -112,6 +116,8 @@ public class PlayerMovement : MonoBehaviour
         _jumpCDTimer = new CooldownTimer(JumpCD);
         _jumpIntervalTimer = new CooldownTimer(JumpIntervalCD);
         _dashCDTimer = new CooldownTimer(DashCD);
+
+        _playerData = GetComponent<PlayerData>();
     }
 
     /// <summary>
@@ -165,6 +171,11 @@ public class PlayerMovement : MonoBehaviour
         */
         GroundedCheck();
         GravityControl();
+    }
+
+    public void InCombat()
+    {
+        
     }
 
     /// <summary>
@@ -273,12 +284,16 @@ public class PlayerMovement : MonoBehaviour
     private void Dash()
     {
         if (DashBool > 0 && DashRemaining > 0)
-        {
-            _rigidBody.AddForce(MoveDir.normalized * DashForce , ForceMode.Impulse);
-            DashRemaining--;
+        {   
+            if (_playerData.UpdateAction(DashCost))
+                _rigidBody.AddForce(MoveDir.normalized * DashForce , ForceMode.Impulse);
+
+            if (_combatMode)
+                DashRemaining--;
             
         }
         DashBool = 0;
+
         if (!_dashCDTimer.IsActive && DashRemaining < MaxDash)
         {
             _dashCDTimer.Start();
@@ -295,4 +310,6 @@ public class PlayerMovement : MonoBehaviour
             DashRemaining++;
         }
     }
+
+    
 }

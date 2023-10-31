@@ -21,8 +21,11 @@ public class AttributeTemplate : MonoBehaviour
     [Tooltip("Recharge quantity per interval")]
     public float RechargeRate = 2.0f;
 
+    protected float _defaultRechargeValue = 2.0f;
+
     private CooldownTimer _rechargeTimer;
-    
+    private bool _inCombat = false;
+    private float _rechargeModifier = 0;
 
     private void Awake()
     {
@@ -77,18 +80,18 @@ public class AttributeTemplate : MonoBehaviour
     /// <summary>
     /// Activates whenever the recharge timer completes a turn
     /// </summary>
-    private void Recharge()
+    protected virtual void Recharge()
     {
         if (Value < TotalValue)
         {
-            UpdateValue(RechargeRate);
+            UpdateValue(RechargeRate + _rechargeModifier);
         }
     }
 
     /// <summary>
     /// Decide if value should continue recharging
     /// </summary>
-    private void RechargeCheck()
+    protected virtual void RechargeCheck()
     {
         if (Value >= TotalValue && _rechargeTimer.IsActive)
         {
@@ -97,7 +100,6 @@ public class AttributeTemplate : MonoBehaviour
         else if (Value < TotalValue && !_rechargeTimer.IsActive)
         {
             _rechargeTimer.Start();
-            
         }
     }
 
@@ -108,5 +110,16 @@ public class AttributeTemplate : MonoBehaviour
             AddOnValue = 0;
 
         TotalValue = BaseValue + AddOnValue;
+    }
+
+    public virtual void InCombat(bool inCombat, float modifier)
+    {
+        _inCombat = inCombat;
+        _rechargeModifier = modifier;
+    }
+
+    public void ResetRechargeRate()
+    {
+        RechargeRate = _defaultRechargeValue;
     }
 }
