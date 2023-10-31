@@ -9,6 +9,7 @@ public class AttackScriptableObject : ScriptableObject
     [SerializeField] private AttackBehaviour attackBehaviour;
     [SerializeField] private Sprite sprite;
     [SerializeField] private AttackScriptableObject nextUpgrade;
+    [SerializeField] private bool cannotCastOnEnemy;
 
     [SerializeField] private float healthCost;
     [SerializeField] private float manaCost;
@@ -19,6 +20,7 @@ public class AttackScriptableObject : ScriptableObject
     public AttackBehaviour AttackBehaviour { get {  return attackBehaviour; } }
     public Sprite Sprite { get { return sprite; } }
     public AttackScriptableObject NextUpgrade { get { return nextUpgrade; } }
+    public bool IsCannotCastOnEnemy {  get { return cannotCastOnEnemy; } }
     public float HealthCost {get {return healthCost;}}
     public float ManaCost {get {return manaCost;}}
     public float ActionCost {get {return actionCost;}}
