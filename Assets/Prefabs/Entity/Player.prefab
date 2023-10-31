@@ -1395,7 +1395,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4692496779187038619}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.048844013, y: -0.000000008659965, z: 0.0000000012958262, w: 0.9988064}
+  m_LocalRotation: {x: 0.048844006, y: -7.4749096e-11, z: 1.1185025e-11, w: 0.9988064}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1784,10 +1784,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba846d78861ab9540b43af9fb203d8a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minAimDistance: 10
-  maxAimDistance: 30
-  cameraAngleForMinDistance: 10
-  cameraAngleForMaxDistance: 30
+  minAimDistance: 5
+  maxAimDistance: 50
   attacks:
   - {fileID: 11400000, guid: 1ad0a7a5b3397cf4ba7bf752e0bdca90, type: 2}
   - {fileID: 11400000, guid: d0aaf2adf8d83ac489cb349226de0434, type: 2}

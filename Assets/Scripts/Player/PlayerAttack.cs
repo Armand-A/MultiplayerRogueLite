@@ -15,8 +15,8 @@ public enum AttackSlot
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] float minAimDistance = 10f;
-    [SerializeField] float maxAimDistance = 30f;
+    [SerializeField] float minAimDistance = 5f;
+    [SerializeField] float maxAimDistance = 50f;
     
     [SerializeField] private List<AttackScriptableObject> attacks;
 
@@ -119,12 +119,16 @@ public class PlayerAttack : MonoBehaviour
     {
         List<AttackScriptableObject> attacks = GetComponent<PlayerAbilities>().EquippedAbilities;
         
+        // check if attack cannot be cast on enemy
+        if (_indicator != null && attacks[(int)_equippedAttackSlot].IsCannotCastOnEnemy && _indicator.HasEnemyInRange) return;
+
         // Checks and consumes action points depending on if there is enough left
         if (!_playerData.UpdateAction(_actionCost))
             return;
         
         if (_indicator != null)
         {
+
             //Removes action cost preview
             _playerData.PreviewActionCost(false);
 
