@@ -21,7 +21,7 @@ public class AbilityLibraryUI : AbilityUI
 
         Rect buttonRect = buttonPrefab.GetComponent<RectTransform>().rect;
         float rowWidth = abilities.Count * buttonRect.width + (abilities.Count - 1) * gap.x;
-        float xCenterOffset = -(abilities.Count - 1) / 2 * (buttonRect.width + gap.x);
+        float xCenterOffset = -(abilities.Count - 1) / 2f * (buttonRect.width + gap.x);
 
         for (int i = 0; i < abilities.Count; i++) {
             AttackScriptableObject ability = abilities[i];
@@ -47,5 +47,10 @@ public class AbilityLibraryUI : AbilityUI
     public void SetReturnAction(UnityAction<AttackScriptableObject> action)
     {
         returnAction = action;
+    }
+
+    public void OnCancel()
+    {
+        uiManager.CloseUI();
     }
 }
