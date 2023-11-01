@@ -13,7 +13,7 @@ public class PlayerInputHandler : MonoBehaviour
     private PlayerInputAction _playerInputAction;
     private PlayerCamera _playerCamera;
     private PlayerAttack _playerAttack;
-    public PlayerMovement _playerMovmement;
+    private PlayerMovement _playerMovmement;
     private PlayerInteract _playerInteract;
     
     private void Awake()
@@ -73,7 +73,7 @@ public class PlayerInputHandler : MonoBehaviour
     */
     private void OnDisable()
     {
-        _playerInputAction.Disable();
+        //_playerInputAction.Disable();
         // Remove the event handlers
         _playerInputAction.Player.Move.performed -= OnMovement;
         _playerInputAction.Player.Move.canceled -= OnMovementStopped;

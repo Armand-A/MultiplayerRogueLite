@@ -30,6 +30,7 @@ public class EntityData : MonoBehaviour
     {
         _healthGauge.UpdateValue(EntityHealth.Value, EntityHealth.TotalValue);
         _actionGauge.UpdateValue(EntityAction.Value, EntityAction.TotalValue);
+        if (EntityHealth.Value < 0.001f) DeathSequence();
     }
 
     public bool UpdateAction(float actionCost)
@@ -37,8 +38,14 @@ public class EntityData : MonoBehaviour
         return EntityAction.UpdateValue(actionCost);
     }
 
-    public void DeathSequence()
+    public bool UpdateHealth(float deltaHealth)
     {
+        return EntityHealth.UpdateValue(deltaHealth);
+    }
 
+    protected virtual void DeathSequence()
+    {
+        // temp
+        Destroy(gameObject);
     }
 }

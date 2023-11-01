@@ -7,8 +7,8 @@ public class PlayerData : EntityData
 {   
     [Header("Player Currency")]
     private Currency _playerGold;
-    [Tooltip("Value text")]
-    public TMP_Text ValueText;
+    [Tooltip("Currency text")]
+    public TMP_Text CurrencyText;
 
     protected override void Awake()
     {
@@ -19,7 +19,7 @@ public class PlayerData : EntityData
     protected override void Update()
     {
         base.Update();
-        ValueText.text = (string) _playerGold.Value.ToString();
+        CurrencyText.text = (string) _playerGold.Value.ToString();
     }
 
     public void PreviewActionCost(bool check, float cost = 0)

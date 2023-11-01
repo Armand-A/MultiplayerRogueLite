@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 697d2c7cfdc971146bed4977482def6c, type: 3}
+  m_Name: DemoObstacle
+  m_EditorClassIdentifier: 
+  attackIndicator: {fileID: 3105378067847804673, guid: 7f6cc4f6c99fd00449d84e44df76319a, type: 3}
+  attackBehaviour: {fileID: 9075854353041951492, guid: 8480dfc97a21d9b4fae366285809bb91, type: 3}
+  sprite: {fileID: 21300000, guid: 1e11d124fba623a48b19078cb8bbd508, type: 3}
+  nextUpgrade: {fileID: 0}
+  nextUpgradePrice: 0
+  cannotCastOnEnemy: 1
+  healthCost: 0
+  manaCost: 0
+  actionCost: 5
+  damage: 0
+  cooldownTime: 3

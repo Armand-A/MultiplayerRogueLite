@@ -24,14 +24,6 @@ public class ProjectileAttackBehaviour : AttackBehaviour
         CheckDespawn();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            Debug.Log("Projectile hits enemy");
-        }
-    }
-
     void Orient()
     {
         if (!_hasOriented)
@@ -49,6 +41,16 @@ public class ProjectileAttackBehaviour : AttackBehaviour
     void CheckDespawn()
     {
         if (Vector3.Distance(transform.position, _srcPos) > maxDisplacement)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    protected override void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other);
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Block Attack"))
         {
             Destroy(gameObject);
         }

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class AbilityUpgradeUI : AbilityUI
+public class AbilityUpgradePreviewUI : AbilityUI
 {
     [SerializeField] Image beforeIcon;
     [SerializeField] Image afterIcon;
@@ -13,6 +13,10 @@ public class AbilityUpgradeUI : AbilityUI
     [SerializeField] TextMeshProUGUI manaCostText;
     [SerializeField] TextMeshProUGUI actionCostText;
     [SerializeField] TextMeshProUGUI damageText;
+    [SerializeField] TextMeshProUGUI cooldownText;
+    [SerializeField] TextMeshProUGUI errorText;
+    [SerializeField] TextMeshProUGUI priceText;
+    [SerializeField] Button confirmButton;
     [SerializeField] Color normalTextColor;
     [SerializeField] Color goodTextColor;
     [SerializeField] Color badTextColor;
@@ -40,7 +44,11 @@ public class AbilityUpgradeUI : AbilityUI
     public void OnConfirm()
     {
         if (confirmAction != null) confirmAction.Invoke();
-        uiManager.CloseUI();
+    }
+
+    public void ShowError(string errorMsg)
+    {
+        errorText.text = errorMsg;
     }
 
     private void UpdateUI(AttackScriptableObject ability)
@@ -63,5 +71,22 @@ public class AbilityUpgradeUI : AbilityUI
         float damageDiff = ability.NextUpgrade.Damage - ability.Damage;
         damageText.text = string.Format("Damage: {0} => {1} ({2}{3})", ability.Damage, ability.NextUpgrade.Damage, damageDiff > 0 ? "+" : "", damageDiff);
         damageText.color = damageDiff < 0.001 && damageDiff > -0.001 ? normalTextColor : damageDiff > 0 ? goodTextColor : badTextColor;
+
+        float cooldownDiff = ability.NextUpgrade.CooldownTime - ability.CooldownTime;
+        cooldownText.text = string.Format("Cooldown duration: {0} => {1} ({2}{3})", ability.CooldownTime, ability.NextUpgrade.CooldownTime, cooldownDiff > 0 ? "+" : "", cooldownDiff);
+        cooldownText.color = cooldownDiff < 0.001 && cooldownDiff > -0.001 ? normalTextColor : cooldownDiff > 0 ? goodTextColor : badTextColor;
+
+        errorText.text = null;
+
+        Currency currencyObject = FindObjectOfType<Currency>();
+        if (currencyObject != null)
+        {
+            float currencyAfterPrice = currencyObject.Value - ability.NextUpgradePrice;
+            priceText.text = string.Format("Price: ${0} (${1} => ${2})", ability.NextUpgradePrice, currencyObject.Value, currencyAfterPrice);
+            errorText.text = currencyAfterPrice < 0 ? "Insufficient currency" : null;
+        } else
+        {
+            throw new System.Exception("Currency object not found in AbilityUpgradePreviewUI");
+        }
     }
 }
