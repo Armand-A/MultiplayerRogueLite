@@ -15,8 +15,8 @@ public enum AttackSlot
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] float minAimDistance = 10f;
-    [SerializeField] float maxAimDistance = 30f;
+    [SerializeField] float minAimDistance = 5f;
+    [SerializeField] float maxAimDistance = 50f;
     
     [SerializeField] private List<AttackScriptableObject> attacks;
 
@@ -102,8 +102,14 @@ public class PlayerAttack : MonoBehaviour
 
     void Equip(AttackSlot attackSlot)
     {
-        List<AttackScriptableObject> attacks = GetComponent<PlayerAbilities>().EquippedAbilities;
+        PlayerAbilities playerAbilities = GetComponent<PlayerAbilities>();
+        List<AttackScriptableObject> attacks = playerAbilities.EquippedAbilities;
+
+        // check if there is ability equipped on selected slot
         if (attacks[(int)attackSlot] == null) return;
+
+        // check if ability is on cooldown
+        if (!playerAbilities.GetIsAbilityAvailable((int)attackSlot)) return;
 
         _equippedAttackSlot = attackSlot;
         _indicator = Instantiate(attacks[(int)_equippedAttackSlot].AttackIndicator).GetComponent<AttackIndicator>();
@@ -117,14 +123,22 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack()
     {
-        List<AttackScriptableObject> attacks = GetComponent<PlayerAbilities>().EquippedAbilities;
+        PlayerAbilities playerAbilities = GetComponent<PlayerAbilities>();
+        List<AttackScriptableObject> attacks = playerAbilities.EquippedAbilities;
         
+        // check if attack cannot be cast on enemy
+        if (_indicator != null && attacks[(int)_equippedAttackSlot].IsCannotCastOnEnemy && _indicator.HasEnemyInRange) return;
+
+        // check if ability is on cooldown, should've been checked by equip but just to be sure
+        if (!playerAbilities.GetIsAbilityAvailable((int)_equippedAttackSlot)) return;
+
         // Checks and consumes action points depending on if there is enough left
         if (!_playerData.UpdateAction(_actionCost))
             return;
         
         if (_indicator != null)
         {
+
             //Removes action cost preview
             _playerData.PreviewActionCost(false);
 
@@ -136,6 +150,8 @@ public class PlayerAttack : MonoBehaviour
         attackObject.SetPositions(_attackSrcPosition, _attackDstPosition);
         attackObject.SetDamage(attacks[(int)_equippedAttackSlot].Damage);
         attackObject.SetIsFromPlayer(true);
+
+        playerAbilities.StartAbilityCooldown((int)_equippedAttackSlot);
 
         _equippedAttackSlot = AttackSlot.None;
 

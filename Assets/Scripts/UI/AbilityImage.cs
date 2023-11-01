@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class AbilityImage : MonoBehaviour
 {
     [SerializeField] private AttackSlot slot = AttackSlot.None;
+    [SerializeField] private GameObject cooldownOverlay;
     private PlayerAbilities _abilities;
     private PlayerAttack _playerAttack;
     private AttackScriptableObject _attack;
@@ -38,6 +39,16 @@ public class AbilityImage : MonoBehaviour
     {
         _playerAttack.RemoveEquipListener(_equipAction);
         _playerAttack.RemoveUnequipListener(_unequipAction);
+    }
+
+    private void Update()
+    {
+        if (slot != AttackSlot.None)
+        {
+            Vector3 overlayScale = cooldownOverlay.transform.localScale;
+            overlayScale.y = 1 - _abilities.GetAbilityCooldownPercentage((int)slot);
+            cooldownOverlay.transform.localScale = overlayScale;
+        }
     }
 
     private void UpdateAttack()

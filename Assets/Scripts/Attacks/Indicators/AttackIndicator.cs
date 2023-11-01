@@ -12,7 +12,9 @@ public class AttackIndicator : MonoBehaviour
     protected Vector3 _dstPos = Vector3.zero;
 
     private int _enemyCountInCollider;
+    private bool hasEnemyInRange;
 
+    public bool HasEnemyInRange {  get { return hasEnemyInRange; } }
 
     public void SetPositions(Vector3 srcPos, Vector3 dstPos)
     {
@@ -24,7 +26,11 @@ public class AttackIndicator : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             _enemyCountInCollider++;
-            if (highlightMaterial != null && normalMaterial != null) GetComponent<Renderer>().material = highlightMaterial;
+            if (highlightMaterial != null && normalMaterial != null)
+            {
+                hasEnemyInRange = true;
+                GetComponent<Renderer>().material = highlightMaterial;
+            }
         }
     }
 
@@ -33,7 +39,11 @@ public class AttackIndicator : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             _enemyCountInCollider--;
-            if (_enemyCountInCollider == 0 && highlightMaterial != null && normalMaterial != null) GetComponent<Renderer>().material = normalMaterial;
+            if (_enemyCountInCollider == 0 && highlightMaterial != null && normalMaterial != null)
+            {
+                hasEnemyInRange = false;
+                GetComponent<Renderer>().material = normalMaterial;
+            }
         }
     }
 }

@@ -1395,7 +1395,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4692496779187038619}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.048844013, y: 7.157972e-10, z: -1.0710764e-10, w: 0.9988064}
+  m_LocalRotation: {x: 0.048844006, y: -7.4749096e-11, z: 1.1185025e-11, w: 0.9988064}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1789,8 +1789,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba846d78861ab9540b43af9fb203d8a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minAimDistance: 10
-  maxAimDistance: 30
+  minAimDistance: 5
+  maxAimDistance: 50
   attacks:
   - {fileID: 11400000, guid: 1ad0a7a5b3397cf4ba7bf752e0bdca90, type: 2}
   - {fileID: 11400000, guid: d0aaf2adf8d83ac489cb349226de0434, type: 2}
@@ -1892,7 +1892,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb669e0f918ba1b4095ae43fc6f3d3a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 100
+  Value: 20
 --- !u!114 &8803110669751841720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1921,6 +1921,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1ad0a7a5b3397cf4ba7bf752e0bdca90, type: 2}
   - {fileID: 11400000, guid: 8f5ebc05ad354e54f9e41d643b6de26a, type: 2}
   - {fileID: 11400000, guid: d0aaf2adf8d83ac489cb349226de0434, type: 2}
+  - {fileID: 11400000, guid: 2f3179efe1ddaee4aac1a9d5c476807d, type: 2}
   equippedAbilites:
   - {fileID: 11400000, guid: d0aaf2adf8d83ac489cb349226de0434, type: 2}
   - {fileID: 0}
