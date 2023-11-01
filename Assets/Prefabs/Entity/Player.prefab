@@ -843,7 +843,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2872696519969115180}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0000000037252899, y: -0.0000000021401234, z: 2.1401236e-10, w: 1}
+  m_LocalRotation: {x: -0, y: 0.0000000045736708, z: -4.5736706e-10, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1675,6 +1675,7 @@ GameObject:
   - component: {fileID: 2489274663763615533}
   - component: {fileID: 8803110669751841720}
   - component: {fileID: 1911455164369982930}
+  - component: {fileID: 1929624182440725285}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1715,6 +1716,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthGauge: {fileID: 3866501247750568447}
   _actionGauge: {fileID: 4364497813304028342}
+  CombatMode: 0
+  CombatTimeout: 5
   Alive: 1
   CurrencyText: {fileID: 1725695279009332949}
 --- !u!114 &448400250679474126
@@ -1751,6 +1754,7 @@ MonoBehaviour:
   SpeedBoost: 1
   GroundDrag: 5
   AirMultiplyer: 0.1
+  CombatSpeedMultiplyer: 0.5
   JumpBool: 0
   CanJump: 1
   JumpForce: 10
@@ -1766,12 +1770,13 @@ MonoBehaviour:
   GroundLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  _playerCamera: {fileID: 6631941099410726390}
   DashBool: 0
   DashForce: 200
   DashCD: 2
   DashRemaining: 2
   MaxDash: 2
+  DashCost: 2
+  _playerCamera: {fileID: 6631941099410726390}
 --- !u!114 &8190766282632357685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1836,6 +1841,7 @@ MonoBehaviour:
   TotalValue: 100
   RechargeInterval: 1
   RechargeRate: 2
+  RechargeModifier: 1
 --- !u!114 &1200443513557212366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1854,6 +1860,7 @@ MonoBehaviour:
   TotalValue: 100
   RechargeInterval: 1
   RechargeRate: 2
+  RechargeModifier: 1
 --- !u!114 &1304741492310240587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1872,6 +1879,7 @@ MonoBehaviour:
   TotalValue: 100
   RechargeInterval: 1
   RechargeRate: 2
+  RechargeModifier: 1
 --- !u!114 &2489274663763615533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1920,6 +1928,34 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   changeEquippedAbilityEvent: {fileID: 11400000, guid: 02ccb452f3d95e9469eb20b995d1c9f4, type: 2}
+--- !u!114 &1929624182440725285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597020812433783531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad4b2e8cb0c59c241a20dea5e990b64e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 3de21ae7feb97d445b7c092d4b7f9b9a, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 295507439682169401}
+        m_TargetAssemblyTypeName: EntityData, Assembly-CSharp
+        m_MethodName: EnterCombatMode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6010359889337789226
 GameObject:
   m_ObjectHideFlags: 0
@@ -2106,7 +2142,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6870096435832121844}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.049813706, y: 0.0000000042962554, z: -2.1427841e-10, w: 0.99875855}
+  m_LocalRotation: {x: 0.0498137, y: 0.000000003803124, z: -1.8968316e-10, w: 0.99875855}
   m_LocalPosition: {x: 0, y: 2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2775,7 +2811,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7786863680498008491}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.048844006, y: -4.440892e-16, z: 9.7144515e-17, w: 0.9988064}
+  m_LocalRotation: {x: 0.048844013, y: 0.0000000061951146, z: -9.270004e-10, w: 0.9988064}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
