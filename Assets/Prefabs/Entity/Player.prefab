@@ -1758,7 +1758,7 @@ MonoBehaviour:
   JumpBool: 0
   CanJump: 1
   JumpForce: 10
-  Gravity: -15
+  Gravity: -200
   JumpIntervalCD: 0.5
   JumpCD: 0.1
   JumpRemaining: 2

@@ -243,6 +243,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void SlopeCheck()
+    {
+        
+    }
+
     /// <summary>
     /// Character movement
     /// </summary>
