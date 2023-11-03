@@ -317,6 +317,10 @@ GameObject:
   - component: {fileID: 5298478887982807365}
   - component: {fileID: 7208931441577277649}
   - component: {fileID: 8032677574623958026}
+  - component: {fileID: 1967016983704998535}
+  - component: {fileID: 2521059320912964109}
+  - component: {fileID: 6774010157693050078}
+  - component: {fileID: 1667624520350981021}
   m_Layer: 0
   m_Name: MeleeEnemy
   m_TagString: Untagged
@@ -506,6 +510,76 @@ MonoBehaviour:
   Health: 10
   maxActions: 10
   currActions: 0
+--- !u!114 &1967016983704998535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853812570663994628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53ab215f512bcf240ad1f6ee7b19c927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthGauge: {fileID: 0}
+  _actionGauge: {fileID: 0}
+  CombatMode: 0
+  Alive: 1
+--- !u!114 &2521059320912964109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853812570663994628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d999dfcb898c8d43b4310178fe747c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 0
+  BaseValue: 20
+  MaxValue: 100
+  TotalValue: 0
+  RechargeInterval: 1
+  RechargeRate: 2
+--- !u!114 &6774010157693050078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853812570663994628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2231e70241472364ba0822d750e0495f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 0
+  BaseValue: 20
+  MaxValue: 100
+  TotalValue: 0
+  RechargeInterval: 1
+  RechargeRate: 2
+--- !u!114 &1667624520350981021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853812570663994628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d205df20b784014b82f34a924d42edd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 0
+  BaseValue: 20
+  MaxValue: 100
+  TotalValue: 0
+  RechargeInterval: 1
+  RechargeRate: 2
 --- !u!1 &3490077621445736214
 GameObject:
   m_ObjectHideFlags: 0
