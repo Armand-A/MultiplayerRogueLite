@@ -506,10 +506,9 @@ MonoBehaviour:
   enemy: {fileID: 0}
   ranged: 0
   Attack: {fileID: 11400000, guid: cf8aaa852852c524aa1b73a7d57ef74e, type: 2}
-  Attack2: {fileID: 11400000, guid: 7bd6b8948d368df42b9ec757e753cf18, type: 2}
-  Health: 10
-  maxActions: 10
-  currActions: 0
+  Attack2: {fileID: 11400000, guid: 6f4a4eadc7384504da05aee8253ca133, type: 2}
+  actions: {fileID: 0}
+  health: {fileID: 0}
 --- !u!114 &1967016983704998535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,8 +521,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53ab215f512bcf240ad1f6ee7b19c927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthGauge: {fileID: 0}
-  _actionGauge: {fileID: 0}
+  _healthGauge: {fileID: 4615874274098450439}
+  _actionGauge: {fileID: 2250550695463128057}
   CombatMode: 0
   Alive: 1
 --- !u!114 &2521059320912964109

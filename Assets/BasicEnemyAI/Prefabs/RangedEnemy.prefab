@@ -968,8 +968,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53ab215f512bcf240ad1f6ee7b19c927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthGauge: {fileID: 0}
-  _actionGauge: {fileID: 0}
+  _healthGauge: {fileID: 7049144441226187932}
+  _actionGauge: {fileID: 7689241582844809536}
   CombatMode: 0
   Alive: 1
 --- !u!114 &7845452043291746931

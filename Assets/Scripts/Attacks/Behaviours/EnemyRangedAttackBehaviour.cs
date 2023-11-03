@@ -23,6 +23,7 @@ public class EnemyRangedAttackBehaviour : AttackBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Shot Player");
+            Destroy(gameObject);
         }
     }
 
