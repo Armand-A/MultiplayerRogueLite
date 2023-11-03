@@ -926,7 +926,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6127087731749915755}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -949,6 +949,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthGauge: {fileID: 111669627266848594}
   _actionGauge: {fileID: 3714951229989132436}
+  CombatMode: 0
+  CombatTimeout: 5
   Alive: 1
 --- !u!114 &6003420987359868496
 MonoBehaviour:
@@ -968,6 +970,7 @@ MonoBehaviour:
   TotalValue: 0
   RechargeInterval: 1
   RechargeRate: 2
+  RechargeModifier: 2
 --- !u!114 &3008665686695201217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -986,6 +989,7 @@ MonoBehaviour:
   TotalValue: 0
   RechargeInterval: 1
   RechargeRate: 2
+  RechargeModifier: 1
 --- !u!114 &1126781104185213411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1004,6 +1008,7 @@ MonoBehaviour:
   TotalValue: 0
   RechargeInterval: 1
   RechargeRate: 2
+  RechargeModifier: 1
 --- !u!54 &1195520281710921038
 Rigidbody:
   m_ObjectHideFlags: 0

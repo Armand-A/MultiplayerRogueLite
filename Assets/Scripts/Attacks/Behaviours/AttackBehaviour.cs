@@ -5,6 +5,8 @@ using UnityEngine;
 public class AttackBehaviour : MonoBehaviour
 {
     [SerializeField] private bool isInstantiateAtDestination;
+    [SerializeField] private GameEvent playerHitsEnemyEvent;
+    [SerializeField] private GameEvent enemyHitsPlayerEvent;
 
     protected Vector3 _srcPos = Vector3.zero;
     protected Vector3 _dstPos = Vector3.zero;
@@ -49,6 +51,16 @@ public class AttackBehaviour : MonoBehaviour
             )
             {
                 entity.UpdateHealth(-_damage);
+            }
+
+            if (entity is EnemyData && _isFromPlayer)
+            {
+                if (playerHitsEnemyEvent != null) playerHitsEnemyEvent.Raise();
+            }
+
+            if (entity is PlayerData && !_isFromPlayer)
+            {
+                if (enemyHitsPlayerEvent != null) enemyHitsPlayerEvent.Raise();
             }
         }
     }

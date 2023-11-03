@@ -13,16 +13,14 @@ public class EnemyBehaviour : MonoBehaviour
     public bool ranged;
     [SerializeField] private AttackScriptableObject Attack;
     [SerializeField] private AttackScriptableObject Attack2;
-    public int Health;
-    [SerializeField] private float maxActions;
-    [SerializeField] private float currActions;
-    private bool onActionRechargeCooldown;
+    [SerializeField] private Action actions;
+    public Health health;
 
     // Start is called before the first frame update
     void Start()
     {
-        onActionRechargeCooldown = false;
-        currActions = maxActions;
+        health = GetComponent<Health>();
+        actions = GetComponent<Action>();
         enemy = GetComponent<NavMeshAgent>();
         onCooldown = false;
         if(ranged)
@@ -38,13 +36,9 @@ public class EnemyBehaviour : MonoBehaviour
         {
             enemy.SetDestination(player.transform.position);
         }
-
-        if(currActions != maxActions && !onActionRechargeCooldown)
+        if(health.Value <= 0)
         {
-            onActionRechargeCooldown = true;
-            currActions++;
-            StartCoroutine(ActionRechargeCooldown());
-
+            Destroy(gameObject);
         }
     }
 
@@ -55,10 +49,10 @@ public class EnemyBehaviour : MonoBehaviour
             enemy.speed = 0;
             if (!onCooldown)
             {
-                if (Attack.ActionCost <= currActions)
+                if (Attack.ActionCost <= actions.Value)
                 {
                     onCooldown = true;
-                    currActions = currActions - Attack.ActionCost;
+                    actions.Value = actions.Value - Attack.ActionCost;
                     StartCoroutine(Cooldown());
                     EAttack();
                 }
@@ -76,23 +70,15 @@ public class EnemyBehaviour : MonoBehaviour
 
     void EAttack()
     {
-        if (!ranged)
-        {
-            int attack = Random.Range(1, 3);
-            if (attack == 1)
-            {
-                AttackBehaviour attackObject = Instantiate(Attack.AttackBehaviour, Attack.AttackBehaviour.GetIsInstantiateAtDestination() ? player.transform.position : gameObject.transform.position, Quaternion.identity);
-                attackObject.SetPositions(gameObject.transform.position, player.transform.position);
-            }
-            else if (attack == 2)
-            {
-                AttackBehaviour attackObject = Instantiate(Attack2.AttackBehaviour, Attack2.AttackBehaviour.GetIsInstantiateAtDestination() ? player.transform.position : gameObject.transform.position, Quaternion.identity);
-                attackObject.SetPositions(gameObject.transform.position, player.transform.position);
-            }
-        }
-        else if (ranged)
+        int attack = Random.Range(1, 3);
+        if (attack == 1)
         {
             AttackBehaviour attackObject = Instantiate(Attack.AttackBehaviour, Attack.AttackBehaviour.GetIsInstantiateAtDestination() ? player.transform.position : gameObject.transform.position, Quaternion.identity);
+            attackObject.SetPositions(gameObject.transform.position, player.transform.position);
+        }
+        else if (attack == 2)
+        {
+            AttackBehaviour attackObject = Instantiate(Attack2.AttackBehaviour, Attack2.AttackBehaviour.GetIsInstantiateAtDestination() ? player.transform.position : gameObject.transform.position, Quaternion.identity);
             attackObject.SetPositions(gameObject.transform.position, player.transform.position);
         }
     }
@@ -100,11 +86,5 @@ public class EnemyBehaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         onCooldown = false;
-    }
-
-    IEnumerator ActionRechargeCooldown()
-    {
-        yield return new WaitForSeconds(1);
-        onActionRechargeCooldown = false;
     }
 }
