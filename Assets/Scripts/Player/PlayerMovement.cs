@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Base speed force value")]
     public float BaseSpeed = 250.0f;
     [Tooltip("Player rigidbody mass")]
-    public float PMass = 5.0f;
+    public float PlayerMass = 5.0f;
     [Tooltip("Base speed value")]
     public float SprintMultiplyer = 2.0f;
     [Tooltip("Sprinting input")]
@@ -49,53 +49,58 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Jumping input")]
     public float JumpBool = 0.0f;
     [Tooltip("Able to Jump")]
-    public bool CanJump = true;
+    [SerializeField] bool CanJump = true;
     [Tooltip("The force of jump")]
-    public float JumpForce = 10f;
+    [SerializeField] float JumpForce = 10f;
     [Tooltip("Gravity value for character")]
-    public float Gravity = -15.0f;
+    [SerializeField] float Gravity = -15.0f;
     [Tooltip("Interval between jumps")]
-    public float JumpIntervalCD = 0.5f;
+    [SerializeField] float JumpIntervalCD = 0.5f;
     [Tooltip("Time required before being able to jump again. Set to 0f to instantly jump again")]
-    public float JumpCD = 0.1f;
+    [SerializeField] float JumpCD = 0.1f;
     [Tooltip("Number of jumps available")]
-    public int JumpRemaining = 2;
+    [SerializeField] int JumpRemaining = 2;
     [Tooltip("Number of jumps allowed")]
-    public int MaxJump = 2;
+    [SerializeField] int MaxJump = 2;
+
+    [Header("Stair/Slope Movement")]
+    [SerializeField] GameObject stepRayUpper;
+    [SerializeField] GameObject stepRayLower;
+    [SerializeField] float stepHeight = 0.3f;
+    [SerializeField] float stepSmooth = 2f;
 
     /// <summary>
     /// Grounded checking variables
     /// </summary>
     [Header("Player Grounded")]
     [Tooltip("If the character is grounded or not")]
-    public bool Grounded = false;
+    [SerializeField] bool Grounded = false;
     [Tooltip("How deep should the raycast check for ground")]
-    public float GroundedOffset = 0.1f;
+    [SerializeField] float GroundedOffset = 0.1f;
     [Tooltip("The radius of the ground raycast detection range")]
-    public float GroundedRadius = 0.1f;
+    [SerializeField] float GroundedRadius = 0.1f;
     [Tooltip("Height of character")]
-    public float PlayerHeight = 2f;
+    [SerializeField] float PlayerHeight = 2f;
     [Tooltip("What layers the character can jump off of")]
-    public LayerMask GroundLayers;
+    [SerializeField] LayerMask GroundLayers;
 
 
     [Header("Abilities")]
     [Tooltip("Dash input")]
     public float DashBool = 0.0f;
     [Tooltip("Dash input")]
-    public float DashForce = 200.0f;
+    [SerializeField] float DashForce = 200.0f;
     [Tooltip("Dash Cooldown")]
-    public float DashCD = 2.0f;
+    [SerializeField] float DashCD = 2.0f;
     [Tooltip("Dash Remaining")]
-    public int DashRemaining = 2;
+    [SerializeField] int DashRemaining = 2;
     [Tooltip("Max dash stored")]
-    public int MaxDash = 2;
+    [SerializeField] int MaxDash = 2;
     [Tooltip("Dash action cost")]
-    public int DashCost = 2;
+    [SerializeField] int DashCost = 2;
 
     [Header("Other")]
-    [SerializeField]
-    private PlayerCamera _playerCamera;
+    [SerializeField] PlayerCamera _playerCamera;
     private PlayerData _playerData;
 
     private CooldownTimer _jumpCDTimer;
@@ -112,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody>();
-        _rigidBody.mass = PMass;
+        _rigidBody.mass = PlayerMass;
         _rigidBody.freezeRotation = true;
 
         _jumpCDTimer = new CooldownTimer(JumpCD);
@@ -227,11 +232,11 @@ public class PlayerMovement : MonoBehaviour
     private void GroundedCheck()
     {
         // Sphere radius method, better with uneven ground (Require layers for ground)
-        // Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - PlayerHeight * 0.5f, transform.position.z);
-        // Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
+        Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - PlayerHeight * 0.5f + GroundedRadius, transform.position.z);
+        Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
         
         //Raycast method to detect ground
-        Grounded = Physics.Raycast(transform.position, Vector3.down, PlayerHeight * 0.5f + GroundedOffset, GroundLayers);
+        // Grounded = Physics.Raycast(transform.position, Vector3.down, PlayerHeight * 0.5f + GroundedOffset, GroundLayers);
         
         _rigidBody.drag = Grounded ? GroundDrag : 1;
         if (Grounded)
