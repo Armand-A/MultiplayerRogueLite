@@ -9,12 +9,14 @@ public class PlayerDetection : MonoBehaviour
     [Header("Sensing Suite")]
     public bool hasLOS;
     private EnemyBehaviour enemyBehaviour;
+    private EnemyData enemyData;
     public LayerMask collisionLayerMask;
 
     // Start is called before the first frame update
     void Start()
     {
         enemyBehaviour = transform.parent.GetComponent<EnemyBehaviour>();
+        enemyData = transform.parent.GetComponent<EnemyData>();
         hasLOS = false;
         gameObject.GetComponent<SphereCollider>().enabled = true;
 
@@ -39,6 +41,8 @@ public class PlayerDetection : MonoBehaviour
         {
             enemyBehaviour.player = other.gameObject;
             enemyBehaviour.playerDetected = true;
+            enemyData.CombatMode = true;
+
             Debug.Log("I see the player");
             gameObject.GetComponent<SphereCollider>().enabled = false;
         }
