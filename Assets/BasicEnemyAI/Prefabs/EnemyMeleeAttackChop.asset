@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 697d2c7cfdc971146bed4977482def6c, type: 3}
-  m_Name: EnemyHomingAttack
+  m_Name: EnemyMeleeAttackChop
   m_EditorClassIdentifier: 
   attackIndicator: {fileID: 0}
-  attackBehaviour: {fileID: 517036711605409001, guid: 35ae2f2e86f252240b9c38ff82ec7751, type: 3}
+  attackBehaviour: {fileID: 7080598146417619794, guid: 4c454b3012b487048a625b46b07b38f9, type: 3}
   sprite: {fileID: 0}
   nextUpgrade: {fileID: 0}
   healthCost: 0
   manaCost: 0
-  actionCost: 15
-  damage: 10
+  actionCost: 5
+  damage: 5
