@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d07d302cb300ab41bd0ce94e5fa63a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseObject: {fileID: 0}
+  BaseObject: {fileID: 1451739644025455379}
 --- !u!1 &2918090034318996065
 GameObject:
   m_ObjectHideFlags: 0
@@ -953,9 +953,8 @@ MonoBehaviour:
   ranged: 1
   Attack: {fileID: 11400000, guid: 2f536726b0491104ba9d7922e76ede9c, type: 2}
   Attack2: {fileID: 11400000, guid: 7bd6b8948d368df42b9ec757e753cf18, type: 2}
-  Health: 10
-  maxActions: 10
-  currActions: 0
+  actions: {fileID: 0}
+  health: {fileID: 0}
 --- !u!114 &1307321776174165603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -971,6 +970,7 @@ MonoBehaviour:
   _healthGauge: {fileID: 7049144441226187932}
   _actionGauge: {fileID: 7689241582844809536}
   CombatMode: 0
+  CombatTimeout: 3
   Alive: 1
 --- !u!114 &7845452043291746931
 MonoBehaviour:
@@ -990,6 +990,7 @@ MonoBehaviour:
   TotalValue: 0
   RechargeInterval: 1
   RechargeRate: 2
+  RechargeModifier: 1
 --- !u!114 &1250791946405047257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1008,6 +1009,7 @@ MonoBehaviour:
   TotalValue: 0
   RechargeInterval: 1
   RechargeRate: 2
+  RechargeModifier: 1
 --- !u!114 &1736233337766477373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1026,6 +1028,7 @@ MonoBehaviour:
   TotalValue: 0
   RechargeInterval: 1
   RechargeRate: 2
+  RechargeModifier: 1
 --- !u!1 &7336106087930792450
 GameObject:
   m_ObjectHideFlags: 0

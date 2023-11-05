@@ -524,6 +524,7 @@ MonoBehaviour:
   _healthGauge: {fileID: 4615874274098450439}
   _actionGauge: {fileID: 2250550695463128057}
   CombatMode: 0
+  CombatTimeout: 3
   Alive: 1
 --- !u!114 &2521059320912964109
 MonoBehaviour:
@@ -543,6 +544,7 @@ MonoBehaviour:
   TotalValue: 0
   RechargeInterval: 1
   RechargeRate: 2
+  RechargeModifier: 1
 --- !u!114 &6774010157693050078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -561,6 +563,7 @@ MonoBehaviour:
   TotalValue: 0
   RechargeInterval: 1
   RechargeRate: 2
+  RechargeModifier: 1
 --- !u!114 &1667624520350981021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,6 +582,7 @@ MonoBehaviour:
   TotalValue: 0
   RechargeInterval: 1
   RechargeRate: 2
+  RechargeModifier: 1
 --- !u!1 &3490077621445736214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,7 +1209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d07d302cb300ab41bd0ce94e5fa63a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseObject: {fileID: 0}
+  BaseObject: {fileID: 3362119729283013796}
 --- !u!1 &8134084371296210592
 GameObject:
   m_ObjectHideFlags: 0
