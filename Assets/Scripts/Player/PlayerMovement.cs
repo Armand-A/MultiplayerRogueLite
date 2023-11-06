@@ -19,14 +19,13 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Movement input vector")]
     public Vector2 MoveVector = Vector2.zero;
     [Tooltip("Object that help orient player movement direction based on camera")]
-    public Transform Orientation;
+    [SerializeField] Transform Orientation;
     [Tooltip("Movement direction")]
-    [SerializeField]
-    private Vector3 MoveDir;
+    [SerializeField] Vector3 MoveDir;
     [Tooltip("Base speed force value")]
-    public float BaseSpeed = 250.0f;
+    [SerializeField] float BaseSpeed = 250.0f;
     [Tooltip("Player rigidbody mass")]
-    public float PMass = 5.0f;
+    [SerializeField] float PlayerMass = 5.0f;
     [Tooltip("Base speed value")]
     public float SprintMultiplyer = 2.0f;
     [Tooltip("Sprinting input")]
@@ -40,6 +39,15 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Multiplyer for speed decrese during combat")]
     public float CombatSpeedMultiplyer = 0.5f;
 
+    [Header("Stair/Slope Movement")]
+    [SerializeField] private float stepHeight = 0.2f;
+    //[SerializeField] private float stepSmooth = 2f;
+    [SerializeField] private float maxSlopeAngle = 40f;
+    private Collider stepTarget;
+    private RaycastHit slopeHit;
+    private bool exitingSlope;
+    [SerializeField] private GameObject stairDetector;
+
     /// <summary>
     /// Vertical Jump movement variables
     /// </summary>
@@ -49,53 +57,52 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Jumping input")]
     public float JumpBool = 0.0f;
     [Tooltip("Able to Jump")]
-    public bool CanJump = true;
+    [SerializeField] bool CanJump = true;
     [Tooltip("The force of jump")]
-    public float JumpForce = 10f;
+    [SerializeField] float JumpForce = 10f;
     [Tooltip("Gravity value for character")]
-    public float Gravity = -15.0f;
+    [SerializeField] float Gravity = -15.0f;
     [Tooltip("Interval between jumps")]
-    public float JumpIntervalCD = 0.5f;
+    [SerializeField] float JumpIntervalCD = 0.5f;
     [Tooltip("Time required before being able to jump again. Set to 0f to instantly jump again")]
-    public float JumpCD = 0.1f;
+    [SerializeField] float JumpCD = 0.1f;
     [Tooltip("Number of jumps available")]
-    public int JumpRemaining = 2;
+    [SerializeField] int JumpRemaining = 2;
     [Tooltip("Number of jumps allowed")]
-    public int MaxJump = 2;
+    [SerializeField] int MaxJump = 2;
 
     /// <summary>
     /// Grounded checking variables
     /// </summary>
     [Header("Player Grounded")]
     [Tooltip("If the character is grounded or not")]
-    public bool Grounded = false;
-    [Tooltip("How deep should the raycast check for ground")]
-    public float GroundedOffset = 0.1f;
+    [SerializeField] bool Grounded = false;
+    //[Tooltip("How deep should the raycast check for ground")]
+    //[SerializeField] float GroundedOffset = 0.1f;
     [Tooltip("The radius of the ground raycast detection range")]
-    public float GroundedRadius = 0.1f;
+    [SerializeField] float GroundedRadius = 0.1f;
     [Tooltip("Height of character")]
-    public float PlayerHeight = 2f;
+    [SerializeField] float PlayerHeight = 2f;
     [Tooltip("What layers the character can jump off of")]
-    public LayerMask GroundLayers;
+    [SerializeField] LayerMask GroundLayers;
 
 
     [Header("Abilities")]
     [Tooltip("Dash input")]
     public float DashBool = 0.0f;
     [Tooltip("Dash input")]
-    public float DashForce = 200.0f;
+    [SerializeField] float DashForce = 200.0f;
     [Tooltip("Dash Cooldown")]
-    public float DashCD = 2.0f;
+    [SerializeField] float DashCD = 2.0f;
     [Tooltip("Dash Remaining")]
-    public int DashRemaining = 2;
+    [SerializeField] int DashRemaining = 2;
     [Tooltip("Max dash stored")]
-    public int MaxDash = 2;
+    [SerializeField] int MaxDash = 2;
     [Tooltip("Dash action cost")]
-    public int DashCost = 2;
+    [SerializeField] int DashCost = 2;
 
     [Header("Other")]
-    [SerializeField]
-    private PlayerCamera _playerCamera;
+    [SerializeField] PlayerCamera _playerCamera;
     private PlayerData _playerData;
 
     private CooldownTimer _jumpCDTimer;
@@ -112,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody>();
-        _rigidBody.mass = PMass;
+        _rigidBody.mass = PlayerMass;
         _rigidBody.freezeRotation = true;
 
         _jumpCDTimer = new CooldownTimer(JumpCD);
@@ -167,13 +174,15 @@ public class PlayerMovement : MonoBehaviour
         Dash();
         _dashCDTimer.Update(Time.deltaTime);
 
+        GroundedCheck();
+        GravityControl();
+
         /* Jump Mechanic functions
         _jumpCDTimer.Update(Time.deltaTime);
         _jumpIntervalTimer.Update(Time.deltaTime);
         Jump();
+        JumpCDControl();
         */
-        GroundedCheck();
-        GravityControl();
     }
 
     public void CheckCombatMode()
@@ -202,13 +211,24 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void JumpCDControl()
+    {
+        if (Grounded)
+        {
+            _jumpCount = 0;
+            _jumpIntervalTimer.Pause();
+            if (!_jumpCDTimer.IsActive && JumpRemaining < MaxJump)
+                _jumpCDTimer.Start();
+        }
+    }
+
     /// <summary>
     /// Applies gravity
     /// </summary>
     private void GravityControl()
     {
         // Do I need this? Might test later
-        if (!Grounded)
+        if (!OnSlope() && !OnClimbStep())
             _rigidBody.AddForce(new Vector3(0, Gravity, 0));
     }
 
@@ -227,20 +247,75 @@ public class PlayerMovement : MonoBehaviour
     private void GroundedCheck()
     {
         // Sphere radius method, better with uneven ground (Require layers for ground)
-        // Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - PlayerHeight * 0.5f, transform.position.z);
-        // Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
+        Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - PlayerHeight * 0.5f, transform.position.z);
+        Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
         
         //Raycast method to detect ground
-        Grounded = Physics.Raycast(transform.position, Vector3.down, PlayerHeight * 0.5f + GroundedOffset, GroundLayers);
+        // Grounded = Physics.Raycast(transform.position, Vector3.down, PlayerHeight * 0.5f + GroundedOffset, GroundLayers);
         
-        _rigidBody.drag = Grounded ? GroundDrag : 1;
-        if (Grounded)
+        if (OnClimbStep())
         {
-            _jumpCount = 0;
-            _jumpIntervalTimer.Pause();
-            if (!_jumpCDTimer.IsActive && JumpRemaining < MaxJump)
-                _jumpCDTimer.Start();
+            Grounded = true;
         }
+        _rigidBody.drag = Grounded ? GroundDrag : 1;
+    }
+
+    private bool OnClimbStep()
+    {
+        Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - PlayerHeight * 0.5f + stepHeight + 0.01f , stairDetector.transform.position.z);
+        // to see if it is about to hit anything.
+        Collider[] collisions = Physics.OverlapSphere(spherePosition, stepHeight, GroundLayers, QueryTriggerInteraction.Ignore);
+
+        // Get the step with the greatest difference
+        float highestStep = 0;
+
+        if (collisions.Length != 0)
+        {
+            foreach (Collider collision in collisions)
+            {
+                // height of the top of the detected object compared to the foot of the player
+                float stepHeightDifference = collision.bounds.center.y + collision.bounds.size.y/2 - (transform.position.y - PlayerHeight * 0.5f);
+                if (highestStep <=  stepHeight)
+                {
+                    // Debug.Log("Step upable");
+                    if (stepHeightDifference > highestStep)
+                    {
+                        highestStep = stepHeightDifference;
+                        stepTarget = collision;
+                    }
+                    //_rigidBody.position += new Vector3(0f, stepSmooth * Time.deltaTime, 0f);
+                }
+            }
+            if (highestStep > 0)
+                return true;
+        }
+        
+        return false;
+    }
+
+    private Vector3 GetStepDirection()
+    {
+        Vector3 stepTargetTop = stepTarget.bounds.center + new Vector3(0, stepTarget.bounds.size.y/2, 0);
+        Vector3 playerBottom = new Vector3(transform.position.x, (transform.position.y - PlayerHeight * 0.5f), transform.position.z);
+        Vector3 stepAngle = stepTargetTop - playerBottom;
+        return Vector3.ProjectOnPlane(MoveDir, stepAngle.normalized).normalized;
+    }
+
+    private bool OnSlope()
+    {
+        if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, PlayerHeight * 0.5f + 0.3f))
+        {
+            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+            return angle < maxSlopeAngle && angle != 0;
+        }
+
+        return false;
+    }
+
+    private Vector3 GetSlopeMoveDirection()
+    {
+        //Debug.Log(slopeHit.normal);
+        return Vector3.ProjectOnPlane(MoveDir, slopeHit.normal).normalized;
     }
 
     /// <summary>
@@ -269,7 +344,25 @@ public class PlayerMovement : MonoBehaviour
 
         //Calculates in midair movement
         _speed = Grounded ? _speed : _speed * AirMultiplyer;
-        _rigidBody.AddForce(MoveDir.normalized * _speed);
+        
+        // Different force distribution for slope movement
+        if (OnSlope())
+        {
+            //Debug.Log(GetSlopeMoveDirection());
+            _rigidBody.AddForce(GetSlopeMoveDirection() * _speed);
+        }
+        else if (OnClimbStep())
+        {
+            Vector3 temp = GetStepDirection();
+            Vector3 climbDirection = new Vector3(temp.x, -temp.y, temp.z);
+            //Debug.Log(stepTarget + " : " + climbDirection);
+            _rigidBody.AddForce(new Vector3(climbDirection.x * _speed, climbDirection.y * _speed, climbDirection.z * _speed));
+        }
+        else
+        {
+            _rigidBody.AddForce(MoveDir.normalized * _speed);
+        }
+
     }
 
     /// <summary>
@@ -278,11 +371,19 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void SpeedControl()
     {
-        Vector3 flatVel = new Vector3(_rigidBody.velocity.x, 0f, _rigidBody.velocity.z);
-        if (flatVel.magnitude > _speed && !_dashCDTimer.IsActive)
+        if (OnSlope() || OnClimbStep())
         {
-            Vector3 limitedVel = flatVel.normalized * _speed;
-            _rigidBody.velocity = new Vector3(limitedVel.x, _rigidBody.velocity.y, limitedVel.z);
+            if (_rigidBody.velocity.magnitude > _speed)
+                _rigidBody.velocity = _rigidBody.velocity.normalized * _speed;
+        }
+        else
+        {
+            Vector3 flatVel = new Vector3(_rigidBody.velocity.x, 0f, _rigidBody.velocity.z);
+            if (flatVel.magnitude > _speed && !_dashCDTimer.IsActive)
+            {
+                Vector3 limitedVel = flatVel.normalized * _speed;
+                _rigidBody.velocity = new Vector3(limitedVel.x, _rigidBody.velocity.y, limitedVel.z);
+            }
         }
     }
 
