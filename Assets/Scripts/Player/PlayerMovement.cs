@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 /// <summary>
 /// Reference
 ///     https://youtu.be/f473C43s8nE
 ///     https://youtu.be/UCwwn2q4Vys?list=PLO8cZuZwLyxNpkKDdu7I5K6iIpWLh9tbt
 /// </summary>
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     private Rigidbody _rigidBody;
 
@@ -85,13 +86,16 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Dash input")]
     public float DashBool = 0.0f;
     [Tooltip("Dash input")]
-    public float DashForce = 200.0f;
+    public float DashForce = 10.0f;
     [Tooltip("Dash Cooldown")]
     public float DashCD = 2.0f;
     [Tooltip("Dash Remaining")]
     public int DashRemaining = 2;
     [Tooltip("Max dash allowed")]
     public int MaxDash = 2;
+
+    [HideInInspector]
+    public bool isLocal;
 
     private CooldownTimer _jumpCDTimer;
     private CooldownTimer _jumpIntervalTimer;
@@ -112,6 +116,8 @@ public class PlayerMovement : MonoBehaviour
         _jumpCDTimer = new CooldownTimer(JumpCD);
         _jumpIntervalTimer = new CooldownTimer(JumpIntervalCD);
         _dashCDTimer = new CooldownTimer(DashCD);
+
+        
     }
 
     /// <summary>
@@ -140,6 +146,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        isLocal = isLocalPlayer;
     }
 
     /// <summary>
@@ -147,24 +154,26 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        // Camera function
-        _playerCamera.UpdateCamera(MoveVector);
+        //If this is the current player, accept movements
+        if(isLocalPlayer){
+            // Camera function
+            _playerCamera.UpdateCamera(MoveVector);
+            // Normal Movements
 
-        // Normal Movements
-        Movement();
-        SpeedControl();
+            Movement();
+            SpeedControl();
+            //Special Movement
+            Dash();
+            _dashCDTimer.Update(Time.deltaTime);
 
-        //Special Movement
-        Dash();
-        _dashCDTimer.Update(Time.deltaTime);
-
-        /* Jump Mechanic functions
-        _jumpCDTimer.Update(Time.deltaTime);
-        _jumpIntervalTimer.Update(Time.deltaTime);
-        Jump();
-        */
-        GroundedCheck();
-        GravityControl();
+            /* Jump Mechanic functions
+            _jumpCDTimer.Update(Time.deltaTime);
+            _jumpIntervalTimer.Update(Time.deltaTime);
+            Jump();
+            */
+            GroundedCheck();
+            GravityControl();
+        }
     }
 
     /// <summary>

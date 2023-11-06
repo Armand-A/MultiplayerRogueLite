@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 /// <summary>
 /// Reference
 ///     - https://www.youtube.com/watch?v=UCwwn2q4Vys
 /// </summary>
-public class PlayerCamera : MonoBehaviour
+public class PlayerCamera : NetworkBehaviour
 {
     [Header("References")]
     [Tooltip("To orientate player object's movement based on camera direction")]
@@ -39,6 +40,15 @@ public class PlayerCamera : MonoBehaviour
         Basic,
         Combat,
         Topdown
+    }
+
+    // Only keeps local player's camera.
+    private void Start(){
+         PlayerMovement cameraParent = transform.parent.gameObject.GetComponent<PlayerMovement>();
+        if (!cameraParent.isLocal){
+            // print("This is the non local player = " + gameObject.name);
+            Destroy(gameObject);
+        }  
     }
 
     // Makes sure player's movement is based off of camera's orientation
