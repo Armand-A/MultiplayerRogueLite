@@ -50,6 +50,7 @@ public class EnemyHomingAttack : AttackBehaviour
         else if(other.gameObject.tag == "Player" && lockedOn == true)
         {
             Debug.Log("Hit Home!");
+            Destroy(gameObject);
         }
     }
 
