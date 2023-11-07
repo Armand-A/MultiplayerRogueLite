@@ -277,11 +277,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1113354124278126538, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000045736708
+      value: -0.000000004574321
       objectReference: {fileID: 0}
     - target: {fileID: 1113354124278126538, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -4.5736706e-10
+      value: 4.57432e-10
       objectReference: {fileID: 0}
     - target: {fileID: 1359309375184076065, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -309,11 +309,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1596717553995089080, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000061951146
+      value: -0.000000006195427
       objectReference: {fileID: 0}
     - target: {fileID: 1596717553995089080, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -9.270003e-10
+      value: 9.270472e-10
       objectReference: {fileID: 0}
     - target: {fileID: 1911455164369982930, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: initialAbilities.Array.data[4]
@@ -341,11 +341,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2355030256040997562, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000000015444583
+      value: -0.000000009240587
       objectReference: {fileID: 0}
     - target: {fileID: 2355030256040997562, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 2.3110358e-10
+      value: 0.0000000013827071
       objectReference: {fileID: 0}
     - target: {fileID: 2534390237869086945, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_Enabled
@@ -381,11 +381,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5709150045112681738, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000003803124
+      value: -0.000000003803112
       objectReference: {fileID: 0}
     - target: {fileID: 5709150045112681738, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -1.8968316e-10
+      value: 1.8968256e-10
       objectReference: {fileID: 0}
     - target: {fileID: 7379773830057836544, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_AnchorMax.x
@@ -502,62 +502,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42756dc7d6cde8c4cb602caa276cef62, type: 3}
---- !u!1 &386415750
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 386415752}
-  - component: {fileID: 386415751}
-  m_Layer: 0
-  m_Name: PlayerAbilityManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &386415751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 386415750}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae9fa17e8a2fef7408e0b04947de774e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialAbilities:
-  - {fileID: 11400000, guid: 1ad0a7a5b3397cf4ba7bf752e0bdca90, type: 2}
-  - {fileID: 11400000, guid: 8f5ebc05ad354e54f9e41d643b6de26a, type: 2}
-  - {fileID: 11400000, guid: d0aaf2adf8d83ac489cb349226de0434, type: 2}
-  - {fileID: 11400000, guid: 2f3179efe1ddaee4aac1a9d5c476807d, type: 2}
-  equippedAbilites:
-  - {fileID: 11400000, guid: d0aaf2adf8d83ac489cb349226de0434, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  changeEquippedAbilityEvent: {fileID: 11400000, guid: 02ccb452f3d95e9469eb20b995d1c9f4, type: 2}
-  playerAbilityManagerPrefab: {fileID: 0}
---- !u!4 &386415752
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 386415750}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.5331135, y: -6.5931354, z: 24.153158}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &454793500
 GameObject:
   m_ObjectHideFlags: 0
@@ -1229,4 +1173,3 @@ SceneRoots:
   - {fileID: 937228808}
   - {fileID: 379254720}
   - {fileID: 797328451}
-  - {fileID: 386415752}
