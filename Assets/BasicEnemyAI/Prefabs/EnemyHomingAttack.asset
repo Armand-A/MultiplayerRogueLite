@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: EnemyHomingAttack
   m_EditorClassIdentifier: 
   attackIndicator: {fileID: 0}
-  attackBehaviour: {fileID: 517036711605409001, guid: 35ae2f2e86f252240b9c38ff82ec7751, type: 3}
+  attackBehaviour: {fileID: 6773427426377160142, guid: ed206d07c34275749aadc44a0f4bb129, type: 3}
   sprite: {fileID: 0}
   nextUpgrade: {fileID: 0}
+  nextUpgradePrice: 0
+  cannotCastOnEnemy: 0
   healthCost: 0
   manaCost: 0
   actionCost: 15
-  damage: 10
+  damage: 5
+  cooldownTime: 0
