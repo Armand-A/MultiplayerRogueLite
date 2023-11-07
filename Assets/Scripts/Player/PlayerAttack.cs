@@ -102,7 +102,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Equip(AttackSlot attackSlot)
     {
-        PlayerAbilities playerAbilities = GetComponent<PlayerAbilities>();
+        PlayerAbilities playerAbilities = FindObjectOfType<PlayerAbilities>();
         List<AttackScriptableObject> attacks = playerAbilities.EquippedAbilities;
 
         // check if there is ability equipped on selected slot
@@ -123,7 +123,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack()
     {
-        PlayerAbilities playerAbilities = GetComponent<PlayerAbilities>();
+        PlayerAbilities playerAbilities = FindObjectOfType<PlayerAbilities>();
         List<AttackScriptableObject> attacks = playerAbilities.EquippedAbilities;
         
         // check if attack cannot be cast on enemy
