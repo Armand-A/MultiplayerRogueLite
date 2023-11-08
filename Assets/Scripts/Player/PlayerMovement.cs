@@ -40,12 +40,16 @@ public class PlayerMovement : MonoBehaviour
     public float CombatSpeedMultiplyer = 0.5f;
 
     [Header("Stair/Slope Movement")]
-    [SerializeField] private float stepHeight = 0.2f;
-    //[SerializeField] private float stepSmooth = 2f;
-    [SerializeField] private float maxSlopeAngle = 40f;
+    [Tooltip("Allowed height for stepping up")]
+    [SerializeField] private float stepHeight = 0.5f;
+    [Tooltip("How smooth stepping up should be")]
+    [SerializeField] private float stepSmooth = 2f;
+    [Tooltip("Maximum allowed slope to climb")]
+    [SerializeField] private float maxSlopeAngle = 70f;
     private Collider stepTarget;
     private RaycastHit slopeHit;
     private bool exitingSlope;
+    [Tooltip("Collider to visualize and position the stair detecter")]
     [SerializeField] private GameObject stairDetector;
 
     /// <summary>
@@ -223,6 +227,15 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /// <summary>
+    /// Reset or add Jumping remaining
+    /// </summary>
+    private void JumpRecharge()
+    {
+        if (JumpRemaining < MaxJump)
+            JumpRemaining++;
+    }
+
+    /// <summary>
     /// Applies gravity
     /// </summary>
     private void GravityControl()
@@ -230,15 +243,6 @@ public class PlayerMovement : MonoBehaviour
         // Do I need this? Might test later
         if (!OnSlope() && !OnClimbStep())
             _rigidBody.AddForce(new Vector3(0, Gravity, 0));
-    }
-
-    /// <summary>
-    /// Reset or add Jumping remaining
-    /// </summary>
-    private void JumpRecharge()
-    {
-        if (JumpRemaining < MaxJump)
-            JumpRemaining++;
     }
     
     /// <summary>
@@ -278,12 +282,13 @@ public class PlayerMovement : MonoBehaviour
                 if (highestStep <=  stepHeight)
                 {
                     // Debug.Log("Step upable");
-                    if (stepHeightDifference > highestStep)
-                    {
-                        highestStep = stepHeightDifference;
-                        stepTarget = collision;
-                    }
-                    //_rigidBody.position += new Vector3(0f, stepSmooth * Time.deltaTime, 0f);
+                    // if (stepHeightDifference > highestStep)
+                    // {
+                    //     highestStep = stepHeightDifference;
+                    //     stepTarget = collision;
+                    // }
+                    
+                    return true;
                 }
             }
             if (highestStep > 0)
@@ -295,6 +300,10 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 GetStepDirection()
     {
+        if (stepTarget == null)
+        {
+            return MoveDir;
+        }
         Vector3 stepTargetTop = stepTarget.bounds.center + new Vector3(0, stepTarget.bounds.size.y/2, 0);
         Vector3 playerBottom = new Vector3(transform.position.x, (transform.position.y - PlayerHeight * 0.5f), transform.position.z);
         Vector3 stepAngle = stepTargetTop - playerBottom;
@@ -348,15 +357,17 @@ public class PlayerMovement : MonoBehaviour
         // Different force distribution for slope movement
         if (OnSlope())
         {
-            //Debug.Log(GetSlopeMoveDirection());
+            Debug.Log("On slope");
             _rigidBody.AddForce(GetSlopeMoveDirection() * _speed);
         }
-        else if (OnClimbStep())
+        else if (OnClimbStep() && MoveDir != Vector3.zero)
         {
-            Vector3 temp = GetStepDirection();
-            Vector3 climbDirection = new Vector3(temp.x, -temp.y, temp.z);
-            //Debug.Log(stepTarget + " : " + climbDirection);
-            _rigidBody.AddForce(new Vector3(climbDirection.x * _speed, climbDirection.y * _speed, climbDirection.z * _speed));
+            // Vector3 temp = GetStepDirection();
+            // Vector3 climbDirection = new Vector3(temp.x, -temp.y, temp.z);
+            // //Debug.Log(stepTarget + " : " + climbDirection);
+            // _rigidBody.AddForce(new Vector3(climbDirection.x * _speed, climbDirection.y * _speed, climbDirection.z * _speed));
+            _rigidBody.position += new Vector3(0f, stepSmooth * Time.deltaTime, 0f);
+            _rigidBody.AddForce(MoveDir.normalized * _speed);
         }
         else
         {
