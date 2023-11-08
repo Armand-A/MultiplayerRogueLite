@@ -16,7 +16,10 @@ MonoBehaviour:
   attackBehaviour: {fileID: 2236738695600107341, guid: 547b2b9a35b2bc34f8a3e9575ef55073, type: 3}
   sprite: {fileID: 0}
   nextUpgrade: {fileID: 0}
+  nextUpgradePrice: 0
+  cannotCastOnEnemy: 0
   healthCost: 0
   manaCost: 0
   actionCost: 5
   damage: 5
+  cooldownTime: 0

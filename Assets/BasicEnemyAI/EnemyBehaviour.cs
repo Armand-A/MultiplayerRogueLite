@@ -74,11 +74,15 @@ public class EnemyBehaviour : MonoBehaviour
         if (attack == 1)
         {
             AttackBehaviour attackObject = Instantiate(Attack.AttackBehaviour, Attack.AttackBehaviour.GetIsInstantiateAtDestination() ? player.transform.position : gameObject.transform.position, Quaternion.identity);
+            attackObject.SetDamage(Attack.Damage);
+            attackObject.SetIsFromPlayer(false);
             attackObject.SetPositions(gameObject.transform.position, player.transform.position);
         }
         else if (attack == 2)
         {
             AttackBehaviour attackObject = Instantiate(Attack2.AttackBehaviour, Attack2.AttackBehaviour.GetIsInstantiateAtDestination() ? player.transform.position : gameObject.transform.position, Quaternion.identity);
+            attackObject.SetDamage(Attack2.Damage);
+            attackObject.SetIsFromPlayer(false);
             attackObject.SetPositions(gameObject.transform.position, player.transform.position);
         }
     }

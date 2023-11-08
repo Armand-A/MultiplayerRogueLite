@@ -14,6 +14,7 @@ public class AttackBehaviour : MonoBehaviour
     protected float _damage = 0f;
 
     protected bool _isFromPlayer = false;
+    protected List<EntityData> damagedEntities = new List<EntityData>();
 
     public void SetPositions(Vector3 srcPos, Vector3 dstPos)
     {
@@ -44,12 +45,18 @@ public class AttackBehaviour : MonoBehaviour
         
         if (entity != null)
         {
+            if (damagedEntities.Contains(entity))
+            {
+                return;
+            }
+
             if
             (
                 (entity is EnemyData && _isFromPlayer) ||
                 (entity is PlayerData && !_isFromPlayer)
             )
             {
+                damagedEntities.Add(entity);
                 entity.UpdateHealth(-_damage);
             }
 

@@ -18,7 +18,7 @@ public class AbilityImage : MonoBehaviour
     private UnityAction<AttackSlot> _equipAction;
     private UnityAction _unequipAction;
 
-    private void OnEnable()
+    private void Start()
     {
         _equipAction = (AttackSlot attackSlot) => OnPlayerEquipAttack(attackSlot);
         _unequipAction = () => OnPlayerUnequipAttack();
