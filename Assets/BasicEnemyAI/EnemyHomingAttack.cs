@@ -6,7 +6,7 @@ using UnityEditor.U2D;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyHomingAttack : MonoBehaviour
+public class EnemyHomingAttack : AttackBehaviour
 {
     private NavMeshAgent bullet;
     [SerializeField] private float moveSpeed = 30f;
@@ -17,6 +17,7 @@ public class EnemyHomingAttack : MonoBehaviour
     {
         lockedOn = false;
         bullet = GetComponent<NavMeshAgent>();
+        transform.LookAt(_dstPos);
         StartCoroutine(Despawn());
     }
 
@@ -49,6 +50,7 @@ public class EnemyHomingAttack : MonoBehaviour
         else if(other.gameObject.tag == "Player" && lockedOn == true)
         {
             Debug.Log("Hit Home!");
+            Destroy(gameObject);
         }
     }
 

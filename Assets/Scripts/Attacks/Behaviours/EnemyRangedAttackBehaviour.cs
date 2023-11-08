@@ -18,7 +18,7 @@ public class EnemyRangedAttackBehaviour : AttackBehaviour
         Move();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {

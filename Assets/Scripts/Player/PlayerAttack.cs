@@ -19,11 +19,13 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] float maxAimDistance = 50f;
     
     [SerializeField] private List<AttackScriptableObject> attacks;
+    [SerializeField] private GameObject playerAbilityManagerPrefab;
 
     UnityEvent<AttackSlot> equipAttackEvent = new UnityEvent<AttackSlot>();
     UnityEvent unequipAttackEvent = new UnityEvent();
 
     private PlayerData _playerData;
+    private PlayerAbilities _playerAbilityManager;
 
     private GameObject _camera;
     private AttackIndicator _indicator;
@@ -35,6 +37,15 @@ public class PlayerAttack : MonoBehaviour
     private Vector3 _attackDstPosition;
 
     private float _actionCost;
+
+    private void Awake()
+    {
+        _playerAbilityManager = FindObjectOfType<PlayerAbilities>();
+        if (_playerAbilityManager == null)
+        {
+            _playerAbilityManager = Instantiate(playerAbilityManagerPrefab).GetComponent<PlayerAbilities>();
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -102,14 +113,13 @@ public class PlayerAttack : MonoBehaviour
 
     void Equip(AttackSlot attackSlot)
     {
-        PlayerAbilities playerAbilities = GetComponent<PlayerAbilities>();
-        List<AttackScriptableObject> attacks = playerAbilities.EquippedAbilities;
+        List<AttackScriptableObject> attacks = _playerAbilityManager.EquippedAbilities;
 
         // check if there is ability equipped on selected slot
         if (attacks[(int)attackSlot] == null) return;
 
         // check if ability is on cooldown
-        if (!playerAbilities.GetIsAbilityAvailable((int)attackSlot)) return;
+        if (!_playerAbilityManager.GetIsAbilityAvailable((int)attackSlot)) return;
 
         _equippedAttackSlot = attackSlot;
         _indicator = Instantiate(attacks[(int)_equippedAttackSlot].AttackIndicator).GetComponent<AttackIndicator>();
@@ -123,14 +133,13 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack()
     {
-        PlayerAbilities playerAbilities = GetComponent<PlayerAbilities>();
-        List<AttackScriptableObject> attacks = playerAbilities.EquippedAbilities;
+        List<AttackScriptableObject> attacks = _playerAbilityManager.EquippedAbilities;
         
         // check if attack cannot be cast on enemy
         if (_indicator != null && attacks[(int)_equippedAttackSlot].IsCannotCastOnEnemy && _indicator.HasEnemyInRange) return;
 
         // check if ability is on cooldown, should've been checked by equip but just to be sure
-        if (!playerAbilities.GetIsAbilityAvailable((int)_equippedAttackSlot)) return;
+        if (!_playerAbilityManager.GetIsAbilityAvailable((int)_equippedAttackSlot)) return;
 
         // Checks and consumes action points depending on if there is enough left
         if (!_playerData.UpdateAction(_actionCost))
@@ -151,7 +160,7 @@ public class PlayerAttack : MonoBehaviour
         attackObject.SetDamage(attacks[(int)_equippedAttackSlot].Damage);
         attackObject.SetIsFromPlayer(true);
 
-        playerAbilities.StartAbilityCooldown((int)_equippedAttackSlot);
+        _playerAbilityManager.StartAbilityCooldown((int)_equippedAttackSlot);
 
         _equippedAttackSlot = AttackSlot.None;
 

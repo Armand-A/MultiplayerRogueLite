@@ -28,6 +28,8 @@ public class PlayerAbilities : MonoBehaviour
             timer.Pause();
             equippedAbilitiesTimers.Add(timer);
         }
+
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
@@ -49,7 +51,7 @@ public class PlayerAbilities : MonoBehaviour
         if (!abilities.Contains(ability)) return false;
         if (ability.NextUpgrade == null) return false;
 
-        if (!GetComponent<Currency>().Transaction((int)-ability.NextUpgradePrice)) return false;
+        if (!FindObjectOfType<Currency>().Transaction((int)-ability.NextUpgradePrice)) return false;
 
         int index = abilities.IndexOf(ability);
         abilities[index] = ability.NextUpgrade;
