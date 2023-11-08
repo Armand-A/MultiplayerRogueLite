@@ -357,7 +357,7 @@ public class PlayerMovement : MonoBehaviour
         // Different force distribution for slope movement
         if (OnSlope())
         {
-            Debug.Log("On slope");
+            //Debug.Log("On slope");
             _rigidBody.AddForce(GetSlopeMoveDirection() * _speed);
         }
         else if (OnClimbStep() && MoveDir != Vector3.zero)
