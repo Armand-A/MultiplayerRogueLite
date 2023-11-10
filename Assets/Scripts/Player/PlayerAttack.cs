@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Mirror;
 
 public enum AttackSlot 
 { 
@@ -13,7 +14,7 @@ public enum AttackSlot
     None, 
 }
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerAttack : NetworkBehaviour 
 {
     [SerializeField] float minAimDistance = 5f;
     [SerializeField] float maxAimDistance = 50f;
@@ -48,7 +49,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        if (_equippedAttackSlot != AttackSlot.None)
+        if (isLocalPlayer && _equippedAttackSlot != AttackSlot.None)
         {
             // update attack source location
             _attackSrcPosition = transform.position;
