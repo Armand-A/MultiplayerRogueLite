@@ -17,6 +17,10 @@ public class LookAtCam : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (transform == null)
+        {
+            return;
+        }
         transform.position = new Vector3(BaseObject.transform.position.x, BaseObject.transform.position.y + 1.3f, BaseObject.transform.position.z);
         transform.LookAt(transform.position + Camera.forward);
     }

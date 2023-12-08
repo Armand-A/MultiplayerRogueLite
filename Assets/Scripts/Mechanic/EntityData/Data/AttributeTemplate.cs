@@ -9,19 +9,19 @@ public class AttributeTemplate : MonoBehaviour
 
     [Header("Attribute values")]
     [Tooltip("Default base value")]
-    public float BaseValue = 20;
+    [SerializeField] private float BaseValue = 20;
     [Tooltip("Positive or negative addition to base value (Buff/debuff)")]
     private float AddOnValue;
     [Tooltip("Max allowed value for the value")]
-    public float MaxValue = 100;
+    [SerializeField] private float MaxValue = 100;
     [Tooltip("Final Calculated total")]
     public float TotalValue;
     [Tooltip("Recharge interval durations")]
-    public float RechargeInterval = 1.0f;
+    [SerializeField] private float RechargeInterval = 1.0f;
     [Tooltip("Recharge quantity per interval")]
-    public float RechargeRate = 2.0f;
+    [SerializeField] private float RechargeRate = 2.0f;
     [Tooltip("In combat recharge rate modifier (Should be equal or above RechargeRate)")]
-    public float RechargeModifier = 1;
+    [SerializeField] private float RechargeModifier = 1;
 
     protected float _defaultRechargeValue = 2.0f;
 
@@ -61,7 +61,7 @@ public class AttributeTemplate : MonoBehaviour
     /// <summary>
     /// Adjusts value quantity
     /// </summary>
-    /// <param name="value"></param>
+    /// <param name="value"> Must use negative numbers to subtract value </param>
     /// <returns>Tells result if value was used or not</returns>
     public virtual bool UpdateValue(float value)
     {

@@ -49,10 +49,10 @@ public class EnemyBehaviour : MonoBehaviour
             enemy.speed = 0;
             if (!onCooldown)
             {
-                if (Attack.ActionCost <= actions.Value)
+                if (actions.UpdateValue(-Attack.ActionCost))
                 {
                     onCooldown = true;
-                    actions.Value = actions.Value - Attack.ActionCost;
+                    //actions.Value = actions.Value - Attack.ActionCost;
                     StartCoroutine(Cooldown());
                     EAttack();
                 }
