@@ -5,8 +5,7 @@ using UnityEngine;
 public class EntityData : MonoBehaviour
 {
     protected Health EntityHealth;
-    //protected Mana EntityMana;
-    protected Action EntityAction; // Stamina
+    protected Action EntityAction; // Pretty much Stamina/Mana
     protected Transform EntityTransform;
 
     [Header("Data display objects")]
@@ -49,8 +48,8 @@ public class EntityData : MonoBehaviour
     
     protected virtual void Update()
     {
-        if (_combatModeTimeout.IsActive)
-            _combatModeTimeout.Update(Time.deltaTime);
+        //if (_combatModeTimeout.IsActive)
+        _combatModeTimeout.Update(Time.deltaTime);
 
         _healthGauge.UpdateValue(EntityHealth.Value, EntityHealth.TotalValue);
         _actionGauge.UpdateValue(EntityAction.Value, EntityAction.TotalValue);
