@@ -8,6 +8,7 @@ public class Currency : MonoBehaviour
 
     /// <summary>
     /// Transaction succeeded or not
+    /// different from UpdateValue() because it doesn't have a maximum value
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>

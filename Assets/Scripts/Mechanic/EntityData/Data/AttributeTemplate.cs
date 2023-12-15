@@ -15,7 +15,7 @@ public class AttributeTemplate : MonoBehaviour
     [Tooltip("Max allowed value for the value")]
     [SerializeField] private float MaxValue = 100;
     [Tooltip("Final Calculated total")]
-    public float TotalValue;
+    public float TotalValue = 20;
     [Tooltip("Recharge interval durations")]
     [SerializeField] private float RechargeInterval = 1.0f;
     [Tooltip("Recharge quantity per interval")]
@@ -86,7 +86,7 @@ public class AttributeTemplate : MonoBehaviour
     {
         if (Value < TotalValue)
         {
-            UpdateValue(RechargeRate - RechargeModifier);
+            UpdateValue(RechargeRate + RechargeModifier);
         }
     }
 
@@ -105,22 +105,48 @@ public class AttributeTemplate : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Changes the maximum value of the attribute
+    /// </summary>
+    /// <param name="value"></param>
     public void UpdateTotalValue(float value = 0)
     {
-        AddOnValue += value;
-        if (AddOnValue < 0)
+        float tempAddOnValue = AddOnValue + value;
+        if (tempAddOnValue + BaseValue)
             AddOnValue = 0;
 
         TotalValue = BaseValue + AddOnValue;
     }
 
+    /// <summary>
+    /// setter for _incombat variable
+    /// </summary>
+    /// <param name="inCombat"></param>
     public virtual void InCombat(bool inCombat)
     {
         _inCombat = inCombat;
     }
 
+    /// <summary>
+    /// Changes the recharge rate modifier
+    /// </summary>
+    /// <param name="rate"></param>
+    public virtual bool UpdateRechargeRate(float rate)
+    {
+        float tempRechargeRate = RechargeRate + RechargeModifier + rate
+        if (0 > tempRechargeRate)
+        {
+            return false;
+        }
+        else if ()
+        return true;
+    }
+
+    /// <summary>
+    /// Returns the recharge rate back to normal
+    /// </summary>
     public void ResetRechargeRate()
     {
-        RechargeRate = _defaultRechargeValue;
+        RechargeModifier = 0;
     }
 }
