@@ -4,26 +4,42 @@ using UnityEngine;
 
 public class AttributeTemplate : MonoBehaviour
 {
+    enum ValueType
+    {
+        Flat,
+        Percentage
+    }
+
     // Health, Mana, Action values
     public float Value;
 
     [Header("Attribute values")]
     [Tooltip("Default base value")]
-    [SerializeField] private float BaseValue = 20;
-    [Tooltip("Positive or negative addition to base value (Buff/debuff)")]
-    private float AddOnValue;
-    [Tooltip("Max allowed value for the value")]
-    [SerializeField] private float MaxValue = 100;
-    [Tooltip("Final Calculated total")]
-    public float TotalValue = 20;
-    [Tooltip("Recharge interval durations")]
-    [SerializeField] private float RechargeInterval = 1.0f;
-    [Tooltip("Recharge quantity per interval")]
-    [SerializeField] private float RechargeRate = 2.0f;
-    [Tooltip("In combat recharge rate modifier (Should be equal or above RechargeRate)")]
-    [SerializeField] private float RechargeModifier = 1;
+    [SerializeField] protected float _baseValue = 20;
+    [Tooltip("Current total value")]
+    [SerializeField] protected float _totalValue = 20;
+    [Tooltip("Minimum value")]
+    [SerializeField] protected float _minValue = 100;
+    [Tooltip("Max value")]
+    [SerializeField] protected float _maxValue = 100;
 
-    protected float _defaultRechargeValue = 2.0f;
+    [Header("Attribute Recharge values")]
+    [SerializeField] protected bool RechargeIsActive = false;
+    [Tooltip("How much value is recharged each interval")]
+    [SerializeField] protected float _baseRechargeValue = 2.0f;
+    [Tooltip("Recharge interval durations")]
+    [SerializeField] protected float RechargeInterval = 1.0f;
+    [Tooltip("Recharge quantity per interval")]
+    [SerializeField] protected float RechargeRate = 2.0f;
+    [Tooltip("Recharge buff/debuff")]
+    [SerializeField] private float RechargeModifier = 0;
+
+    public float TotalValue {get{return _totalValue;}}
+    //Positive or negative addition to total value (Buff/debuff)
+    private float _addOnValue;
+
+    private Dictionary<string, ValueBuff> _valDict;
+    private Dictionary<string, RegenBuff> _regBuffDict;
 
     private CooldownTimer _rechargeTimer;
     private bool _inCombat = false;
@@ -34,7 +50,7 @@ public class AttributeTemplate : MonoBehaviour
         UpdateTotalValue();
         if (Value == 0)
         {
-            Value = TotalValue;
+            Value = _totalValue;
         }
 
         _rechargeTimer = new CooldownTimer(RechargeInterval, true);
@@ -52,10 +68,13 @@ public class AttributeTemplate : MonoBehaviour
     
     private void Update()
     {
-        _rechargeTimer.Update(Time.deltaTime);
+        if (RechargeIsActive)
+        {
+            _rechargeTimer.Update(Time.deltaTime);
+            RechargeCheck();
+        }
 
-        //ActionGaugeObject.UpdateValue(Value, TotalValue);
-        RechargeCheck();
+        //ActionGaugeObject.UpdateValue(Value, _totalValue);
     }
 
     /// <summary>
@@ -71,8 +90,8 @@ public class AttributeTemplate : MonoBehaviour
         }
         else
         {
-            if (Value + value > TotalValue)
-                Value = TotalValue;
+            if (Value + value > _totalValue)
+                Value = _totalValue;
             else
                 Value += value;
         }
@@ -84,7 +103,7 @@ public class AttributeTemplate : MonoBehaviour
     /// </summary>
     protected virtual void Recharge()
     {
-        if (Value < TotalValue)
+        if (Value < _totalValue)
         {
             UpdateValue(RechargeRate + RechargeModifier);
         }
@@ -95,11 +114,11 @@ public class AttributeTemplate : MonoBehaviour
     /// </summary>
     protected virtual void RechargeCheck()
     {
-        if (Value >= TotalValue && _rechargeTimer.IsActive)
+        if (Value >= _totalValue && _rechargeTimer.IsActive)
         {
             _rechargeTimer.Pause();
         }
-        else if (Value < TotalValue && !_rechargeTimer.IsActive)
+        else if (Value < _totalValue && !_rechargeTimer.IsActive)
         {
             _rechargeTimer.Start();
         }
@@ -111,11 +130,11 @@ public class AttributeTemplate : MonoBehaviour
     /// <param name="value"></param>
     public void UpdateTotalValue(float value = 0)
     {
-        float tempAddOnValue = AddOnValue + value;
-        if (tempAddOnValue + BaseValue)
-            AddOnValue = 0;
+        float tempAddOnValue = _addOnValue + value;
+        if (tempAddOnValue + _baseValue < 0)
+            _addOnValue = 0;
 
-        TotalValue = BaseValue + AddOnValue;
+        _totalValue = _baseValue + _addOnValue;
     }
 
     /// <summary>
@@ -133,12 +152,15 @@ public class AttributeTemplate : MonoBehaviour
     /// <param name="rate"></param>
     public virtual bool UpdateRechargeRate(float rate)
     {
-        float tempRechargeRate = RechargeRate + RechargeModifier + rate
+        float tempRechargeRate = RechargeRate + RechargeModifier + rate;
         if (0 > tempRechargeRate)
         {
             return false;
         }
-        else if ()
+        else
+        {
+            RechargeRate = tempRechargeRate;
+        }
         return true;
     }
 
@@ -148,5 +170,63 @@ public class AttributeTemplate : MonoBehaviour
     public void ResetRechargeRate()
     {
         RechargeModifier = 0;
+    }
+}
+
+public class ValueBuff
+{
+    public CooldownTimer Timer;
+    private float _buffValue;
+    public float BuffValue
+    {
+        get {return _buffValue;}
+    }
+    private float _duration;
+
+    public ValueBuff(float value, float duration)
+    {
+        _buffValue = value;
+        _duration = duration;
+
+        Timer = new CooldownTimer(_duration);
+    }
+}
+
+public class RegenBuff
+{
+    public CooldownTimer Timer;
+    private float _buffValue;
+    public float BuffValue
+    {
+        get {return _buffValue;}
+    }
+    private float _interval;
+    private float _rate;
+    private float _duration;
+
+    public RegenBuff(float interval, float rate, float duration)
+    {
+        _interval = interval;
+        _rate = rate;
+        _duration = duration;
+
+        Timer = new CooldownTimer(_duration);
+    }
+}
+
+public class Buff
+{
+    public CooldownTimer Timer;
+    private float _interval;
+    private float _rate;
+    private float _duration;
+
+    public Buff(float value, float interval, float rate, float duration)
+    {
+        _interval = interval;
+        _rate = rate;
+        _duration = duration;
+
+        Timer = new CooldownTimer(_duration);
     }
 }

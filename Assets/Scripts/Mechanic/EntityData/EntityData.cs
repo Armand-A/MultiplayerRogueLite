@@ -29,7 +29,6 @@ public class EntityData : MonoBehaviour
     protected virtual void Awake()
     {
         EntityHealth = GetComponent<Health>();
-        //EntityMana = GetComponent<Mana>();
         EntityAction = GetComponent<Action>();
         EntityTransform = this.transform;
 

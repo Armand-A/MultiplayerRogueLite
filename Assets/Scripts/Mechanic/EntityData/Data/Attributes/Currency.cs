@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class Currency : MonoBehaviour
 {
-    public int Value = 100;
+    private int _value = 100;
+
+    public int Value
+    {
+        get{return _value;}
+    }
 
     /// <summary>
     /// Transaction succeeded or not
@@ -20,7 +25,7 @@ public class Currency : MonoBehaviour
         }
         else
         {
-            Value += value;
+            _value += value;
         }
         return true;
     }
