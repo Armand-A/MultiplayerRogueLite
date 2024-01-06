@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 697d2c7cfdc971146bed4977482def6c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - attackIndicator: {instanceID: 0}
+  - sprite: {instanceID: 0}
+  - nextUpgrade: {instanceID: 0}
+  - playerHitsEnemyEvent: {fileID: 11400000, guid: 3de21ae7feb97d445b7c092d4b7f9b9a, type: 2}
+  - enemyHitsPlayerEvent: {fileID: 11400000, guid: 08cd2d210d36e044b92c1f3ac5e62cce, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

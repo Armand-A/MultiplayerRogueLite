@@ -11,7 +11,7 @@ public class AbilityImage : MonoBehaviour
     [SerializeField] private GameObject cooldownOverlay;
     private PlayerAbilities _abilities;
     private PlayerAttack _playerAttack;
-    private AttackScriptableObject _attack;
+    private Ability _attack;
     private Outline _outline;
     private Image _image;
 
