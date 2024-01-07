@@ -28,7 +28,7 @@ public class PlayerAttack : MonoBehaviour
     private PlayerAbilities _playerAbilityManager;
 
     private GameObject _camera;
-    private AttackIndicator _indicator;
+    private AbIndicator _indicator;
 
     private AttackSlot _equippedAttackSlot = AttackSlot.None;
     public AttackSlot EquipedAttackSlot { get { return _equippedAttackSlot; } }
@@ -122,7 +122,7 @@ public class PlayerAttack : MonoBehaviour
         if (!_playerAbilityManager.GetIsAbilityAvailable((int)attackSlot)) return;
 
         _equippedAttackSlot = attackSlot;
-        _indicator = Instantiate(attacks[(int)_equippedAttackSlot].AttackIndicator).GetComponent<AttackIndicator>();
+        _indicator = Instantiate(attacks[(int)_equippedAttackSlot].AttackIndicator).GetComponent<AbIndicator>();
 
         //Allows preview cost of equipped action
         _actionCost = -attacks[(int)_equippedAttackSlot].ActionCost;

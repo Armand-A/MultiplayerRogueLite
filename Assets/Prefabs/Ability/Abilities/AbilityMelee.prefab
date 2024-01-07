@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 697d2c7cfdc971146bed4977482def6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackIndicator: {fileID: 8459501044080214791, guid: 4ee85a53128e65946a49595223810ae7, type: 3}
+  attackIndicator: {fileID: 9210748993678534009, guid: 4ee85a53128e65946a49595223810ae7, type: 3}
   sprite: {fileID: 21300000, guid: d2a135aead2b90740919f968969c7632, type: 3}
   nextUpgrade: {fileID: 0}
   nextUpgradePrice: 0
@@ -200,6 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901869b303a08a44fbe0e8e762a4505e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDestroyOnDamage: 0
 --- !u!114 &6383059297260025374
 MonoBehaviour:
   m_ObjectHideFlags: 0

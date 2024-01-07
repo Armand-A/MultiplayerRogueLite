@@ -5,12 +5,12 @@ using UnityEngine;
 public class Ability : MonoBehaviour
 {
     // Ability settings
-    [SerializeField] private AttackIndicator attackIndicator;
+    [SerializeField] private AbIndicator attackIndicator;
     [SerializeField] private Sprite sprite;
     [SerializeField] private Ability nextUpgrade;
     [SerializeField] private float nextUpgradePrice;
     [SerializeField] private bool cannotCastOnEnemy;
-    public AttackIndicator AttackIndicator { get { return attackIndicator; } }
+    public AbIndicator AttackIndicator { get { return attackIndicator; } }
     public Sprite Sprite { get { return sprite; } }
     public Ability NextUpgrade { get { return nextUpgrade; } }
     public float NextUpgradePrice { get { return nextUpgradePrice; } }

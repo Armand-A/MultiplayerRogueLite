@@ -4982,7 +4982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 697d2c7cfdc971146bed4977482def6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackIndicator: {fileID: 3241658915310647514, guid: 92ceec922aafdc34b9abe598852e3ab9, type: 3}
+  attackIndicator: {fileID: 6932023746338755616, guid: 92ceec922aafdc34b9abe598852e3ab9, type: 3}
   sprite: {fileID: 21300000, guid: f9fdc1dc0da37c74883123355a728453, type: 3}
   nextUpgrade: {fileID: 876172793251253612, guid: 4fc3db29e845a444baecf99c324e2098, type: 3}
   nextUpgradePrice: 10

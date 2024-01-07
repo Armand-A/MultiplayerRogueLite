@@ -12,8 +12,10 @@ GameObject:
   - component: {fileID: 1002868288082932141}
   - component: {fileID: 7983869034695824401}
   - component: {fileID: 7548610159293807326}
-  - component: {fileID: 4089985539311776040}
-  - component: {fileID: -739377520836126248}
+  - component: {fileID: 6796803838786837609}
+  - component: {fileID: -3361292051585148479}
+  - component: {fileID: 6842720420686914041}
+  - component: {fileID: 4957106849402827388}
   m_Layer: 0
   m_Name: AoeIndicator
   m_TagString: Untagged
@@ -109,34 +111,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!54 &4089985539311776040
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3320721869927748649}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &-739377520836126248
+--- !u!114 &6796803838786837609
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,10 +120,72 @@ MonoBehaviour:
   m_GameObject: {fileID: 3320721869927748649}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdd7bb7bf6724224b9459b7d928324ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f88a9c479428b44b8f1fd026e9e86b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-3361292051585148479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3320721869927748649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 130b19b588958184f84a2fd9b4d12fa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityIndicator: {fileID: 6796803838786837609}
+--- !u!114 &6842720420686914041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3320721869927748649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d93d618f0eca8943b90baed5ab9a257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: ee5fb88002093684887dd6c4d1f9e7f0, type: 2}
   normalMaterial: {fileID: 2100000, guid: c6c6441ae4974ca49865fb6e1fbb5483, type: 2}
-  radius: 4.5
-  height: 1
+--- !u!114 &4957106849402827388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3320721869927748649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44dc72753e8b31b46bb4f0d3a66966df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyCountOnChange:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6796803838786837609}
+        m_TargetAssemblyTypeName: AbIndicator, Assembly-CSharp
+        m_MethodName: OnEnemyCounterChange
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6842720420686914041}
+        m_TargetAssemblyTypeName: AbIndHighlightOnEnemyInRange, Assembly-CSharp
+        m_MethodName: OnEnemyCounterChange
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
