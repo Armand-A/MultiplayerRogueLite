@@ -3,13 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-interface IAbilityHomingable
-{
-    void SetHomingTarget(GameObject target);
-}
-
 [RequireComponent(typeof(Ability), typeof(NavMeshAgent))]
-public class AbilityMoveTowardsDstHomingNav : MonoBehaviour, IAbilityHomingable
+public class AbMoveTowardsDstHomingNav : MonoBehaviour, IAbilityHomingable
 {
     [SerializeField] private float moveSpeed = 15f;
     [SerializeField] private List<string> allowHomingTargetTags = new List<string>();

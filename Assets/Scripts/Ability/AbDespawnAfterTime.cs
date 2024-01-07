@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Ability))]
-public class AbilityDespawnAfterTime : MonoBehaviour
+public class AbDespawnAfterTime : MonoBehaviour
 {
     [SerializeField] private float timeBeforeDespawn = 3f;
 

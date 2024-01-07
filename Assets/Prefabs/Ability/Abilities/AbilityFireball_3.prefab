@@ -4846,7 +4846,6 @@ GameObject:
   - component: {fileID: 876172793251253612}
   - component: {fileID: -7894606758665342563}
   - component: {fileID: 3728448464451973799}
-  - component: {fileID: 2985306694212034434}
   - component: {fileID: -2422838404983018517}
   - component: {fileID: -5653264405756770338}
   m_Layer: 0
@@ -5021,20 +5020,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901869b303a08a44fbe0e8e762a4505e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ability: {fileID: 876172793251253612}
   isDestroyOnDamage: 0
---- !u!114 &2985306694212034434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7783548722218728632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a574d6c986b15084185d8edda7079eb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 0.5
 --- !u!114 &-2422838404983018517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5060,5 +5047,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2deaa5cf7cd4641b3245ba378aee94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ability: {fileID: 876172793251253612}
   collidingLayerNames:
   - Block Attack

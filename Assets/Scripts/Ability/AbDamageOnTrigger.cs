@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Ability))]
-public class AbilityDamageOnTrigger : MonoBehaviour
+public class AbDamageOnTrigger : MonoBehaviour
 {
+    [SerializeField] private Ability _ability;
     [SerializeField] private bool isDestroyOnDamage;
-
-    Ability _ability;
-
-    void Start()
-    {
-        _ability = GetComponent<Ability>();
-    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -44,7 +37,7 @@ public class AbilityDamageOnTrigger : MonoBehaviour
 
                 if (isDestroyOnDamage)
                 {
-                    Destroy(gameObject); // TODO: object pooling
+                    Destroy(_ability.gameObject); // TODO: object pooling
                 }
             }
         }

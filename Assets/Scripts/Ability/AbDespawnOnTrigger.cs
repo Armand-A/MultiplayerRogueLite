@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbilityDespawnOnTrigger : MonoBehaviour
+public class AbDespawnOnTrigger : MonoBehaviour
 {
+    [SerializeField] Ability _ability;
     [SerializeField] List<string> collidingLayerNames = new List<string>();
 
     List<int> collidingLayers = new List<int>();
@@ -33,7 +34,7 @@ public class AbilityDespawnOnTrigger : MonoBehaviour
         {
             if (other.gameObject.layer == layer)
             {
-                Destroy(gameObject); // TODO: object pooling
+                Destroy(_ability.gameObject); // TODO: object pooling
                 return;
             }
         }

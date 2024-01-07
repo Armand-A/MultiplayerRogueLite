@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 5809807754448003237}
   - component: {fileID: 2803802523605152814}
   - component: {fileID: 7749108294256407283}
-  - component: {fileID: 861542778195140739}
   - component: {fileID: 8763173034161154672}
   m_Layer: 0
   m_Name: EnemyAbilityRanged
@@ -177,6 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901869b303a08a44fbe0e8e762a4505e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ability: {fileID: 142932621525757926}
   isDestroyOnDamage: 0
 --- !u!114 &2803802523605152814
 MonoBehaviour:
@@ -205,19 +205,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 15
   isHoming: 0
---- !u!114 &861542778195140739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3781331974297468100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a574d6c986b15084185d8edda7079eb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 0.5
 --- !u!114 &8763173034161154672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2deaa5cf7cd4641b3245ba378aee94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ability: {fileID: 142932621525757926}
   collidingLayerNames:
   - Block Attack
 --- !u!1 &4442301186425333478

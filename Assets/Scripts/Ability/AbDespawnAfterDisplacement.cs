@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Ability))]
-public class AbilityDespawnAfterDisplacement : MonoBehaviour
+public class AbDespawnAfterDisplacement : MonoBehaviour
 {
     [SerializeField] float maxDisplacement = 15f;
 

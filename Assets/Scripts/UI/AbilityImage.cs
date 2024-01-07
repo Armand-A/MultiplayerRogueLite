@@ -37,8 +37,11 @@ public class AbilityImage : MonoBehaviour
 
     private void OnDisable()
     {
-        _playerAttack.RemoveEquipListener(_equipAction);
-        _playerAttack.RemoveUnequipListener(_unequipAction);
+        if (_playerAttack != null)
+        {
+            _playerAttack.RemoveEquipListener(_equipAction);
+            _playerAttack.RemoveUnequipListener(_unequipAction);
+        }
     }
 
     private void Update()

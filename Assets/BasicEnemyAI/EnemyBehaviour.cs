@@ -72,6 +72,9 @@ public class EnemyBehaviour : MonoBehaviour
     {
         Ability abilityObject = Instantiate(Random.Range(1, 3) == 1 ? Attack : Attack2, Attack.IsInstantiateAtDestination ? player.transform.position : gameObject.transform.position, Quaternion.identity);
         abilityObject.Initialize(gameObject.transform.position, player.transform.position, false);
+        
+        // TODO: gameObject y position keeps falling, skewing srcPos of the instantiated ability
+        // Debug.Log(gameObject.transform.position.y.ToString() + " " + player.transform.position.y);
     }
 
     IEnumerator Cooldown()

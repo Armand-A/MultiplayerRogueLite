@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 4799074094360775311}
   - component: {fileID: 4137210961123182271}
   - component: {fileID: 7472535615907482737}
-  - component: {fileID: 2591811900313410473}
   - component: {fileID: -5006312219185740472}
   - component: {fileID: -2668803266107829937}
   m_Layer: 0
@@ -165,20 +164,6 @@ MonoBehaviour:
   isInstantiateAtDestination: 1
   playerHitsEnemyEvent: {fileID: 11400000, guid: 3de21ae7feb97d445b7c092d4b7f9b9a, type: 2}
   enemyHitsPlayerEvent: {fileID: 11400000, guid: 08cd2d210d36e044b92c1f3ac5e62cce, type: 2}
---- !u!114 &2591811900313410473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1992796365345572444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 834175a1cef6ea54fa190aaf7347c212, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 4.5
-  height: 1
 --- !u!114 &-5006312219185740472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901869b303a08a44fbe0e8e762a4505e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ability: {fileID: 7472535615907482737}
   isDestroyOnDamage: 0
 --- !u!114 &-2668803266107829937
 MonoBehaviour:

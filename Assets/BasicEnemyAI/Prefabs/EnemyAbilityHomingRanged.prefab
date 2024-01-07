@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 9025055520463088809}
   - component: {fileID: 1349085843326243379}
   - component: {fileID: 4053437413057926236}
-  - component: {fileID: 710399534040864720}
   m_Layer: 0
   m_Name: Homing Range
   m_TagString: Untagged
@@ -67,34 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65782741a29d93f49bf0344880b36b55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  homingTarget: {fileID: 3781331974297468100}
---- !u!54 &710399534040864720
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3430969032996322831}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  objectToReceiveHoming: {fileID: 0}
 --- !u!1 &3781331974297468100
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,11 +79,9 @@ GameObject:
   - component: {fileID: 6369950589110926875}
   - component: {fileID: 2421128643724397502}
   - component: {fileID: 1179701774020087669}
-  - component: {fileID: 3509557009506120850}
   - component: {fileID: 3645134754993355471}
   - component: {fileID: 7538040467057012899}
   - component: {fileID: 5625238825079755235}
-  - component: {fileID: 5990258880771567317}
   - component: {fileID: 4631170467079858572}
   - component: {fileID: 54107225146518983}
   - component: {fileID: -774911025261483558}
@@ -210,33 +180,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5093901
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &3509557009506120850
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3781331974297468100}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!195 &3645134754993355471
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -296,20 +239,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901869b303a08a44fbe0e8e762a4505e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ability: {fileID: 7538040467057012899}
   isDestroyOnDamage: 0
---- !u!114 &5990258880771567317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3781331974297468100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a574d6c986b15084185d8edda7079eb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 0.5
 --- !u!114 &4631170467079858572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2deaa5cf7cd4641b3245ba378aee94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ability: {fileID: 0}
   collidingLayerNames:
   - Block Attack
 --- !u!1 &4442301186425333478
