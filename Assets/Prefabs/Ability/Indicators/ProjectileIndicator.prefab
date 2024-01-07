@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f88a9c479428b44b8f1fd026e9e86b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transformDestination: {fileID: 1604607434597240739}
 --- !u!114 &3148180691223479221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,7 +75,7 @@ GameObject:
   - component: {fileID: 6275422857568081338}
   - component: {fileID: 4773724196088305313}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

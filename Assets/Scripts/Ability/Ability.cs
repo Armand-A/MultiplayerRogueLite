@@ -34,9 +34,25 @@ public class Ability : MonoBehaviour
 
     // Behaviours
     [SerializeField] private bool isInstantiateAtDestination;
+    public bool IsInstantiateAtDestination { get { return isInstantiateAtDestination; } }
+
+    [SerializeField] private bool useCustomIndicatorLocalPosition;
+    [SerializeField] private Vector3 customIndicatorLocalPosition;
+    [SerializeField] private bool useCustomIndicatorLocalRotation;
+    [SerializeField] private Vector3 customIndicatorLocalRotation;
+    [SerializeField] private bool useCustomIndicatorLocalScale;
+    [SerializeField] private Vector3 customIndicatorLocalScale;
+    public bool UseCustomIndicatorLocalPosition { get {  return useCustomIndicatorLocalPosition; } }
+    public Vector3 CustomIndicatorLocalPosition { get { return customIndicatorLocalPosition; } }
+    public bool UseCustomIndicatorLocalRotation { get {  return useCustomIndicatorLocalRotation; } }
+    public Vector3 CustomIndicatorLocalRotation { get { return customIndicatorLocalRotation; } }
+    public bool UseCustomIndicatorLocalScale { get {  return useCustomIndicatorLocalScale; } }  
+    public Vector3 CustomIndicatorLocalScale { get { return customIndicatorLocalScale; } }
+
+
+    // Events
     [SerializeField] private GameEvent playerHitsEnemyEvent;
     [SerializeField] private GameEvent enemyHitsPlayerEvent;
-    public bool IsInstantiateAtDestination { get { return isInstantiateAtDestination; } }
     public void RaisePlayerHitsEnemyEvent()
     {
         if (playerHitsEnemyEvent != null)
@@ -75,6 +91,4 @@ public class Ability : MonoBehaviour
         _initialized = true;
         return true;
     }
-
-    
 }

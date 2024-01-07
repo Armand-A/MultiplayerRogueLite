@@ -4992,6 +4992,12 @@ MonoBehaviour:
   damage: 10
   cooldownTime: 1
   isInstantiateAtDestination: 0
+  useCustomIndicatorLocalPosition: 1
+  customIndicatorLocalPosition: {x: 0, y: 0, z: 10}
+  useCustomIndicatorLocalRotation: 0
+  customIndicatorLocalRotation: {x: 0, y: 0, z: 0}
+  useCustomIndicatorLocalScale: 1
+  customIndicatorLocalScale: {x: 1, y: 10, z: 1}
   playerHitsEnemyEvent: {fileID: 11400000, guid: 3de21ae7feb97d445b7c092d4b7f9b9a, type: 2}
   enemyHitsPlayerEvent: {fileID: 11400000, guid: 08cd2d210d36e044b92c1f3ac5e62cce, type: 2}
 --- !u!114 &-7894606758665342563
@@ -5034,7 +5040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba8963a1045bf92428db4f3877dad4fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDisplacement: 15
+  maxDisplacement: 10
 --- !u!114 &3455383857151278308
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -123,6 +123,7 @@ public class PlayerAttack : MonoBehaviour
 
         _equippedAttackSlot = attackSlot;
         _indicator = Instantiate(attacks[(int)_equippedAttackSlot].AttackIndicator).GetComponent<AbIndicator>();
+        _indicator.Initialize(attacks[(int)_equippedAttackSlot]);
 
         //Allows preview cost of equipped action
         _actionCost = -attacks[(int)_equippedAttackSlot].ActionCost;

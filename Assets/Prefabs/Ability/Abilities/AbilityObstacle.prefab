@@ -130,6 +130,12 @@ MonoBehaviour:
   damage: 0
   cooldownTime: 3
   isInstantiateAtDestination: 1
+  useCustomIndicatorLocalPosition: 0
+  customIndicatorLocalPosition: {x: 0, y: 0, z: 0}
+  useCustomIndicatorLocalRotation: 0
+  customIndicatorLocalRotation: {x: 0, y: 0, z: 0}
+  useCustomIndicatorLocalScale: 1
+  customIndicatorLocalScale: {x: 3, y: 3, z: 3}
   playerHitsEnemyEvent: {fileID: 11400000, guid: 3de21ae7feb97d445b7c092d4b7f9b9a, type: 2}
   enemyHitsPlayerEvent: {fileID: 11400000, guid: 08cd2d210d36e044b92c1f3ac5e62cce, type: 2}
 --- !u!114 &-6358432458901213615
