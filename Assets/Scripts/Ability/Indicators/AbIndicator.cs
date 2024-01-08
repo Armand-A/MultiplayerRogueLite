@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("Ability/Indicator/Ability Indicator")]
 public class AbIndicator : MonoBehaviour
 {
     [SerializeField, Tooltip("Applies the transform from the source in Ability to this transform destination, if both are specified.")] 

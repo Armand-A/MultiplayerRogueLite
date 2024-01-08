@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Ability))]
+[RequireComponent(typeof(Ability)), AddComponentMenu("Ability/Despawn/Despawn After Displacement")]
 public class AbDespawnAfterDisplacement : MonoBehaviour
 {
     [SerializeField] float maxDisplacement = 15f;

@@ -7,7 +7,7 @@ interface IAbilityHomingable
     void SetHomingTarget(GameObject target);
 }
 
-[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Collider)), AddComponentMenu("Ability/Utilities/Homing Trigger")]
 public class HomingTrigger : MonoBehaviour
 {
     [SerializeField] GameObject objectToReceiveHoming;

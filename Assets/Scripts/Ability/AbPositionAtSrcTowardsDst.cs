@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Ability))]
+[RequireComponent(typeof(Ability)), AddComponentMenu("Ability/Movement/Position at Source Towards Destination")]
 public class AbPositionAtSrcTowardsDst : MonoBehaviour
 {
     Ability _ability;

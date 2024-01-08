@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(Ability), typeof(NavMeshAgent))]
+[RequireComponent(typeof(Ability), typeof(NavMeshAgent)), AddComponentMenu("Ability/Movement/Move towards Destination (Homing with Nav)")]
 public class AbMoveTowardsDstHomingNav : MonoBehaviour, IAbilityHomingable
 {
     [SerializeField] private float moveSpeed = 15f;

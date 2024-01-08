@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Renderer))]
+[RequireComponent(typeof(Renderer)), AddComponentMenu("Ability/Indicator/Highlight/Highlight on Enemy in Range")]
 public class AbIndHighlightOnEnemyInRange : MonoBehaviour
 {
     [SerializeField] Material highlightMaterial;

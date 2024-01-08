@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Ability))]
+[RequireComponent(typeof(Ability)), AddComponentMenu("Ability/Movement/Move towards Destination")]
 public class AbMoveTowardsDst : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 15f;

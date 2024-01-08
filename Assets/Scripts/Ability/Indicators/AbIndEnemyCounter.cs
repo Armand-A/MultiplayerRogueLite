@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Collider)), AddComponentMenu("Ability/Indicator/Utilities/Eneny Counter")]
 public class AbIndEnemyCounter : MonoBehaviour
 {
     [SerializeField] private UnityEvent<int> _enemyCountOnChange;

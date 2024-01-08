@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("Ability/Ability")]
 public class Ability : MonoBehaviour
 {
     // Ability settings
