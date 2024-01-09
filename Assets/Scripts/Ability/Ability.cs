@@ -33,6 +33,16 @@ public class Ability : MonoBehaviour
 
 
 
+    // Damage
+    [SerializeField] private bool isDestroyOnDamage;
+    [SerializeField] private bool isDealDamageOnInterval;
+    [SerializeField] private float dealDamageInterval;
+    public bool IsDestroyOnDamage { get { return isDestroyOnDamage; } }
+    public bool IsDealDamageOnInterval { get { return isDealDamageOnInterval; } }
+    public float DealDamageInterval { get { return dealDamageInterval; } }
+
+
+
     // Behaviours
     [SerializeField] private bool isInstantiateAtDestination;
     public bool IsInstantiateAtDestination { get { return isInstantiateAtDestination; } }
@@ -54,29 +64,13 @@ public class Ability : MonoBehaviour
     // Events
     [SerializeField] private GameEvent playerHitsEnemyEvent;
     [SerializeField] private GameEvent enemyHitsPlayerEvent;
-    public void RaisePlayerHitsEnemyEvent()
-    {
-        if (playerHitsEnemyEvent != null)
-        {
-            playerHitsEnemyEvent.Raise();
-        }
-    }
-    public void RaiseEnemyHitsPlayerEvent()
-    {
-        if (enemyHitsPlayerEvent != null)
-        {
-            enemyHitsPlayerEvent.Raise();
-        }
-    }
 
     Vector3 _srcPos = Vector3.zero;
     Vector3 _dstPos = Vector3.zero;
     bool _isFromPlayer = false;
-    List<EntityData> _damagedEntities = new List<EntityData>();
     public Vector3 SrcPos { get { return _srcPos; } }
     public Vector3 DstPos { get { return _dstPos; } }
     public bool IsFromPlayer { get { return _isFromPlayer; } }
-    public List<EntityData> DamagedEntities { get { return _damagedEntities; } }
 
 
 
@@ -91,5 +85,29 @@ public class Ability : MonoBehaviour
 
         _initialized = true;
         return true;
+    }
+
+    public bool CanDealDamageToEntity(EntityData entity) => (entity is EnemyData && _isFromPlayer) || (entity is PlayerData && !_isFromPlayer);
+
+    public void DealDamageToEntity(EntityData target)
+    {
+        target.UpdateHealth(-damage);
+        if (CanDealDamageToEntity(target))
+        {
+            if (target is EnemyData)
+            {
+                if (playerHitsEnemyEvent != null)
+                {
+                    playerHitsEnemyEvent.Raise();
+                }
+            }
+            else if (target is PlayerData)
+            {
+                if (enemyHitsPlayerEvent != null)
+                {
+                    enemyHitsPlayerEvent.Raise();
+                }
+            }
+        }
     }
 }

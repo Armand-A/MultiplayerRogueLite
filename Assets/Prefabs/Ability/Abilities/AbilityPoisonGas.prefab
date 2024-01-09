@@ -161,6 +161,9 @@ MonoBehaviour:
   actionCost: 7
   damage: 2
   cooldownTime: 1
+  isDestroyOnDamage: 0
+  isDealDamageOnInterval: 1
+  dealDamageInterval: 0.5
   isInstantiateAtDestination: 1
   useCustomIndicatorLocalPosition: 0
   customIndicatorLocalPosition: {x: 0, y: 0, z: 0}
@@ -183,7 +186,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ability: {fileID: 7472535615907482737}
-  isDestroyOnDamage: 0
 --- !u!114 &-2668803266107829937
 MonoBehaviour:
   m_ObjectHideFlags: 0
