@@ -8,6 +8,7 @@ public class AbDamageOnTrigger : MonoBehaviour
 {
     [SerializeField] private Ability _ability;
 
+    List<EntityData> entitiesTriggered = new List<EntityData>();
     Dictionary<EntityData, float> entitiesInTriggerDuration = new Dictionary<EntityData, float>();
 
     EntityData FindEntityInObject(GameObject obj)
@@ -24,6 +25,9 @@ public class AbDamageOnTrigger : MonoBehaviour
 
         if (entity != null)
         {
+            if (entitiesTriggered.Contains(entity)) return;
+            entitiesTriggered.Add(entity);
+
             // check for friendly fire
             if (_ability.CanDealDamageToEntity(entity))
             {
@@ -41,7 +45,12 @@ public class AbDamageOnTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        entitiesInTriggerDuration.Remove(FindEntityInObject(other.gameObject));
+        EntityData entity = FindEntityInObject(other.gameObject);
+        if (entity != null)
+        {
+            entitiesInTriggerDuration.Remove(entity);
+            entitiesTriggered.Remove(entity);
+        }
     }
 
     private void Update()

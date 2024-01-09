@@ -4984,13 +4984,16 @@ MonoBehaviour:
   attackIndicator: {fileID: 6932023746338755616, guid: 92ceec922aafdc34b9abe598852e3ab9, type: 3}
   sprite: {fileID: 21300000, guid: 08cffd48264d3f14482b51c96c3d7d38, type: 3}
   nextUpgrade: {fileID: 876172793251253612, guid: f62360e133592d2438292d4262dec21a, type: 3}
-  nextUpgradePrice: 20
+  nextUpgradePrice: 10
   cannotCastOnEnemy: 0
   healthCost: 0
   manaCost: 0
   actionCost: 8
   damage: 10
   cooldownTime: 1
+  isDestroyOnDamage: 0
+  isDealDamageOnInterval: 0
+  dealDamageInterval: 0
   isInstantiateAtDestination: 0
   useCustomIndicatorLocalPosition: 1
   customIndicatorLocalPosition: {x: 0, y: 0, z: 10}
@@ -5027,7 +5030,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ability: {fileID: 876172793251253612}
-  isDestroyOnDamage: 0
 --- !u!114 &-8426562428638829511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5040,7 +5042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba8963a1045bf92428db4f3877dad4fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDisplacement: 10
+  maxDisplacement: 20
 --- !u!114 &3455383857151278308
 MonoBehaviour:
   m_ObjectHideFlags: 0

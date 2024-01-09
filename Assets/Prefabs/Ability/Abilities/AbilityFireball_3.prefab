@@ -4991,6 +4991,9 @@ MonoBehaviour:
   actionCost: 10
   damage: 15
   cooldownTime: 1
+  isDestroyOnDamage: 0
+  isDealDamageOnInterval: 0
+  dealDamageInterval: 0
   isInstantiateAtDestination: 0
   useCustomIndicatorLocalPosition: 1
   customIndicatorLocalPosition: {x: 0, y: 0, z: 15}
@@ -5027,7 +5030,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ability: {fileID: 876172793251253612}
-  isDestroyOnDamage: 0
 --- !u!114 &-2422838404983018517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5040,7 +5042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba8963a1045bf92428db4f3877dad4fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDisplacement: 15
+  maxDisplacement: 30
 --- !u!114 &-5653264405756770338
 MonoBehaviour:
   m_ObjectHideFlags: 0
