@@ -10,8 +10,8 @@ public class AbilityLibraryUI : AbilityUI
     [SerializeField] GameObject buttonPrefab;
     [SerializeField] GameObject panel;
     [SerializeField] Vector2 gap;
-    UnityAction<AttackScriptableObject> returnAction;
-    List<AttackScriptableObject> abilities = new List<AttackScriptableObject>();
+    UnityAction<Ability> returnAction;
+    List<Ability> abilities = new List<Ability>();
 
     private void OnEnable()
     {
@@ -24,7 +24,7 @@ public class AbilityLibraryUI : AbilityUI
         float xCenterOffset = -(abilities.Count - 1) / 2f * (buttonRect.width + gap.x);
 
         for (int i = 0; i < abilities.Count; i++) {
-            AttackScriptableObject ability = abilities[i];
+            Ability ability = abilities[i];
 
             GameObject buttonObject = Instantiate(buttonPrefab);
 
@@ -38,13 +38,13 @@ public class AbilityLibraryUI : AbilityUI
         }
     }
 
-    public void OnButtonClicked(AttackScriptableObject ability)
+    public void OnButtonClicked(Ability ability)
     {
         if (returnAction != null) returnAction.Invoke(ability);
         uiManager.CloseUI();
     }
 
-    public void SetReturnAction(UnityAction<AttackScriptableObject> action)
+    public void SetReturnAction(UnityAction<Ability> action)
     {
         returnAction = action;
     }
