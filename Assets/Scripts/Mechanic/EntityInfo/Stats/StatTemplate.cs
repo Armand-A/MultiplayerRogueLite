@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class StatTemplate : MonoBehaviour
@@ -9,6 +10,7 @@ public class StatTemplate : MonoBehaviour
     
     //For consumable stats like health and action
     float _tempVal;
+    bool _useTempVal = false;
 
     [SerializeField] private float _minVal;
     [SerializeField] private float _maxVal;
@@ -18,10 +20,15 @@ public class StatTemplate : MonoBehaviour
 
     public readonly StatTypes.ValueType StatValueType;
 
-    public StatTemplate(float curVal = 10, float tempVal = 10)
+    public StatTemplate(float baseValue = 10, float curVal = 10, bool useTempVal = false)
     {
+        
+        _baseValue = baseValue;
         _curVal = curVal;
-        _tempVal = tempVal;
+        _useTempVal = useTempVal;
+
+        if (_useTempVal)
+            _tempVal = curVal;
     }
 
     public virtual bool AddStat(float value)
@@ -41,6 +48,11 @@ public class StatTemplate : MonoBehaviour
             _curVal = value;
             return true;
         }
+        return false;
+    }
+
+    public virtual bool CalculateStat()
+    {
         return false;
     }
 }

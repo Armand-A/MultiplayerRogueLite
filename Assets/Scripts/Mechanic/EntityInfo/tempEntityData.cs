@@ -22,6 +22,8 @@ public class tempEntityData : MonoBehaviour
     [Tooltip("Checks if entity is alive")]
     public bool Alive = true; //For when entity is not destroyed on death
 
+    public Dictionary<StatTypes.Stat, StatTemplate> EntityStats;
+
     protected string _uniqueID;
     protected CooldownTimer _combatModeTimeout;
 
