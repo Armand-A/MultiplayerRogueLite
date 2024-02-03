@@ -19,9 +19,9 @@ public class AbilityEquipUI : AbilityUI
         playerAbilities = GameObject.FindObjectOfType<PlayerAbilities>();
         editingAbilities = new List<Ability>(playerAbilities.EquippedAbilities);
 
-        foreach (AttackSlot slot in Enum.GetValues(typeof(AttackSlot)))
+        foreach (HotbarAbilitySlot slot in Enum.GetValues(typeof(HotbarAbilitySlot)))
         {
-            if (slot == AttackSlot.None) continue;
+            if (slot == HotbarAbilitySlot.None) continue;
             if (editingAbilities[(int)slot] != null)
             {
                 buttons[(int)slot].GetComponent<Image>().sprite = editingAbilities[(int)slot].Sprite;
@@ -43,9 +43,9 @@ public class AbilityEquipUI : AbilityUI
     private void CommitChanges()
     {
         List<Ability> originalAbilities = playerAbilities.EquippedAbilities;
-        foreach (AttackSlot slot in Enum.GetValues(typeof(AttackSlot)))
+        foreach (HotbarAbilitySlot slot in Enum.GetValues(typeof(HotbarAbilitySlot)))
         {
-            if (slot == AttackSlot.None) continue;
+            if (slot == HotbarAbilitySlot.None) continue;
             if (originalAbilities[(int)slot] == editingAbilities[(int)slot]) continue;
             playerAbilities.EquipAbilityInSlot(editingAbilities[(int)slot], slot);
             //hotbarIcons[(int)slot].GetComponent<Image>().sprite = newAbility.Sprite;
@@ -53,7 +53,7 @@ public class AbilityEquipUI : AbilityUI
         equippedAbilityChangeEvent.Raise();
     }
 
-    public void OnNewAbilitySelected(Ability newAbility, AttackSlot slot)
+    public void OnNewAbilitySelected(Ability newAbility, HotbarAbilitySlot slot)
     {
         if (newAbility == null) return; // case: nothing selected
         if (newAbility == playerAbilities.EquippedAbilities[(int)slot]) return; // case: same ability selected, no change

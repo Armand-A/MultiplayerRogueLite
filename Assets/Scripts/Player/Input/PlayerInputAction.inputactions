@@ -96,15 +96,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Cancel Attack",
-                    "type": "Button",
-                    "id": "bc5ae9e9-3cf8-4150-9743-c8688e9e98e3",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "CamSwap",
                     "type": "Value",
                     "id": "22df46bf-45ad-4c3c-9c61-cc5fd5daf86f",
@@ -264,17 +255,6 @@
                     "processors": "",
                     "groups": "Player",
                     "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fa7e6733-a88a-4f8c-997a-cf8d6b296a58",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Player",
-                    "action": "Cancel Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

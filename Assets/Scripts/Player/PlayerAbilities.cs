@@ -66,7 +66,7 @@ public class PlayerAbilities : MonoBehaviour
         return true;
     }
 
-    public void EquipAbilityInSlot(Ability newAbility, AttackSlot slot)
+    public void EquipAbilityInSlot(Ability newAbility, HotbarAbilitySlot slot)
     {
         equippedAbilites[(int)slot] = newAbility;
     }

@@ -17,6 +17,15 @@ public class AbIndicator : MonoBehaviour
     public Vector3 DstPos { get { return _dstPos; } }
     public bool HasEnemyInRange { get { return _hasEnemyInRange; } }
 
+    private void Start()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        foreach (Transform g in transform.GetComponentsInChildren<Transform>())
+        {
+            g.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        }
+    }
+
     public void Initialize(Ability parentAbility)
     {
         _parentAbility = parentAbility;

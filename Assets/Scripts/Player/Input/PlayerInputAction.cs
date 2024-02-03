@@ -118,15 +118,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Cancel Attack"",
-                    ""type"": ""Button"",
-                    ""id"": ""bc5ae9e9-3cf8-4150-9743-c8688e9e98e3"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""CamSwap"",
                     ""type"": ""Value"",
                     ""id"": ""22df46bf-45ad-4c3c-9c61-cc5fd5daf86f"",
@@ -291,17 +282,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""fa7e6733-a88a-4f8c-997a-cf8d6b296a58"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Player"",
-                    ""action"": ""Cancel Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""28828253-cf0a-4351-a5c8-a5a64f4cfbf5"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
@@ -367,7 +347,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Player_EquipAttack4 = m_Player.FindAction("Equip Attack 4", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
-        m_Player_CancelAttack = m_Player.FindAction("Cancel Attack", throwIfNotFound: true);
         m_Player_CamSwap = m_Player.FindAction("CamSwap", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
     }
@@ -441,7 +420,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_EquipAttack4;
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Attack;
-    private readonly InputAction m_Player_CancelAttack;
     private readonly InputAction m_Player_CamSwap;
     private readonly InputAction m_Player_Interact;
     public struct PlayerActions
@@ -458,7 +436,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         public InputAction @EquipAttack4 => m_Wrapper.m_Player_EquipAttack4;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
-        public InputAction @CancelAttack => m_Wrapper.m_Player_CancelAttack;
         public InputAction @CamSwap => m_Wrapper.m_Player_CamSwap;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -500,9 +477,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
-            @CancelAttack.started += instance.OnCancelAttack;
-            @CancelAttack.performed += instance.OnCancelAttack;
-            @CancelAttack.canceled += instance.OnCancelAttack;
             @CamSwap.started += instance.OnCamSwap;
             @CamSwap.performed += instance.OnCamSwap;
             @CamSwap.canceled += instance.OnCamSwap;
@@ -543,9 +517,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
-            @CancelAttack.started -= instance.OnCancelAttack;
-            @CancelAttack.performed -= instance.OnCancelAttack;
-            @CancelAttack.canceled -= instance.OnCancelAttack;
             @CamSwap.started -= instance.OnCamSwap;
             @CamSwap.performed -= instance.OnCamSwap;
             @CamSwap.canceled -= instance.OnCamSwap;
@@ -590,7 +561,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         void OnEquipAttack4(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
-        void OnCancelAttack(InputAction.CallbackContext context);
         void OnCamSwap(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
     }

@@ -47,6 +47,9 @@ public class Ability : MonoBehaviour
     [SerializeField] private bool isInstantiateAtDestination;
     public bool IsInstantiateAtDestination { get { return isInstantiateAtDestination; } }
 
+    [SerializeField] private float destinationSphereCastRadius = 0f;
+    public float DestinationSphereCastRadius { get { return destinationSphereCastRadius; } }
+
     [SerializeField] private bool useCustomIndicatorLocalPosition;
     [SerializeField] private Vector3 customIndicatorLocalPosition;
     [SerializeField] private bool useCustomIndicatorLocalRotation;

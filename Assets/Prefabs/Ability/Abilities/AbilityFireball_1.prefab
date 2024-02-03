@@ -4995,11 +4995,12 @@ MonoBehaviour:
   isDealDamageOnInterval: 0
   dealDamageInterval: 0
   isInstantiateAtDestination: 0
-  useCustomIndicatorLocalPosition: 1
+  destinationSphereCastRadius: 0.5
+  useCustomIndicatorLocalPosition: 0
   customIndicatorLocalPosition: {x: 0, y: 0, z: 5}
   useCustomIndicatorLocalRotation: 0
   customIndicatorLocalRotation: {x: 0, y: 0, z: 0}
-  useCustomIndicatorLocalScale: 1
+  useCustomIndicatorLocalScale: 0
   customIndicatorLocalScale: {x: 1, y: 5, z: 1}
   playerHitsEnemyEvent: {fileID: 11400000, guid: 3de21ae7feb97d445b7c092d4b7f9b9a, type: 2}
   enemyHitsPlayerEvent: {fileID: 11400000, guid: 08cd2d210d36e044b92c1f3ac5e62cce, type: 2}

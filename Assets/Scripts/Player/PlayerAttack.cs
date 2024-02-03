@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
-public enum AttackSlot 
+public enum HotbarAbilitySlot 
 { 
     Slot1, 
     Slot2, 
@@ -15,14 +16,12 @@ public enum AttackSlot
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] float minAimDistance = 5f;
-    [SerializeField] float maxAimDistance = 50f;
-    
-    [SerializeField] private List<Ability> attacks;
+    [SerializeField] private float maxAimDistance = 50f;
+
     [SerializeField] private GameObject playerAbilityManagerPrefab;
 
-    UnityEvent<AttackSlot> equipAttackEvent = new UnityEvent<AttackSlot>();
-    UnityEvent unequipAttackEvent = new UnityEvent();
+    UnityEvent<HotbarAbilitySlot> startPreviewAbilityEvent = new UnityEvent<HotbarAbilitySlot>();
+    UnityEvent endPreviewAbilityEvent = new UnityEvent();
 
     private PlayerData _playerData;
     private PlayerAbilities _playerAbilityManager;
@@ -30,13 +29,28 @@ public class PlayerAttack : MonoBehaviour
     private GameObject _camera;
     private AbIndicator _indicator;
 
-    private AttackSlot _equippedAttackSlot = AttackSlot.None;
-    public AttackSlot EquipedAttackSlot { get { return _equippedAttackSlot; } }
+    private HotbarAbilitySlot _previewingAbilitySlot = HotbarAbilitySlot.None;
 
     private Vector3 _attackSrcPosition;
     private Vector3 _attackDstPosition;
 
     private float _actionCost;
+
+    private List<Ability> EquippedAbilities
+    {
+        get
+        {
+            return _playerAbilityManager.EquippedAbilities;
+        }
+    }
+
+    private Ability PreviewingAbility
+    {
+        get
+        {
+            return _playerAbilityManager.EquippedAbilities[(int)_previewingAbilitySlot];
+        }
+    }
 
     private void Awake()
     {
@@ -47,47 +61,50 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         _playerData = GetComponent<PlayerData>();
         _camera = GameObject.FindWithTag("MainCamera");
-
-        //if (equipAttackEvent != null) equipAttackEvent = new UnityEvent<AttackSlot>();
-        //if (unequipAttackEvent != null) unequipAttackEvent = new UnityEvent<AttackSlot>();
     }
 
     private void Update()
     {
-        if (_equippedAttackSlot != AttackSlot.None)
+        if (_previewingAbilitySlot != HotbarAbilitySlot.None)
         {
-            // update attack source location
             _attackSrcPosition = transform.position;
+            _attackDstPosition = _camera.transform.position + _camera.transform.forward.normalized * maxAimDistance;
 
-            // get y value from camera, 1 is most downward, 0 is most upward
-            CinemachineFreeLook activeVirtualCamera = _camera.GetComponent<CinemachineBrain>().ActiveVirtualCamera.VirtualCameraGameObject.GetComponent<CinemachineFreeLook>();
-            // invert it, 0 is most downward, 1 is most upward
-            float distanceValue = 1 - activeVirtualCamera.m_YAxis.Value;
+            LayerMask raycastLayermask = 0;
+            raycastLayermask |= 1 << LayerMask.NameToLayer("Default");
+            raycastLayermask |= 1 << LayerMask.NameToLayer("Ground");
+            raycastLayermask |= 1 << LayerMask.NameToLayer("Water");
+            raycastLayermask |= 1 << LayerMask.NameToLayer("Block Attack");
 
-            // get camera's forward angle projected on xz plane
-            Vector3 cameraForwardFlatAngle = _camera.transform.forward;
-            cameraForwardFlatAngle.y = 0;
-            cameraForwardFlatAngle.Normalize();
+            // adjust if hit obstacle
+            RaycastHit rayHit, sphereHit;
+            if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out rayHit, maxAimDistance, raycastLayermask, QueryTriggerInteraction.Ignore))
+            {
+                // adjust for projectile size via sphere cast for projectiles
+                if (PreviewingAbility.DestinationSphereCastRadius != 0f && Physics.SphereCast(_camera.transform.position, PreviewingAbility.DestinationSphereCastRadius, _camera.transform.forward, out sphereHit, maxAimDistance, raycastLayermask, QueryTriggerInteraction.Ignore))
+                {
+                    _attackDstPosition = _camera.transform.position + Vector3.Project(sphereHit.point - _camera.transform.position, rayHit.point - _camera.transform.position);
+                }
+                else
+                {
+                    _attackDstPosition = rayHit.point;
+                }
+            }
 
-            // min angle = min distance, max angle = max distance
-            _attackDstPosition = transform.position + minAimDistance * cameraForwardFlatAngle + (maxAimDistance - minAimDistance) * distanceValue * cameraForwardFlatAngle;
-
-            // update attack destination location
             _indicator.SetPositions(_attackSrcPosition, _attackDstPosition);
         }
     }
 
-    public void OnEquipAttack(AttackSlot attackSlot)
+    public void OnHotbarAbilityPressed(HotbarAbilitySlot hotbarAbilitySlot)
     {
-        if (_equippedAttackSlot != attackSlot)
+        if (_previewingAbilitySlot != hotbarAbilitySlot)
         {
             CancelAttack();
-            Equip(attackSlot);
+            PreviewAttack(hotbarAbilitySlot);
         }
         else
         {
@@ -97,7 +114,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void OnAttack()
     {
-        if (_equippedAttackSlot == AttackSlot.None)
+        if (_previewingAbilitySlot == HotbarAbilitySlot.None)
         {
             // TODO: basic attack?
         }
@@ -106,41 +123,37 @@ public class PlayerAttack : MonoBehaviour
 
     public void OnCancelAttack()
     {
-        if (_equippedAttackSlot == AttackSlot.None) return;
+        if (_previewingAbilitySlot == HotbarAbilitySlot.None) return;
 
         CancelAttack();
     }
 
-    void Equip(AttackSlot attackSlot)
+    void PreviewAttack(HotbarAbilitySlot hotbarAbilitySlot)
     {
-        List<Ability> attacks = _playerAbilityManager.EquippedAbilities;
-
         // check if there is ability equipped on selected slot
-        if (attacks[(int)attackSlot] == null) return;
+        if (EquippedAbilities[(int)hotbarAbilitySlot] == null) return;
 
         // check if ability is on cooldown
-        if (!_playerAbilityManager.GetIsAbilityAvailable((int)attackSlot)) return;
+        if (!_playerAbilityManager.GetIsAbilityAvailable((int)hotbarAbilitySlot)) return;
 
-        _equippedAttackSlot = attackSlot;
-        _indicator = Instantiate(attacks[(int)_equippedAttackSlot].AttackIndicator).GetComponent<AbIndicator>();
-        _indicator.Initialize(attacks[(int)_equippedAttackSlot]);
+        _previewingAbilitySlot = hotbarAbilitySlot;
+        _indicator = Instantiate(PreviewingAbility.AttackIndicator).GetComponent<AbIndicator>();
+        _indicator.Initialize(PreviewingAbility);
 
         //Allows preview cost of equipped action
-        _actionCost = -attacks[(int)_equippedAttackSlot].ActionCost;
+        _actionCost = -PreviewingAbility.ActionCost;
         _playerData.PreviewActionCost(true, _actionCost);
 
-        equipAttackEvent.Invoke(attackSlot);
+        startPreviewAbilityEvent.Invoke(hotbarAbilitySlot);
     }
 
     void Attack()
     {
-        List<Ability> attacks = _playerAbilityManager.EquippedAbilities;
-        
         // check if attack cannot be cast on enemy
-        if (_indicator != null && attacks[(int)_equippedAttackSlot].IsCannotCastOnEnemy && _indicator.HasEnemyInRange) return;
+        if (_indicator != null && PreviewingAbility.IsCannotCastOnEnemy && _indicator.HasEnemyInRange) return;
 
         // check if ability is on cooldown, should've been checked by equip but just to be sure
-        if (!_playerAbilityManager.GetIsAbilityAvailable((int)_equippedAttackSlot)) return;
+        if (!_playerAbilityManager.GetIsAbilityAvailable((int)_previewingAbilitySlot)) return;
 
         // Checks and consumes action points depending on if there is enough left
         if (!_playerData.UpdateAction(_actionCost))
@@ -156,14 +169,14 @@ public class PlayerAttack : MonoBehaviour
             _indicator = null;
         }
 
-        Ability abilityObject = Instantiate(attacks[(int)_equippedAttackSlot], attacks[(int)_equippedAttackSlot].IsInstantiateAtDestination ? _attackDstPosition : _attackSrcPosition, Quaternion.identity);
+        Ability abilityObject = Instantiate(PreviewingAbility, PreviewingAbility.IsInstantiateAtDestination ? _attackDstPosition : _attackSrcPosition, Quaternion.identity);
         abilityObject.Initialize(_attackSrcPosition, _attackDstPosition, true);
 
-        _playerAbilityManager.StartAbilityCooldown((int)_equippedAttackSlot);
+        _playerAbilityManager.StartAbilityCooldown((int)_previewingAbilitySlot);
 
-        _equippedAttackSlot = AttackSlot.None;
+        _previewingAbilitySlot = HotbarAbilitySlot.None;
 
-        unequipAttackEvent.Invoke();
+        endPreviewAbilityEvent.Invoke();
     }
 
     void CancelAttack()
@@ -177,28 +190,28 @@ public class PlayerAttack : MonoBehaviour
             Destroy(_indicator.gameObject);
             _indicator = null;
         }
-        _equippedAttackSlot = AttackSlot.None;
+        _previewingAbilitySlot = HotbarAbilitySlot.None;
 
-        unequipAttackEvent.Invoke();
+        endPreviewAbilityEvent.Invoke();
     }
 
-    public void AddEquipListener(UnityAction<AttackSlot> action)
+    public void AddStartPreviewAbilityListener(UnityAction<HotbarAbilitySlot> action)
     {
-        equipAttackEvent.AddListener(action);
+        startPreviewAbilityEvent.AddListener(action);
     }
 
-    public void RemoveEquipListener(UnityAction<AttackSlot> action)
+    public void RemoveStartPreviewAbilityListener(UnityAction<HotbarAbilitySlot> action)
     {
-        equipAttackEvent.RemoveListener(action);
+        startPreviewAbilityEvent.RemoveListener(action);
     }
 
-    public void AddUnequipListener(UnityAction action)
+    public void AddEndPreviewAbilityListener(UnityAction action)
     {
-        unequipAttackEvent.AddListener(action);
+        endPreviewAbilityEvent.AddListener(action);
     }
 
-    public void RemoveUnequipListener(UnityAction action)
+    public void RemoveEndPreviewAbilityListener(UnityAction action)
     {
-        unequipAttackEvent.RemoveListener(action);
+        endPreviewAbilityEvent.RemoveListener(action);
     }
 }
