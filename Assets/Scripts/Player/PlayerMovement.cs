@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float BaseSpeed = 250.0f;
     [Tooltip("Player rigidbody mass")]
     [SerializeField] private float PlayerMass = 5.0f;
-    [Tooltip("Base speed value")]
+    [Tooltip("Base sprint value")]
     [SerializeField] private float SprintMultiplyer = 2.0f;
     [Tooltip("Sprinting input")]
     public float SprintBool = 0.0f;

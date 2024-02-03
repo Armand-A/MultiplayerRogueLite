@@ -14,18 +14,18 @@ public class StatTypes
         PercentMulti = 300
     }
 
-    public enum Stat
+    public enum Stats
     {
-        HP,
-        AP,
-        Speed,
-        Attack,
-        Atk_Spd,
-        Defence,
-        Hit_Rate,
-        Dodge_Rate,
-        Crit_Rate,
-        Crit_Atk
+        HP = 0,
+        AP = 1,
+        Attack = 200,
+        Defence = 300,
+        Atk_Spd = 4,
+        Accuracy = 5,
+        Evasiveness = 6,
+        Crit_Dmg = 7,
+        Crit_Rate = 8,
+        Speed = 9,
     }
 
     public enum PlayerStat
@@ -37,6 +37,7 @@ public class StatTypes
 
     public enum ElementTypes
     {
+        Normal = 0,
         Fire,
         Water,
         Earth,
