@@ -2,20 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[AddComponentMenu("Ability/Ability")]
 public class Ability : MonoBehaviour
 {
     // Ability settings
     [SerializeField] private AbIndicator attackIndicator;
     [SerializeField] private Sprite sprite;
-    [SerializeField] private Ability nextUpgrade;
-    [SerializeField] private float nextUpgradePrice;
     [SerializeField] private bool cannotCastOnEnemy;
     public AbIndicator AttackIndicator { get { return attackIndicator; } }
     public Sprite Sprite { get { return sprite; } }
-    public Ability NextUpgrade { get { return nextUpgrade; } }
-    public float NextUpgradePrice { get { return nextUpgradePrice; } }
     public bool IsCannotCastOnEnemy {  get { return cannotCastOnEnemy; } }
+
+
+    public enum EAcquisitionType
+    {
+        Base, 
+        BaseImbued, 
+        DropOnly
+    }
+
+    public enum EElementType
+    {
+        Fire, Water, Ice, Lightning
+    }
+
+    [System.Serializable]
+    public struct ImbueOption
+    {
+        public EElementType elementType;
+        public Ability resultAbility;
+    }
+
+    [SerializeField] EAcquisitionType acquisitionType;
+    public EAcquisitionType AcquisitionType { get { return acquisitionType; } }
+
+    [SerializeField] List<ImbueOption> imbueOptions;
+    public List<ImbueOption> ImbueOptions { get { return imbueOptions; } }
+
+    [System.Serializable]
+    public struct CombineOption
+    {
+        public Ability otherAbility;
+        public Ability resultAbility;
+    }
+
+    [SerializeField] List<CombineOption> combineOptions;
 
 
 

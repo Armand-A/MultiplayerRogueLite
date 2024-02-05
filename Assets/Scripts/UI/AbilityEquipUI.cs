@@ -11,8 +11,11 @@ public class AbilityEquipUI : AbilityUI
     [SerializeField] AbilityLibraryUI abilityLibraryUI;
     [SerializeField] GameEvent equippedAbilityChangeEvent;
 
-    private PlayerAbilities playerAbilities;
-    private List<Ability> editingAbilities;
+    PlayerAbilities playerAbilities;
+    List<Ability> editingAbilities;
+    AbilityLibraryUI abilitylibraryUiInstance;
+
+    List<UnityAction<Ability>> activeListeners = new List<UnityAction<Ability>>();
 
     private void OnEnable()
     {
@@ -31,11 +34,12 @@ public class AbilityEquipUI : AbilityUI
                 buttons[(int)slot].GetComponent<Image>().sprite = null;
             }
             buttons[(int)slot].GetComponent<Button>().onClick.RemoveAllListeners();
-            buttons[(int)slot].GetComponent<Button>().onClick.RemoveAllListeners();
             buttons[(int)slot].GetComponent<Button>().onClick.AddListener(() =>
             {
-                AbilityLibraryUI ui = (AbilityLibraryUI) uiManager.OpenUIAndGet(abilityLibraryUI);
-                ui.SetReturnAction((newAbility) => OnNewAbilitySelected(newAbility, slot));
+                abilitylibraryUiInstance = (AbilityLibraryUI) uiManager.OpenUIAndGet(abilityLibraryUI);
+                UnityAction<Ability> action = (newAbility) => OnNewAbilitySelected(newAbility, slot);
+                abilitylibraryUiInstance.AddOnAbilityClickedListener(action);
+                activeListeners.Add(action);
             });
         }
     }
@@ -60,6 +64,14 @@ public class AbilityEquipUI : AbilityUI
 
         editingAbilities[(int)slot] = newAbility;
         buttons[(int)slot].GetComponent<Image>().sprite = newAbility.Sprite;
+
+        // close ability library ui
+        foreach (UnityAction<Ability> listener in activeListeners)
+        {
+            abilityLibraryUI.RemoveOnAbilityClickedListener(listener);
+        }
+        abilitylibraryUiInstance = null;
+        uiManager.CloseUI();
     }
 
     public void OnConfirm()
