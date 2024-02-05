@@ -11,7 +11,7 @@ public class AbilityImage : MonoBehaviour
     [SerializeField] private GameObject cooldownOverlay;
     private PlayerAbilities _abilities;
     private PlayerAttack _playerAttack;
-    private AttackScriptableObject _attack;
+    private Ability _attack;
     private Outline _outline;
     private Image _image;
 
@@ -37,8 +37,11 @@ public class AbilityImage : MonoBehaviour
 
     private void OnDisable()
     {
-        _playerAttack.RemoveEquipListener(_equipAction);
-        _playerAttack.RemoveUnequipListener(_unequipAction);
+        if (_playerAttack != null)
+        {
+            _playerAttack.RemoveEquipListener(_equipAction);
+            _playerAttack.RemoveUnequipListener(_unequipAction);
+        }
     }
 
     private void Update()

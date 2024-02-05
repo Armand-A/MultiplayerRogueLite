@@ -12,12 +12,12 @@ public class AbilityEquipUI : AbilityUI
     [SerializeField] GameEvent equippedAbilityChangeEvent;
 
     private PlayerAbilities playerAbilities;
-    private List<AttackScriptableObject> editingAbilities;
+    private List<Ability> editingAbilities;
 
     private void OnEnable()
     {
         playerAbilities = GameObject.FindObjectOfType<PlayerAbilities>();
-        editingAbilities = new List<AttackScriptableObject>(playerAbilities.EquippedAbilities);
+        editingAbilities = new List<Ability>(playerAbilities.EquippedAbilities);
 
         foreach (AttackSlot slot in Enum.GetValues(typeof(AttackSlot)))
         {
@@ -42,7 +42,7 @@ public class AbilityEquipUI : AbilityUI
 
     private void CommitChanges()
     {
-        List<AttackScriptableObject> originalAbilities = playerAbilities.EquippedAbilities;
+        List<Ability> originalAbilities = playerAbilities.EquippedAbilities;
         foreach (AttackSlot slot in Enum.GetValues(typeof(AttackSlot)))
         {
             if (slot == AttackSlot.None) continue;
@@ -53,7 +53,7 @@ public class AbilityEquipUI : AbilityUI
         equippedAbilityChangeEvent.Raise();
     }
 
-    public void OnNewAbilitySelected(AttackScriptableObject newAbility, AttackSlot slot)
+    public void OnNewAbilitySelected(Ability newAbility, AttackSlot slot)
     {
         if (newAbility == null) return; // case: nothing selected
         if (newAbility == playerAbilities.EquippedAbilities[(int)slot]) return; // case: same ability selected, no change

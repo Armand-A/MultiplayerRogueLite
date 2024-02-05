@@ -12,7 +12,7 @@ public class AbilityUpgradeLibraryUI : AbilityUI
     [SerializeField] GameObject abilityButtonsContainer;
     [SerializeField] Vector2 gap;
     [SerializeField] AbilityUpgradePreviewUI abilityUpgradeUI;
-    List<AttackScriptableObject> abilities = new List<AttackScriptableObject>();
+    List<Ability> abilities = new List<Ability>();
     PlayerAbilities playerAbilities; 
 
     private void OnEnable()
@@ -36,7 +36,7 @@ public class AbilityUpgradeLibraryUI : AbilityUI
 
         for (int i = 0; i < abilities.Count; i++)
         {
-            AttackScriptableObject ability = abilities[i];
+            Ability ability = abilities[i];
 
             GameObject buttonObject = Instantiate(buttonPrefab);
 
@@ -50,7 +50,7 @@ public class AbilityUpgradeLibraryUI : AbilityUI
         }
     }
 
-    public void OnButtonClicked(AttackScriptableObject ability)
+    public void OnButtonClicked(Ability ability)
     {
         AbilityUpgradePreviewUI abilityUpgradeUiObject = (AbilityUpgradePreviewUI) uiManager.OpenUIAndGet(abilityUpgradeUI);
         abilityUpgradeUiObject.Initialize(ability, () =>

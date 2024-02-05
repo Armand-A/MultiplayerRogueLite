@@ -21,7 +21,7 @@ public class AbilityUpgradePreviewUI : AbilityUI
     [SerializeField] Color goodTextColor;
     [SerializeField] Color badTextColor;
 
-    public AttackScriptableObject ability;
+    public Ability ability;
     public UnityAction confirmAction;
 
     private void OnEnable()
@@ -29,7 +29,7 @@ public class AbilityUpgradePreviewUI : AbilityUI
         if (ability != null) UpdateUI(ability);
     }
 
-    public void Initialize(AttackScriptableObject ability, UnityAction confirmAction)
+    public void Initialize(Ability ability, UnityAction confirmAction)
     {
         this.ability = ability;
         this.confirmAction = confirmAction;
@@ -51,7 +51,7 @@ public class AbilityUpgradePreviewUI : AbilityUI
         errorText.text = errorMsg;
     }
 
-    private void UpdateUI(AttackScriptableObject ability)
+    private void UpdateUI(Ability ability)
     {
         beforeIcon.sprite = ability.Sprite;
         afterIcon.sprite = ability.NextUpgrade.Sprite;

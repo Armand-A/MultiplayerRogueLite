@@ -18,7 +18,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] float minAimDistance = 5f;
     [SerializeField] float maxAimDistance = 50f;
     
-    [SerializeField] private List<AttackScriptableObject> attacks;
+    [SerializeField] private List<Ability> attacks;
     [SerializeField] private GameObject playerAbilityManagerPrefab;
 
     UnityEvent<AttackSlot> equipAttackEvent = new UnityEvent<AttackSlot>();
@@ -28,7 +28,7 @@ public class PlayerAttack : MonoBehaviour
     private PlayerAbilities _playerAbilityManager;
 
     private GameObject _camera;
-    private AttackIndicator _indicator;
+    private AbIndicator _indicator;
 
     private AttackSlot _equippedAttackSlot = AttackSlot.None;
     public AttackSlot EquipedAttackSlot { get { return _equippedAttackSlot; } }
@@ -113,7 +113,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Equip(AttackSlot attackSlot)
     {
-        List<AttackScriptableObject> attacks = _playerAbilityManager.EquippedAbilities;
+        List<Ability> attacks = _playerAbilityManager.EquippedAbilities;
 
         // check if there is ability equipped on selected slot
         if (attacks[(int)attackSlot] == null) return;
@@ -122,7 +122,8 @@ public class PlayerAttack : MonoBehaviour
         if (!_playerAbilityManager.GetIsAbilityAvailable((int)attackSlot)) return;
 
         _equippedAttackSlot = attackSlot;
-        _indicator = Instantiate(attacks[(int)_equippedAttackSlot].AttackIndicator).GetComponent<AttackIndicator>();
+        _indicator = Instantiate(attacks[(int)_equippedAttackSlot].AttackIndicator).GetComponent<AbIndicator>();
+        _indicator.Initialize(attacks[(int)_equippedAttackSlot]);
 
         //Allows preview cost of equipped action
         _actionCost = -attacks[(int)_equippedAttackSlot].ActionCost;
@@ -133,7 +134,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack()
     {
-        List<AttackScriptableObject> attacks = _playerAbilityManager.EquippedAbilities;
+        List<Ability> attacks = _playerAbilityManager.EquippedAbilities;
         
         // check if attack cannot be cast on enemy
         if (_indicator != null && attacks[(int)_equippedAttackSlot].IsCannotCastOnEnemy && _indicator.HasEnemyInRange) return;
@@ -155,10 +156,8 @@ public class PlayerAttack : MonoBehaviour
             _indicator = null;
         }
 
-        AttackBehaviour attackObject = Instantiate(attacks[(int)_equippedAttackSlot].AttackBehaviour, attacks[(int)_equippedAttackSlot].AttackBehaviour.GetIsInstantiateAtDestination() ? _attackDstPosition : _attackSrcPosition, Quaternion.identity);
-        attackObject.SetPositions(_attackSrcPosition, _attackDstPosition);
-        attackObject.SetDamage(attacks[(int)_equippedAttackSlot].Damage);
-        attackObject.SetIsFromPlayer(true);
+        Ability abilityObject = Instantiate(attacks[(int)_equippedAttackSlot], attacks[(int)_equippedAttackSlot].IsInstantiateAtDestination ? _attackDstPosition : _attackSrcPosition, Quaternion.identity);
+        abilityObject.Initialize(_attackSrcPosition, _attackDstPosition, true);
 
         _playerAbilityManager.StartAbilityCooldown((int)_equippedAttackSlot);
 
