@@ -51,7 +51,7 @@ public class PlayerAbilities : MonoBehaviour
         if (!abilities.Contains(ability)) return false;
         if (ability.NextUpgrade == null) return false;
 
-        if (!FindObjectOfType<Currency>().Transaction((int)-ability.NextUpgradePrice)) return false;
+        if (!FindObjectOfType<Currency>().Remove((int)ability.NextUpgradePrice)) return false;
 
         int index = abilities.IndexOf(ability);
         abilities[index] = ability.NextUpgrade;

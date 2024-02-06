@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efa0ef1f222681646923a01cec4103af, type: 3}
+  m_Name: PlayerData
+  m_EditorClassIdentifier: 
+  _hp: 10
+  _minHp: 0
+  _maxHp: 1e+9
+  _ap: 20
+  _minAp: 0
+  _maxAp: 1e+9
+  _attack:
+  - 1
+  - 0
+  - 0
+  - 0
+  - 0
+  _minAttack: 0
+  _maxAttack: 1e+9
+  _defence:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  _minDefence: 1
+  _maxDefence: 1e+9
+  _atk_speed: 10
+  _minAtk_speed: 1
+  _maxAtk_speed: 0
+  _accuracy: 100
+  _minAccuracy: 0
+  _maxAccuracy: 0
+  _evasiveness: 0
+  _minEvasiveness: 0
+  _maxEvasiveness: 0
+  _crit_dmg: 200
+  _minCrit_dmg: 0
+  _maxCrit_dmg: 0
+  _crit_rate: 5
+  _minCrit_rate: 0
+  _maxCrit_rate: 0
+  _speed: 1
+  _minSpeed: 0
+  _maxSpeed: 0
+  _luck: 0
+  _minLuck: 0
+  _maxLuck: 1e+9
+  _invicibilityTF: 0
+  _minInvicibilityTF: 0
+  _maxInvicibilityTF: 1e+9

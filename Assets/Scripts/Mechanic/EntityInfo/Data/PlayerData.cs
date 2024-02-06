@@ -4,22 +4,32 @@ using UnityEngine;
 using TMPro;
 
 public class PlayerData : EntityData
-{   
-    [Header("Player Currency")]
-    private Currency _playerGold;
+{
     [Tooltip("Currency text")]
     public TMP_Text CurrencyText;
 
     protected override void Awake()
     {
         base.Awake();
-        _playerGold = GetComponent<Currency>();
+        AddCurrencyType();
+    }
+
+    public void AddCurrencyType()
+    {
+        if (ResourceMan.ResourceDict[EntityDataTypes.Resource.Currency] == null)
+            ResourceMan.ResourceDict[EntityDataTypes.Resource.Currency] = new ResourceTemplate();
+
+    }
+
+    public void UpdateCurrencyText()
+    {
+        CurrencyText.text = (string)ResourceMan.GetValue(EntityDataTypes.Resource.Currency).ToString();
     }
 
     protected override void Update()
     {
         base.Update();
-        CurrencyText.text = (string) _playerGold.Value.ToString();
+        UpdateCurrencyText();
     }
 
     public void PreviewActionCost(bool check, float cost = 0)

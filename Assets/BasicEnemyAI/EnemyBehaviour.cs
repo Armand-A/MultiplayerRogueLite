@@ -49,7 +49,7 @@ public class EnemyBehaviour : MonoBehaviour
             enemy.speed = 0;
             if (!onCooldown)
             {
-                if (actions.UpdateValue(-Attack.ActionCost))
+                if (actions.Remove(Attack.ActionCost))
                 {
                     onCooldown = true;
                     //actions.Value = actions.Value - Attack.ActionCost;

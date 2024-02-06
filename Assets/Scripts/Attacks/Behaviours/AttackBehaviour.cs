@@ -57,7 +57,7 @@ public class AttackBehaviour : MonoBehaviour
             )
             {
                 damagedEntities.Add(entity);
-                entity.UpdateHealth(-_damage);
+                entity.Damage(_damage);
             }
 
             if (entity is EnemyData && _isFromPlayer)
