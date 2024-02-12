@@ -6,7 +6,6 @@ public class EntityData : MonoBehaviour
 {
     public ResourceManager ResourceMan;
     public StatManager StatMan;
-
     protected Transform EntityTransform;
 
     [Header("Data display objects")]
@@ -30,6 +29,10 @@ public class EntityData : MonoBehaviour
 
     protected virtual void Awake()
     {
+        ResourceMan = this.GetComponent<ResourceManager>();
+        StatMan = this.GetComponent<StatManager>();
+
+        ResourceMan.Initialize();
         EntityTransform = this.transform;
 
         _combatModeTimeout = new CooldownTimer(CombatTimeout);
@@ -52,13 +55,13 @@ public class EntityData : MonoBehaviour
 
         _healthGauge.UpdateValue(ResourceMan.Health.Value, ResourceMan.Health.TotalValue);
         _actionGauge.UpdateValue(ResourceMan.Action.Value, ResourceMan.Action.TotalValue);
-        if (ResourceMan.GetValue(EntityDataTypes.Resource.HP) < 0.001f) DeathSequence();
+        if (ResourceMan.Health.Value < 0.001f) DeathSequence();
     }
 
     public bool UpdateAction(float value)
     {
-        return false;
-        //return EntityAction.UpdateValue(actionCost);
+        //return false;
+        return ResourceMan.Action.Remove(value);
     }
 
     public bool Damage(float value)

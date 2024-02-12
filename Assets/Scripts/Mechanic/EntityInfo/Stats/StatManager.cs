@@ -9,7 +9,8 @@ public class StatManager : MonoBehaviour
     [SerializeField] private EntityDataScriptableObject _initialData;
 
     // Sample key Stat[(int)EntityDataTypes.ElementType.Fire + (int)EntityDataTypes.Stats.Attack]
-    private Dictionary<int, StatTemplate> Stat;
+    private Dictionary<int, StatTemplate> _stat;
+    public Dictionary<int, StatTemplate> Stat {  get { return _stat; } }
     // key = UpgradeID
     private List<UpgradeTemplate> Upgrades;
 
@@ -18,6 +19,8 @@ public class StatManager : MonoBehaviour
 
     protected void Awake()
     {
+        if (_stat == null)
+            _stat = new Dictionary<int, StatTemplate>();
         if (_initialData == null)
             StatDefault();
         else
@@ -49,12 +52,12 @@ public class StatManager : MonoBehaviour
                 Debug.Log(_statNames[i]);
                 for (int j = 0; j < _elementNames.Count; j++)
                 {
-                    Stat[(int)_statNames[i] + (int)_elementNames[j]] = new StatTemplate();
+                    Stat[(int)_statNames[i] + (int)_elementNames[j]] = new StatTemplate(gameObject);
                 }
                 continue;
             }
             Debug.Log(_statNames[i]);
-            Stat[(int)_statNames[i]] = new StatTemplate();
+            Stat[(int)_statNames[i]] = new StatTemplate(gameObject);
         }
     }
 
@@ -65,44 +68,50 @@ public class StatManager : MonoBehaviour
     {
         for (int i = 0; i < _statNames.Count; i++)
         {
-            Debug.Log("Stat \"" + _statNames[i] + "\" added");
+            //Debug.Log("Stat \"" + _statNames[i] + "\" added");
             switch (_statNames[i])
             {
                 case EntityDataTypes.Stats.HP:
-                    Stat[(int)_statNames[i]] = new StatTemplate(_initialData.HP[0], _initialData.HP[1], _initialData.HP[2]);
+                    Stat[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.HP[0], _initialData.HP[1], _initialData.HP[2]);
                     break;
                 case EntityDataTypes.Stats.AP:
-                    Stat[(int)_statNames[i]] = new StatTemplate(_initialData.AP[0], _initialData.AP[1], _initialData.AP[2]);
+                    Stat[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.AP[0], _initialData.AP[1], _initialData.AP[2]);
                     break;
                 case EntityDataTypes.Stats.Attack:
                     for (int j = 0; j < _elementNames.Count; j++)
                     {
-                        Stat[(int)_statNames[i] + (int)_elementNames[j]] = new StatTemplate(_initialData.Attack[j], _initialData.MinMaxAttack[0], _initialData.MinMaxAttack[1]);
+                        Stat[(int)_statNames[i] + (int)_elementNames[j]] = new StatTemplate(gameObject, _initialData.Attack[j], _initialData.MinMaxAttack[0], _initialData.MinMaxAttack[1]);
                     }
                     break;
                 case EntityDataTypes.Stats.Defence:
                     for (int j = 0; j < _elementNames.Count; j++)
                     {
-                        Stat[(int)_statNames[i] + (int)_elementNames[j]] = new StatTemplate(_initialData.Defence[j], _initialData.MinMaxDefence[0], _initialData.MinMaxDefence[1]);
+                        Stat[(int)_statNames[i] + (int)_elementNames[j]] = new StatTemplate(gameObject, _initialData.Defence[j], _initialData.MinMaxDefence[0], _initialData.MinMaxDefence[1]);
                     }
                     break;
                 case EntityDataTypes.Stats.Atk_Spd:
-                    Stat[(int)_statNames[i]] = new StatTemplate(_initialData.Atk_Spd[0], _initialData.Atk_Spd[1], _initialData.Atk_Spd[2]);
+                    Stat[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.Atk_Spd[0], _initialData.Atk_Spd[1], _initialData.Atk_Spd[2]);
                     break;
                 case EntityDataTypes.Stats.Accuracy:
-                    Stat[(int)_statNames[i]] = new StatTemplate(_initialData.Accuracy[0], _initialData.Accuracy[1], _initialData.Accuracy[2], statValueType:EntityDataTypes.ValueType.Percentage);
+                    Stat[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.Accuracy[0], _initialData.Accuracy[1], _initialData.Accuracy[2], statValueType:EntityDataTypes.ValueType.Percentage);
                     break;
                 case EntityDataTypes.Stats.Evasiveness:
-                    Stat[(int)_statNames[i]] = new StatTemplate(_initialData.Evasiveness[0], _initialData.Evasiveness[1], _initialData.Evasiveness[2], statValueType: EntityDataTypes.ValueType.Percentage);
+                    Stat[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.Evasiveness[0], _initialData.Evasiveness[1], _initialData.Evasiveness[2], statValueType: EntityDataTypes.ValueType.Percentage);
                     break;
                 case EntityDataTypes.Stats.Crit_Dmg:
-                    Stat[(int)_statNames[i]] = new StatTemplate(_initialData.Crit_Dmg[0], _initialData.Crit_Dmg[1], _initialData.Crit_Dmg[2], statValueType: EntityDataTypes.ValueType.Percentage);
+                    Stat[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.Crit_Dmg[0], _initialData.Crit_Dmg[1], _initialData.Crit_Dmg[2], statValueType: EntityDataTypes.ValueType.Percentage);
                     break;
                 case EntityDataTypes.Stats.Crit_Rate:
-                    Stat[(int)_statNames[i]] = new StatTemplate(_initialData.Crit_Rate[0], _initialData.Crit_Rate[1], _initialData.Crit_Rate[2], statValueType: EntityDataTypes.ValueType.Percentage);
+                    Stat[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.Crit_Rate[0], _initialData.Crit_Rate[1], _initialData.Crit_Rate[2], statValueType: EntityDataTypes.ValueType.Percentage);
                     break;
                 case EntityDataTypes.Stats.Speed:
-                    Stat[(int)_statNames[i]] = new StatTemplate(_initialData.Speed[0], _initialData.Speed[1], _initialData.Speed[2]);
+                    Stat[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.Speed[0], _initialData.Speed[1], _initialData.Speed[2]);
+                    break;
+                case EntityDataTypes.Stats.Luck:
+                    Stat[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.Speed[0], _initialData.Speed[1], _initialData.Speed[2]);
+                    break;
+                case EntityDataTypes.Stats.Invincibility_Time_Frame:
+                    Stat[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.Speed[0], _initialData.Speed[1], _initialData.Speed[2]);
                     break;
                 default:
                     Debug.LogError("Stat is not implemented properly");

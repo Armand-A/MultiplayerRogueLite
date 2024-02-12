@@ -125,7 +125,7 @@ public class PlayerAttack : MonoBehaviour
         _indicator = Instantiate(attacks[(int)_equippedAttackSlot].AttackIndicator).GetComponent<AttackIndicator>();
 
         //Allows preview cost of equipped action
-        _actionCost = -attacks[(int)_equippedAttackSlot].ActionCost;
+        _actionCost = attacks[(int)_equippedAttackSlot].ActionCost;
         _playerData.PreviewActionCost(true, _actionCost);
 
         equipAttackEvent.Invoke(attackSlot);
@@ -137,14 +137,14 @@ public class PlayerAttack : MonoBehaviour
         
         // check if attack cannot be cast on enemy
         if (_indicator != null && attacks[(int)_equippedAttackSlot].IsCannotCastOnEnemy && _indicator.HasEnemyInRange) return;
-
+        
         // check if ability is on cooldown, should've been checked by equip but just to be sure
         if (!_playerAbilityManager.GetIsAbilityAvailable((int)_equippedAttackSlot)) return;
-
-        // Checks and consumes action points depending on if there is enough left
-        if (!_playerData.UpdateAction(_actionCost))
-            return;
         
+        // Checks and consumes action points depending on if there is enough left
+        if (!_playerData.UpdateAction(_actionCost)) return;
+        
+
         if (_indicator != null)
         {
 

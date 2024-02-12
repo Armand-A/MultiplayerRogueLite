@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class StatTemplate : MonoBehaviour
+public class StatTemplate
 {
     private float _baseValue;
     float _currentVal;
@@ -13,7 +13,7 @@ public class StatTemplate : MonoBehaviour
     private float _minVal;
     private float _maxVal = 999999999;
 
-    public StatTemplate(float baseValue = 10, float minVal = 0, float maxVal = 999999999, EntityDataTypes.ValueType statValueType = EntityDataTypes.ValueType.Flat)
+    public StatTemplate(GameObject parent, float baseValue = 10, float minVal = 0, float maxVal = 999999999, EntityDataTypes.ValueType statValueType = EntityDataTypes.ValueType.Flat)
     {
         _baseValue = baseValue;
         _currentVal = baseValue;
@@ -24,7 +24,7 @@ public class StatTemplate : MonoBehaviour
 
         if (CheckNewStat(_baseValue) < _minVal || _maxVal <CheckNewStat(_baseValue))
         {
-            Debug.LogError(gameObject.name + " may have issues with the base stat template");
+            Debug.LogError(parent.name + " may have issues");
         }
     }
 

@@ -764,9 +764,8 @@ GameObject:
   - component: {fileID: 2857111333002116029}
   - component: {fileID: 4558061130878690413}
   - component: {fileID: 1307321776174165603}
-  - component: {fileID: 7845452043291746931}
-  - component: {fileID: 1250791946405047257}
-  - component: {fileID: 1736233337766477373}
+  - component: {fileID: 5216447522846824032}
+  - component: {fileID: 3737287468815409089}
   m_Layer: 0
   m_Name: RangedEnemy
   m_TagString: Untagged
@@ -954,8 +953,6 @@ MonoBehaviour:
   ranged: 1
   Attack: {fileID: 11400000, guid: 2f536726b0491104ba9d7922e76ede9c, type: 2}
   Attack2: {fileID: 11400000, guid: 7bd6b8948d368df42b9ec757e753cf18, type: 2}
-  actions: {fileID: 0}
-  health: {fileID: 0}
 --- !u!114 &1307321776174165603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -968,12 +965,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53ab215f512bcf240ad1f6ee7b19c927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ResourceMan: {fileID: 3737287468815409089}
+  StatMan: {fileID: 5216447522846824032}
   _healthGauge: {fileID: 7049144441226187932}
   _actionGauge: {fileID: 7689241582844809536}
   CombatMode: 0
   CombatTimeout: 3
   Alive: 1
---- !u!114 &7845452043291746931
+--- !u!114 &5216447522846824032
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -982,17 +981,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6615013091452182067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d999dfcb898c8d43b4310178fe747c6, type: 3}
+  m_Script: {fileID: 11500000, guid: 79119190a5f7bf54e968846b69a279ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 0
-  BaseValue: 20
-  MaxValue: 100
-  TotalValue: 0
-  RechargeInterval: 1
-  RechargeRate: 2
-  RechargeModifier: 1
---- !u!114 &1250791946405047257
+  _initialData: {fileID: 11400000, guid: 7f16b430c7ee25f4d8ea23a53662a59a, type: 2}
+--- !u!114 &3737287468815409089
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1001,35 +994,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6615013091452182067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2231e70241472364ba0822d750e0495f, type: 3}
+  m_Script: {fileID: 11500000, guid: 29f960be507f84040ac93135a4b95296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 0
-  BaseValue: 20
-  MaxValue: 100
-  TotalValue: 0
-  RechargeInterval: 1
-  RechargeRate: 2
-  RechargeModifier: 1
---- !u!114 &1736233337766477373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6615013091452182067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d205df20b784014b82f34a924d42edd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Value: 0
-  BaseValue: 20
-  MaxValue: 100
-  TotalValue: 0
-  RechargeInterval: 1
-  RechargeRate: 2
-  RechargeModifier: 1
 --- !u!1 &7336106087930792450
 GameObject:
   m_ObjectHideFlags: 0

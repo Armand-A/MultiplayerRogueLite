@@ -78,7 +78,7 @@ public class AbilityUpgradePreviewUI : AbilityUI
 
         errorText.text = null;
 
-        Currency currencyObject = FindObjectOfType<Currency>();
+        Currency currencyObject = FindObjectOfType<ResourceManager>().Currency;
         if (currencyObject != null)
         {
             float currencyAfterPrice = currencyObject.Value - ability.NextUpgradePrice;

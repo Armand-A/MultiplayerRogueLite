@@ -26,8 +26,7 @@ public class EntityDataTypes
         Crit_Rate = 8,
         Speed = 9,
         Luck = 10,
-        Currency = 11,
-        Invincibility_Time_Frame = 12,
+        Invincibility_Time_Frame = 11,
     }
 
     public enum Resource

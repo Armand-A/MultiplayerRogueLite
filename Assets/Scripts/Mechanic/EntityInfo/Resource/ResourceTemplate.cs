@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceTemplate : MonoBehaviour
+public class ResourceTemplate
 {
     [Header("Resource values")]
     [Tooltip("Current value")]
     [SerializeField] protected float _currentValue = 20;
     [Tooltip("Total value")]
-    [SerializeField] protected float _totalValue = 999999999999;
+    [SerializeField] protected float _totalValue = 20;
 
     public float Value { get { return _currentValue; } set { _currentValue = value; } }
     public float TotalValue { get { return _totalValue; } set { _totalValue = value; } }

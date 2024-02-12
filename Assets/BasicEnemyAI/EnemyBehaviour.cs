@@ -16,11 +16,15 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private Action actions;
     public Health health;
 
+    EnemyData _enemyData;
+
     // Start is called before the first frame update
     void Start()
     {
-        health = GetComponent<Health>();
-        actions = GetComponent<Action>();
+        _enemyData = gameObject.GetComponent<EnemyData>();
+
+        health = _enemyData.ResourceMan.Health;
+        actions = _enemyData.ResourceMan.Action;
         enemy = GetComponent<NavMeshAgent>();
         onCooldown = false;
         if(ranged)

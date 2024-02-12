@@ -11,19 +11,12 @@ public class PlayerData : EntityData
     protected override void Awake()
     {
         base.Awake();
-        AddCurrencyType();
-    }
-
-    public void AddCurrencyType()
-    {
-        if (ResourceMan.ResourceDict[EntityDataTypes.Resource.Currency] == null)
-            ResourceMan.ResourceDict[EntityDataTypes.Resource.Currency] = new ResourceTemplate();
-
+        ResourceMan.AddCurrency();
     }
 
     public void UpdateCurrencyText()
     {
-        CurrencyText.text = (string)ResourceMan.GetValue(EntityDataTypes.Resource.Currency).ToString();
+        CurrencyText.text = (string)ResourceMan.Currency.ToString();
     }
 
     protected override void Update()
