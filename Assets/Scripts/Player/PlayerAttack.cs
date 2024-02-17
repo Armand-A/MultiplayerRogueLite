@@ -14,11 +14,19 @@ public enum HotbarAbilitySlot
     None, 
 }
 
+public enum AimMode
+{
+    LockOn, 
+    LockOff, 
+}
+
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private float maxAimDistance = 50f;
-
+    [SerializeField, Range(0.1f, 5f)] private float aimLockSensitivity = 2f;
+    [SerializeField] private AimMode aimMode = AimMode.LockOn;
     [SerializeField] private GameObject playerAbilityManagerPrefab;
+    [SerializeField] private GameObject lockOnCrosshairPrefab;
 
     UnityEvent<HotbarAbilitySlot> startPreviewAbilityEvent = new UnityEvent<HotbarAbilitySlot>();
     UnityEvent endPreviewAbilityEvent = new UnityEvent();
@@ -26,13 +34,14 @@ public class PlayerAttack : MonoBehaviour
     private PlayerData _playerData;
     private PlayerAbilities _playerAbilityManager;
 
-    private GameObject _camera;
     private AbIndicator _indicator;
 
     private HotbarAbilitySlot _previewingAbilitySlot = HotbarAbilitySlot.None;
 
-    private Vector3 _attackSrcPosition;
-    private Vector3 _attackDstPosition;
+    private Vector3 _atkSrcPos;
+    private Vector3 _atkDstPos;
+    private GameObject lockOnTarget = null;
+    private GameObject lockOnCrosshairObject;
 
     private float _actionCost;
 
@@ -52,6 +61,20 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    Ray CameraCenterRay { get { return Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f)); } }
+    LayerMask AimCastLayerMask 
+    { 
+        get
+        {
+            LayerMask mask = 0;
+            mask |= 1 << LayerMask.NameToLayer("Default");
+            mask |= 1 << LayerMask.NameToLayer("Ground");
+            mask |= 1 << LayerMask.NameToLayer("Water");
+            mask |= 1 << LayerMask.NameToLayer("Block Attack");
+            return mask;
+        } 
+    }
+
     private void Awake()
     {
         _playerAbilityManager = FindObjectOfType<PlayerAbilities>();
@@ -59,44 +82,116 @@ public class PlayerAttack : MonoBehaviour
         {
             _playerAbilityManager = Instantiate(playerAbilityManagerPrefab).GetComponent<PlayerAbilities>();
         }
+
+        lockOnCrosshairObject = Instantiate(lockOnCrosshairPrefab);
+        lockOnCrosshairObject.SetActive(false);
     }
 
     void Start()
     {
         _playerData = GetComponent<PlayerData>();
-        _camera = GameObject.FindWithTag("MainCamera");
     }
-
+    
     private void Update()
     {
         if (_previewingAbilitySlot != HotbarAbilitySlot.None)
         {
-            _attackSrcPosition = transform.position;
-            _attackDstPosition = _camera.transform.position + _camera.transform.forward.normalized * maxAimDistance;
-
-            LayerMask raycastLayermask = 0;
-            raycastLayermask |= 1 << LayerMask.NameToLayer("Default");
-            raycastLayermask |= 1 << LayerMask.NameToLayer("Ground");
-            raycastLayermask |= 1 << LayerMask.NameToLayer("Water");
-            raycastLayermask |= 1 << LayerMask.NameToLayer("Block Attack");
-
-            // adjust if hit obstacle
-            RaycastHit rayHit, sphereHit;
-            if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out rayHit, maxAimDistance, raycastLayermask, QueryTriggerInteraction.Ignore))
-            {
-                // adjust for projectile size via sphere cast for projectiles
-                if (PreviewingAbility.DestinationSphereCastRadius != 0f && Physics.SphereCast(_camera.transform.position, PreviewingAbility.DestinationSphereCastRadius, _camera.transform.forward, out sphereHit, maxAimDistance, raycastLayermask, QueryTriggerInteraction.Ignore))
-                {
-                    _attackDstPosition = _camera.transform.position + Vector3.Project(sphereHit.point - _camera.transform.position, rayHit.point - _camera.transform.position);
-                }
-                else
-                {
-                    _attackDstPosition = rayHit.point;
-                }
-            }
-
-            _indicator.SetPositions(_attackSrcPosition, _attackDstPosition);
+            UpdateLockOnTarget();
+            UpdateLockOnCrosshairObject();
+            UpdateAtkPos();
         }
+    }
+
+    void UpdateAtkPos()
+    {
+        _atkSrcPos = transform.position;
+        _atkDstPos = aimMode == AimMode.LockOn ? GetAtkDstPosLockOn() : GetAtkDstPosLockOff();
+        _indicator.SetPositions(_atkSrcPos, _atkDstPos);
+    }
+
+    Vector3 GetAtkDstPosLockOn()
+    {
+        if (lockOnTarget != null)
+        {
+            return lockOnTarget.transform.position;
+        } 
+        else
+        {
+            return GetAtkDstPosLockOff();
+        }
+    }
+
+    Vector3 GetAtkDstPosLockOff()
+    {
+        Ray cameraCenterRay = CameraCenterRay;
+        Vector3 dstPos = cameraCenterRay.GetPoint(maxAimDistance);
+
+        // adjust to before hitting obstacle if hit obstacle
+        RaycastHit rayHit, sphereHit;
+        if (Physics.Raycast(cameraCenterRay, out rayHit, maxAimDistance, AimCastLayerMask, QueryTriggerInteraction.Ignore))
+        {
+            // adjust for projectile size via sphere cast for projectiles
+            if (PreviewingAbility.DestinationSphereCastRadius != 0f && Physics.SphereCast(cameraCenterRay, PreviewingAbility.DestinationSphereCastRadius, out sphereHit, maxAimDistance, AimCastLayerMask, QueryTriggerInteraction.Ignore))
+            {
+                dstPos = cameraCenterRay.origin + Vector3.Project(sphereHit.point - cameraCenterRay.origin, rayHit.point - cameraCenterRay.origin);
+            }
+            else
+            {
+                dstPos = rayHit.point;
+            }
+        }
+
+        return dstPos;
+    }
+
+    void UpdateLockOnTarget()
+    {
+        Ray cameraCenterRay = CameraCenterRay;
+        RaycastHit[] sphereHits = Physics.SphereCastAll(cameraCenterRay, aimLockSensitivity, maxAimDistance, AimCastLayerMask, QueryTriggerInteraction.Ignore);
+
+        GameObject closestObj = null;
+        float closestObjDot = float.MinValue; // dist from aim center
+        foreach (RaycastHit hit in sphereHits)
+        {
+            // if hit object is not enemy, skip object
+            EnemyData enemyData = hit.collider.gameObject.GetComponentInParent<EnemyData>();
+            if (enemyData == null) continue;
+
+            float thisDist = Vector3.Dot(cameraCenterRay.direction.normalized, (hit.point - cameraCenterRay.origin).normalized);
+
+            // if this object further from center of screen than cached object, skip object
+            if (thisDist <= closestObjDot) continue;
+
+            // cache current object
+            closestObj = enemyData.gameObject;
+            closestObjDot = thisDist;
+        }
+        lockOnTarget = closestObj;
+    }
+
+    void UpdateLockOnCrosshairObject()
+    {
+        if (lockOnTarget != null)
+        {
+            lockOnCrosshairObject.transform.position = lockOnTarget.transform.position;
+            if (!lockOnCrosshairObject.activeInHierarchy)
+            {
+                lockOnCrosshairObject.SetActive(true);
+            }
+        }
+        else if (lockOnCrosshairObject.activeInHierarchy)
+        {
+            lockOnCrosshairObject.SetActive(false);
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        //if (lockOnTarget != null)
+        //{
+        //    Gizmos.color = Color.yellow;
+        //    Gizmos.DrawSphere(lockOnTarget.transform.position, 1f);
+        //}
     }
 
     public void OnHotbarAbilityPressed(HotbarAbilitySlot hotbarAbilitySlot)
@@ -169,12 +264,15 @@ public class PlayerAttack : MonoBehaviour
             _indicator = null;
         }
 
-        Ability abilityObject = Instantiate(PreviewingAbility, PreviewingAbility.IsInstantiateAtDestination ? _attackDstPosition : _attackSrcPosition, Quaternion.identity);
-        abilityObject.Initialize(_attackSrcPosition, _attackDstPosition, true);
+        Ability abilityObject = Instantiate(PreviewingAbility, PreviewingAbility.IsInstantiateAtDestination ? _atkDstPos : _atkSrcPos, Quaternion.identity);
+        abilityObject.Initialize(_atkSrcPos, _atkDstPos, true);
 
         _playerAbilityManager.StartAbilityCooldown((int)_previewingAbilitySlot);
 
         _previewingAbilitySlot = HotbarAbilitySlot.None;
+
+        lockOnTarget = null;
+        UpdateLockOnCrosshairObject();
 
         endPreviewAbilityEvent.Invoke();
     }
@@ -191,6 +289,9 @@ public class PlayerAttack : MonoBehaviour
             _indicator = null;
         }
         _previewingAbilitySlot = HotbarAbilitySlot.None;
+
+        lockOnTarget = null;
+        UpdateLockOnCrosshairObject();
 
         endPreviewAbilityEvent.Invoke();
     }
