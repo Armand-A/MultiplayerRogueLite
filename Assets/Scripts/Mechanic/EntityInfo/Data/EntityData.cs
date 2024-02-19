@@ -29,44 +29,57 @@ public class EntityData : MonoBehaviour
 
     protected virtual void Awake()
     {
-        ResourceMan = this.GetComponent<ResourceManager>();
-        StatMan = this.GetComponent<StatManager>();
+        if (ResourceMan == null)
+            ResourceMan = GetComponent<ResourceManager>();
+        if (StatMan == null)
+            StatMan = GetComponent<StatManager>();
 
         ResourceMan.Initialize();
-        EntityTransform = this.transform;
+        EntityTransform = transform;
 
         _combatModeTimeout = new CooldownTimer(CombatTimeout);
     }
     
     protected virtual void OnEnable()
     {
+        StatMan.StatUpdateEvent += UpdateResourceTotal;
         _combatModeTimeout.TimerCompleteEvent += ExitCombatMode;
     }
 
     protected virtual void OnDisable()
     {
+        StatMan.StatUpdateEvent -= UpdateResourceTotal;
         _combatModeTimeout.TimerCompleteEvent -= ExitCombatMode;
     }
     
     protected virtual void Update()
     {
-        //if (_combatModeTimeout.IsActive)
-        _combatModeTimeout.Update(Time.deltaTime);
+        if (_combatModeTimeout.IsActive)
+            _combatModeTimeout.Update(Time.deltaTime);
 
         _healthGauge.UpdateValue(ResourceMan.Health.Value, ResourceMan.Health.TotalValue);
         _actionGauge.UpdateValue(ResourceMan.Action.Value, ResourceMan.Action.TotalValue);
         if (ResourceMan.Health.Value < 0.001f) DeathSequence();
     }
 
-    public bool UpdateAction(float value)
+    public void UpdateResourceTotal()
     {
-        //return false;
+        float hp = StatMan.Stats[(int)EntityDataTypes.Stats.HP].Value;
+        float ap = StatMan.Stats[(int)EntityDataTypes.Stats.AP].Value;
+        ResourceMan.UpdateResourceStats(hp, ap);
+    }
+
+    public bool UseAction(float value)
+    {
         return ResourceMan.Action.Remove(value);
     }
 
-    public bool Damage(float value)
+    public bool Damage(float incomingAttack)
     {
         EnterCombatMode();
+        float value = 0;
+        //value = ResourceMan.DamageCalculation(incomingattack[], StatMan.GetDefence());
+        value = incomingAttack;
         return ResourceMan.Health.Remove(value);
     }
 

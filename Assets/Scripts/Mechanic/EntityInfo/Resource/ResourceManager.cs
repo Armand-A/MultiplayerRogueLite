@@ -32,8 +32,24 @@ public class ResourceManager : MonoBehaviour
     public void UpdateResourceStats(float hp, float ap)
     {
         _health.TotalValue = hp;
+        if (_health.Value > _health.TotalValue)
+            _health.Value = _health.TotalValue;
+
         _action.TotalValue = ap;
+        if (_action.Value > _action.TotalValue)
+            _action.Value = _action.TotalValue;
     }
+
+    public float DamageCalculation(float[] attack, float[] defence)
+    {
+        float totalDamage = 0;
+        for (int i = 0; i < attack.Length; i++)
+        {
+            totalDamage += 10 * attack[i] / (10 + defence[i]);
+        }
+        return totalDamage;
+    }
+
 /*
     public float GetValue(EntityDataTypes.Resource resource)
     {

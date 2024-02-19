@@ -142,7 +142,7 @@ public class PlayerAttack : MonoBehaviour
         if (!_playerAbilityManager.GetIsAbilityAvailable((int)_equippedAttackSlot)) return;
         
         // Checks and consumes action points depending on if there is enough left
-        if (!_playerData.UpdateAction(_actionCost)) return;
+        if (!_playerData.UseAction(_actionCost)) return;
         
 
         if (_indicator != null)

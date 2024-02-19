@@ -402,7 +402,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (DashBool > 0 && (DashRemaining > 0 || !_combatMode))
         {   
-            if (_playerData.UpdateAction(-DashCost))
+            if (_playerData.UseAction(DashCost))
                 _rigidBody.AddForce(MoveDir.normalized * DashForce , ForceMode.Impulse);
 
             if (_combatMode)
