@@ -11,7 +11,7 @@ public class AbIndicator : MonoBehaviour
     Vector3 _srcPos = Vector3.zero;
     Vector3 _dstPos = Vector3.zero;
     bool _hasEnemyInRange;
-    Ability _parentAbility;
+    AnywhereAbility _parentAbility;
 
     public Vector3 SrcPos { get { return _srcPos; } }
     public Vector3 DstPos { get { return _dstPos; } }
@@ -26,7 +26,7 @@ public class AbIndicator : MonoBehaviour
         }
     }
 
-    public void Initialize(Ability parentAbility)
+    public void Initialize(AnywhereAbility parentAbility)
     {
         _parentAbility = parentAbility;
         if (transformDestination != null)

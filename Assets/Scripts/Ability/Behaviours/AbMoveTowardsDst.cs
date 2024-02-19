@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Ability)), AddComponentMenu("Ability/Movement/Move towards Destination")]
+[RequireComponent(typeof(AnywhereAbility)), AddComponentMenu("Ability/Behaviours/Movement/Move towards Destination")]
 public class AbMoveTowardsDst : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 15f;
     [SerializeField] bool isHoming = false;
 
     bool _hasOriented = false;
-    Ability _ability;
+    AnywhereAbility _ability;
 
     private void Start()
     {
-        _ability = GetComponent<Ability>();
+        _ability = GetComponent<AnywhereAbility>();
     }
 
     private void Awake()

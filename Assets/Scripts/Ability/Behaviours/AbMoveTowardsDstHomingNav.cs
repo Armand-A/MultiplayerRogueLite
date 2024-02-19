@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(Ability), typeof(NavMeshAgent)), AddComponentMenu("Ability/Movement/Move towards Destination (Homing with Nav)")]
+[RequireComponent(typeof(DirectionalAbility), typeof(NavMeshAgent)), AddComponentMenu("Ability/Behaviours/Movement/Move along Direction (Homing with Nav)")]
 public class AbMoveTowardsDstHomingNav : MonoBehaviour, IAbilityHomingable
 {
     [SerializeField] private float moveSpeed = 15f;
@@ -11,14 +11,14 @@ public class AbMoveTowardsDstHomingNav : MonoBehaviour, IAbilityHomingable
 
     private NavMeshAgent bullet;
     private GameObject target;
-    private Ability _ability;
+    private DirectionalAbility _ability;
 
     void Start()
     {
         bullet = GetComponent<NavMeshAgent>();
-        _ability = GetComponent<Ability>();
+        _ability = GetComponent<DirectionalAbility>();
 
-        transform.LookAt(_ability.DstPos);
+        transform.forward = _ability.Direction.direction;
     }
 
     void Update()

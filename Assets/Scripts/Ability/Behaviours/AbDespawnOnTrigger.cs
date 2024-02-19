@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[AddComponentMenu("Ability/Despawn/Despawn On Trigger (Detachable)")]
+[AddComponentMenu("Ability/Behaviours/Despawn/Despawn On Trigger (Detachable)")]
 public class AbDespawnOnTrigger : MonoBehaviour
 {
     [SerializeField] Ability _ability;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
 
-[AddComponentMenu("Ability/Damage/Damage On Trigger (Detachable)")]
+[AddComponentMenu("Ability/Behaviours/Damage/Damage On Trigger (Detachable)")]
 public class AbDamageOnTrigger : MonoBehaviour
 {
     [SerializeField] private Ability _ability;

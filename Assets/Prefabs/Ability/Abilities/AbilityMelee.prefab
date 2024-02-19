@@ -118,8 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901869b303a08a44fbe0e8e762a4505e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ability: {fileID: 8428844586865778531}
-  isDestroyOnDamage: 0
+  _ability: {fileID: 5914154632734680304}
 --- !u!1 &7874847116489948173
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,9 +128,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4357756084069835239}
-  - component: {fileID: 8428844586865778531}
   - component: {fileID: -3031788542551439267}
   - component: {fileID: 6383059297260025374}
+  - component: {fileID: 5914154632734680304}
   m_Layer: 0
   m_Name: AbilityMelee
   m_TagString: Untagged
@@ -155,37 +154,6 @@ Transform:
   - {fileID: 660915612607313276}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8428844586865778531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7874847116489948173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 697d2c7cfdc971146bed4977482def6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackIndicator: {fileID: 9210748993678534009, guid: 4ee85a53128e65946a49595223810ae7, type: 3}
-  sprite: {fileID: 21300000, guid: d2a135aead2b90740919f968969c7632, type: 3}
-  nextUpgrade: {fileID: 0}
-  nextUpgradePrice: 0
-  cannotCastOnEnemy: 0
-  healthCost: 0
-  manaCost: 0
-  actionCost: 5
-  damage: 10
-  cooldownTime: 1
-  isInstantiateAtDestination: 0
-  useCustomIndicatorLocalPosition: 0
-  customIndicatorLocalPosition: {x: 0, y: 0, z: 0}
-  useCustomIndicatorLocalRotation: 0
-  customIndicatorLocalRotation: {x: 0, y: 0, z: 0}
-  useCustomIndicatorLocalScale: 1
-  customIndicatorLocalScale: {x: 10, y: 2, z: 7}
-  playerHitsEnemyEvent: {fileID: 11400000, guid: 3de21ae7feb97d445b7c092d4b7f9b9a, type: 2}
-  enemyHitsPlayerEvent: {fileID: 11400000, guid: 08cd2d210d36e044b92c1f3ac5e62cce, type: 2}
 --- !u!114 &-3031788542551439267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,3 +179,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBeforeDespawn: 1
+--- !u!114 &5914154632734680304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7874847116489948173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd2f4d832f31ed42af06955ca7e42c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackIndicator: {fileID: 9210748993678534009, guid: 4ee85a53128e65946a49595223810ae7, type: 3}
+  sprite: {fileID: 21300000, guid: d2a135aead2b90740919f968969c7632, type: 3}
+  acquisitionType: 0
+  imbueOptions: []
+  combineOptions: []
+  healthCost: 0
+  manaCost: 0
+  actionCost: 5
+  damage: 10
+  cooldownTime: 1
+  isDestroyOnDamage: 0
+  isDealDamageOnInterval: 0
+  dealDamageInterval: 0
+  playerHitsEnemyEvent: {fileID: 11400000, guid: 3de21ae7feb97d445b7c092d4b7f9b9a, type: 2}
+  enemyHitsPlayerEvent: {fileID: 11400000, guid: 08cd2d210d36e044b92c1f3ac5e62cce, type: 2}

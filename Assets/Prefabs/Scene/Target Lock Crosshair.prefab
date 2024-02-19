@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6569981411959707289}
   - component: {fileID: 3145410592842258039}
   m_Layer: 2
-  m_Name: Target Lock Crosshair Quad
+  m_Name: Target Lock Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

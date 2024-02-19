@@ -4843,11 +4843,11 @@ GameObject:
   - component: {fileID: 6105459594704112636}
   - component: {fileID: 788828465350511098}
   - component: {fileID: -6450775219511568635}
-  - component: {fileID: 876172793251253612}
-  - component: {fileID: -7894606758665342563}
   - component: {fileID: 3728448464451973799}
   - component: {fileID: 4614111480559142710}
   - component: {fileID: -6008206259046587872}
+  - component: {fileID: -5126752297696998759}
+  - component: {fileID: -3268576012107917083}
   m_Layer: 0
   m_Name: AbilityFireball
   m_TagString: Untagged
@@ -4969,58 +4969,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &876172793251253612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7783548722218728632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 697d2c7cfdc971146bed4977482def6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackIndicator: {fileID: 6932023746338755616, guid: 92ceec922aafdc34b9abe598852e3ab9, type: 3}
-  sprite: {fileID: 21300000, guid: f9fdc1dc0da37c74883123355a728453, type: 3}
-  nextUpgrade: {fileID: 876172793251253612, guid: 4fc3db29e845a444baecf99c324e2098, type: 3}
-  nextUpgradePrice: 10
-  cannotCastOnEnemy: 0
-  acquisitionType: 1
-  imbueOptions: []
-  combineOptions: []
-  healthCost: 0
-  manaCost: 0
-  actionCost: 5
-  damage: 5
-  cooldownTime: 1
-  isDestroyOnDamage: 0
-  isDealDamageOnInterval: 0
-  dealDamageInterval: 0
-  isInstantiateAtDestination: 0
-  destinationSphereCastRadius: 0.5
-  useCustomIndicatorLocalPosition: 0
-  customIndicatorLocalPosition: {x: 0, y: 0, z: 5}
-  useCustomIndicatorLocalRotation: 0
-  customIndicatorLocalRotation: {x: 0, y: 0, z: 0}
-  useCustomIndicatorLocalScale: 0
-  customIndicatorLocalScale: {x: 1, y: 5, z: 1}
-  playerHitsEnemyEvent: {fileID: 11400000, guid: 3de21ae7feb97d445b7c092d4b7f9b9a, type: 2}
-  enemyHitsPlayerEvent: {fileID: 11400000, guid: 08cd2d210d36e044b92c1f3ac5e62cce, type: 2}
---- !u!114 &-7894606758665342563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7783548722218728632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 544293412afc1ac4cb6beadd04237098, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 15
-  isHoming: 0
 --- !u!114 &3728448464451973799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5033,7 +4981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901869b303a08a44fbe0e8e762a4505e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ability: {fileID: 876172793251253612}
+  _ability: {fileID: -5126752297696998759}
 --- !u!114 &4614111480559142710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5059,6 +5007,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2deaa5cf7cd4641b3245ba378aee94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ability: {fileID: 876172793251253612}
+  _ability: {fileID: -5126752297696998759}
   collidingLayerNames:
   - Block Attack
+--- !u!114 &-5126752297696998759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7783548722218728632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd2f4d832f31ed42af06955ca7e42c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackIndicator: {fileID: 6932023746338755616, guid: 92ceec922aafdc34b9abe598852e3ab9, type: 3}
+  sprite: {fileID: 21300000, guid: f9fdc1dc0da37c74883123355a728453, type: 3}
+  cannotCastOnEnemy: 0
+  acquisitionType: 1
+  imbueOptions: []
+  combineOptions: []
+  healthCost: 0
+  manaCost: 0
+  actionCost: 5
+  damage: 10
+  cooldownTime: 1
+  isDestroyOnDamage: 0
+  isDealDamageOnInterval: 0
+  dealDamageInterval: 0
+  isInstantiateAtDestination: 0
+  destinationSphereCastRadius: 0.5
+  useCustomIndicatorLocalPosition: 0
+  customIndicatorLocalPosition: {x: 0, y: 0, z: 0}
+  useCustomIndicatorLocalRotation: 0
+  customIndicatorLocalRotation: {x: 0, y: 0, z: 0}
+  useCustomIndicatorLocalScale: 0
+  customIndicatorLocalScale: {x: 0, y: 0, z: 0}
+  playerHitsEnemyEvent: {fileID: 11400000, guid: 3de21ae7feb97d445b7c092d4b7f9b9a, type: 2}
+  enemyHitsPlayerEvent: {fileID: 11400000, guid: 08cd2d210d36e044b92c1f3ac5e62cce, type: 2}
+--- !u!114 &-3268576012107917083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7783548722218728632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27e4ad310fa0faf4bb2df145adf861fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 15
+  isHoming: 0

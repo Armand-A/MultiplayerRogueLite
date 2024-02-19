@@ -6,6 +6,7 @@ MonoImporter:
   defaultReferences:
   - playerAbilityManagerPrefab: {fileID: 2175401215787140191, guid: 175511d24dbcf7b4d93a6a4c4d14f278, type: 3}
   - lockOnCrosshairPrefab: {fileID: 478221222571392455, guid: d826d1350684bcb46a504664e4000c50, type: 3}
+  - directionalCrosshairPrefab: {fileID: 1031047683803958720, guid: 683e0bacc2374c04da7752f47d33d458, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
