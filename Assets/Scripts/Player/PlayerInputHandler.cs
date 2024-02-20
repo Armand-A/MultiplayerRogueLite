@@ -42,8 +42,6 @@ public class PlayerInputHandler : MonoBehaviour
     {
         _playerInputAction.Enable();
 
-        _playerInputAction.Player.CamSwap.performed += OnCamSwap;
-
         // Assign functions as event handlers for input values
         _playerInputAction.Player.Move.performed += OnMovement;
         _playerInputAction.Player.Move.canceled += OnMovementStopped;
@@ -96,9 +94,9 @@ public class PlayerInputHandler : MonoBehaviour
         _playerInputAction.Player.Interact.started -= OnInteract;
     }
 
-    private void OnCamSwap(InputAction.CallbackContext value)
+    private void Update()
     {
-        _playerCamera.SwitchCameraStyle();
+        _playerCamera.LookDelta = _playerInputAction.Player.Look.ReadValue<Vector2>();
     }
 
     private void OnMovement(InputAction.CallbackContext value)

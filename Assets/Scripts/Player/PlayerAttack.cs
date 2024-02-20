@@ -40,6 +40,7 @@ public class PlayerAttack : MonoBehaviour
     private GameObject directionalCrosshairObject;
 
     private float _actionCost;
+    private PlayerCamera _playerCamera;
 
     private List<Ability> EquippedAbilities
     {
@@ -96,6 +97,7 @@ public class PlayerAttack : MonoBehaviour
     void Start()
     {
         _playerData = GetComponent<PlayerData>();
+        _playerCamera = FindObjectOfType<PlayerCamera>();
     }
     
     private void Update()
@@ -267,6 +269,9 @@ public class PlayerAttack : MonoBehaviour
         {
             _indicator = Instantiate(PreviewingAbility.AttackIndicator).GetComponent<AbIndicator>();
             _indicator.Initialize(anywhereAbility);
+        } else if (PreviewingAbility is DirectionalAbility)
+        {
+            _playerCamera.SwitchCameraStyle(PlayerCamera.CameraStyle.Aim);
         }
 
         //Allows preview cost of equipped action
@@ -318,6 +323,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         _previewingAbilitySlot = HotbarAbilitySlot.None;
+        _playerCamera.SwitchCameraStyle(PlayerCamera.CameraStyle.Basic);
 
         lockOnTarget = null;
         UpdateLockOnCrosshairObject();
