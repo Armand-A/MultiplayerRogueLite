@@ -96,24 +96,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Cancel Attack",
-                    "type": "Button",
-                    "id": "bc5ae9e9-3cf8-4150-9743-c8688e9e98e3",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "CamSwap",
-                    "type": "Value",
-                    "id": "22df46bf-45ad-4c3c-9c61-cc5fd5daf86f",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Interact",
                     "type": "Button",
                     "id": "19560c4f-93f0-45ec-8880-2ece93d31720",
@@ -121,6 +103,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "614e4437-09b4-4543-a1c0-1f507060cb39",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -269,17 +260,6 @@
                 },
                 {
                     "name": "",
-                    "id": "fa7e6733-a88a-4f8c-997a-cf8d6b296a58",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Player",
-                    "action": "Cancel Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "28828253-cf0a-4351-a5c8-a5a64f4cfbf5",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -302,23 +282,23 @@
                 },
                 {
                     "name": "",
-                    "id": "588e9f6e-03e5-4639-b8e1-2a5e3e59d95b",
-                    "path": "<Keyboard>/c",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Player",
-                    "action": "CamSwap",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "c173cc03-4355-4bf3-92e6-669ad1b0c535",
                     "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "Player",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c230ba75-6fde-407c-ae2d-458e2ee74eb9",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

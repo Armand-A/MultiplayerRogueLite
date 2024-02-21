@@ -11,10 +11,11 @@ public class EnemyBehaviour : MonoBehaviour
     private bool onCooldown;
     public NavMeshAgent enemy;
     public bool ranged;
-    [SerializeField] private AttackScriptableObject Attack;
-    [SerializeField] private AttackScriptableObject Attack2;
+    [SerializeField] private Ability Attack;
+    [SerializeField] private Ability Attack2;
     [SerializeField] private Action actions;
     public Health health;
+    public EnemyData enemyData;
 
     EnemyData _enemyData;
 
@@ -26,6 +27,7 @@ public class EnemyBehaviour : MonoBehaviour
         health = _enemyData.ResourceMan.Health;
         actions = _enemyData.ResourceMan.Action;
         enemy = GetComponent<NavMeshAgent>();
+        enemyData = GetComponent<EnemyData>();
         onCooldown = false;
         if(ranged)
         {
@@ -74,22 +76,13 @@ public class EnemyBehaviour : MonoBehaviour
 
     void EAttack()
     {
-        int attack = Random.Range(1, 3);
-        if (attack == 1)
-        {
-            AttackBehaviour attackObject = Instantiate(Attack.AttackBehaviour, Attack.AttackBehaviour.GetIsInstantiateAtDestination() ? player.transform.position : gameObject.transform.position, Quaternion.identity);
-            attackObject.SetDamage(Attack.Damage);
-            attackObject.SetIsFromPlayer(false);
-            attackObject.SetPositions(gameObject.transform.position, player.transform.position);
-        }
-        else if (attack == 2)
-        {
-            AttackBehaviour attackObject = Instantiate(Attack2.AttackBehaviour, Attack2.AttackBehaviour.GetIsInstantiateAtDestination() ? player.transform.position : gameObject.transform.position, Quaternion.identity);
-            attackObject.SetDamage(Attack2.Damage);
-            attackObject.SetIsFromPlayer(false);
-            attackObject.SetPositions(gameObject.transform.position, player.transform.position);
-        }
+        Ability abilityObject = Instantiate(Random.Range(1, 3) == 1 ? Attack : Attack2, Attack is AnywhereAbility ? player.transform.position : gameObject.transform.position, Quaternion.identity);
+        abilityObject.Initialize(gameObject.transform.position, enemyData, player.transform.position, new Ray(transform.position, (player.transform.position - transform.position).normalized), player);
+
+        // TODO: gameObject y position keeps falling, skewing srcPos of the instantiated ability
+        // Debug.Log(gameObject.transform.position.y.ToString() + " " + player.transform.position.y);
     }
+
     IEnumerator Cooldown()
     {
         yield return new WaitForSeconds(1);

@@ -505,9 +505,11 @@ MonoBehaviour:
   player: {fileID: 0}
   enemy: {fileID: 0}
   ranged: 0
-  Attack: {fileID: 11400000, guid: cf8aaa852852c524aa1b73a7d57ef74e, type: 2}
-  Attack2: {fileID: 11400000, guid: 6f4a4eadc7384504da05aee8253ca133, type: 2}
-  _enemyData: {fileID: 0}
+  Attack: {fileID: 6817335229055006732, guid: 4c454b3012b487048a625b46b07b38f9, type: 3}
+  Attack2: {fileID: 5482130532420223599, guid: a2d5f969281112241bcba65141c01179, type: 3}
+  actions: {fileID: 0}
+  health: {fileID: 0}
+  enemyData: {fileID: 0}
 --- !u!114 &1967016983704998535
 MonoBehaviour:
   m_ObjectHideFlags: 0
