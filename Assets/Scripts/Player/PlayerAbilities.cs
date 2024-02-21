@@ -45,28 +45,31 @@ public class PlayerAbilities : MonoBehaviour
     public List<Ability> Abilities { get { return abilities;  } }
     public List<Ability> EquippedAbilities { get { return equippedAbilites; } }
 
-    public bool UpgradeAbility(Ability ability)
+    public bool ImbueAbility(Ability fromAbility, Ability toAbility)
     {
-        if (ability == null) return false;
-        if (!abilities.Contains(ability)) return false;
-        if (ability.NextUpgrade == null) return false;
+        if (fromAbility == null) return false;
+        if (!abilities.Contains(fromAbility)) return false;
+        if (fromAbility.AcquisitionType != Ability.EAcquisitionType.Base) return false;
+        if (!fromAbility.ImbueOptions.Exists((imbueOption) => imbueOption.resultAbility == toAbility)) return false;
 
-        if (!FindObjectOfType<Currency>().Transaction((int)-ability.NextUpgradePrice)) return false;
+        //if (!FindObjectOfType<ResourceManager>().Currency.Remove((int)ability.NextUpgradePrice)) return false;
 
-        int index = abilities.IndexOf(ability);
-        abilities[index] = ability.NextUpgrade;
+        // replace ability in inventory with imbued ability
+        int index = abilities.IndexOf(fromAbility);
+        abilities[index] = toAbility;
         
-        if (equippedAbilites.Contains(ability))
+        // also replace in hotbar if equipped
+        if (equippedAbilites.Contains(fromAbility))
         {
-            int indexInEquipped = equippedAbilites.IndexOf(ability);
-            equippedAbilites[indexInEquipped] = ability.NextUpgrade;
+            int indexInEquipped = equippedAbilites.IndexOf(fromAbility);
+            equippedAbilites[indexInEquipped] = toAbility;
             changeEquippedAbilityEvent.Raise();
         }
 
         return true;
     }
 
-    public void EquipAbilityInSlot(Ability newAbility, AttackSlot slot)
+    public void EquipAbilityInSlot(Ability newAbility, HotbarAbilitySlot slot)
     {
         equippedAbilites[(int)slot] = newAbility;
     }

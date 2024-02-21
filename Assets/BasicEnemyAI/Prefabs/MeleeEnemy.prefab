@@ -318,9 +318,8 @@ GameObject:
   - component: {fileID: 7208931441577277649}
   - component: {fileID: 8032677574623958026}
   - component: {fileID: 1967016983704998535}
-  - component: {fileID: 2521059320912964109}
-  - component: {fileID: 6774010157693050078}
-  - component: {fileID: 1667624520350981021}
+  - component: {fileID: 2470509484594543397}
+  - component: {fileID: 1177611162023025253}
   m_Layer: 0
   m_Name: MeleeEnemy
   m_TagString: Untagged
@@ -506,10 +505,11 @@ MonoBehaviour:
   player: {fileID: 0}
   enemy: {fileID: 0}
   ranged: 0
-  Attack: {fileID: 4644109299625121686, guid: 4c454b3012b487048a625b46b07b38f9, type: 3}
-  Attack2: {fileID: 5089003309796478249, guid: a2d5f969281112241bcba65141c01179, type: 3}
+  Attack: {fileID: 6817335229055006732, guid: 4c454b3012b487048a625b46b07b38f9, type: 3}
+  Attack2: {fileID: 5482130532420223599, guid: a2d5f969281112241bcba65141c01179, type: 3}
   actions: {fileID: 0}
   health: {fileID: 0}
+  enemyData: {fileID: 0}
 --- !u!114 &1967016983704998535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,12 +522,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53ab215f512bcf240ad1f6ee7b19c927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ResourceMan: {fileID: 2470509484594543397}
+  StatMan: {fileID: 1177611162023025253}
   _healthGauge: {fileID: 4615874274098450439}
   _actionGauge: {fileID: 2250550695463128057}
   CombatMode: 0
   CombatTimeout: 3
   Alive: 1
---- !u!114 &2521059320912964109
+--- !u!114 &2470509484594543397
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -536,17 +538,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2853812570663994628}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d999dfcb898c8d43b4310178fe747c6, type: 3}
+  m_Script: {fileID: 11500000, guid: 29f960be507f84040ac93135a4b95296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 0
-  BaseValue: 20
-  MaxValue: 100
-  TotalValue: 0
-  RechargeInterval: 1
-  RechargeRate: 2
-  RechargeModifier: 1
---- !u!114 &6774010157693050078
+--- !u!114 &1177611162023025253
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -555,35 +550,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2853812570663994628}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2231e70241472364ba0822d750e0495f, type: 3}
+  m_Script: {fileID: 11500000, guid: 79119190a5f7bf54e968846b69a279ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 0
-  BaseValue: 20
-  MaxValue: 100
-  TotalValue: 0
-  RechargeInterval: 1
-  RechargeRate: 2
-  RechargeModifier: 1
---- !u!114 &1667624520350981021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2853812570663994628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d205df20b784014b82f34a924d42edd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Value: 0
-  BaseValue: 20
-  MaxValue: 100
-  TotalValue: 0
-  RechargeInterval: 1
-  RechargeRate: 2
-  RechargeModifier: 1
+  _initialData: {fileID: 11400000, guid: 615878a952ac9e440839410441ae7e49, type: 2}
 --- !u!1 &3490077621445736214
 GameObject:
   m_ObjectHideFlags: 0

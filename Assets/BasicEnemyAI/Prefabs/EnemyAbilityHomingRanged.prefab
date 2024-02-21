@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65782741a29d93f49bf0344880b36b55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToReceiveHoming: {fileID: 0}
+  objectToReceiveHoming: {fileID: 3781331974297468100}
 --- !u!1 &3781331974297468100
 GameObject:
   m_ObjectHideFlags: 0
@@ -80,11 +80,10 @@ GameObject:
   - component: {fileID: 2421128643724397502}
   - component: {fileID: 1179701774020087669}
   - component: {fileID: 3645134754993355471}
-  - component: {fileID: 7538040467057012899}
   - component: {fileID: 5625238825079755235}
-  - component: {fileID: 4631170467079858572}
   - component: {fileID: 54107225146518983}
   - component: {fileID: -774911025261483558}
+  - component: {fileID: 925903783233863067}
   m_Layer: 0
   m_Name: EnemyAbilityHomingRanged
   m_TagString: Untagged
@@ -202,31 +201,6 @@ NavMeshAgent:
   m_BaseOffset: 1.0000002
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &7538040467057012899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3781331974297468100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 697d2c7cfdc971146bed4977482def6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackIndicator: {fileID: 0}
-  sprite: {fileID: 0}
-  nextUpgrade: {fileID: 0}
-  nextUpgradePrice: 0
-  cannotCastOnEnemy: 0
-  healthCost: 0
-  manaCost: 0
-  actionCost: 15
-  damage: 5
-  cooldownTime: 3
-  isInstantiateAtDestination: 0
-  playerHitsEnemyEvent: {fileID: 11400000, guid: 3de21ae7feb97d445b7c092d4b7f9b9a, type: 2}
-  enemyHitsPlayerEvent: {fileID: 11400000, guid: 08cd2d210d36e044b92c1f3ac5e62cce, type: 2}
 --- !u!114 &5625238825079755235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,21 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901869b303a08a44fbe0e8e762a4505e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ability: {fileID: 7538040467057012899}
-  isDestroyOnDamage: 0
---- !u!114 &4631170467079858572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3781331974297468100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba8963a1045bf92428db4f3877dad4fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxDisplacement: 15
+  _ability: {fileID: 925903783233863067}
 --- !u!114 &54107225146518983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,9 +241,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2deaa5cf7cd4641b3245ba378aee94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ability: {fileID: 0}
+  _ability: {fileID: 925903783233863067}
   collidingLayerNames:
   - Block Attack
+--- !u!114 &925903783233863067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3781331974297468100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd2f4d832f31ed42af06955ca7e42c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackIndicator: {fileID: 0}
+  sprite: {fileID: 0}
+  acquisitionType: 0
+  imbueOptions: []
+  combineOptions: []
+  healthCost: 0
+  manaCost: 0
+  actionCost: 8
+  damage: 2
+  cooldownTime: 3
+  isDestroyOnDamage: 1
+  isDealDamageOnInterval: 0
+  dealDamageInterval: 0
+  playerHitsEnemyEvent: {fileID: 11400000, guid: 3de21ae7feb97d445b7c092d4b7f9b9a, type: 2}
+  enemyHitsPlayerEvent: {fileID: 11400000, guid: 08cd2d210d36e044b92c1f3ac5e62cce, type: 2}
 --- !u!1 &4442301186425333478
 GameObject:
   m_ObjectHideFlags: 0

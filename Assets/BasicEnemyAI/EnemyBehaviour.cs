@@ -15,13 +15,19 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private Ability Attack2;
     [SerializeField] private Action actions;
     public Health health;
+    public EnemyData enemyData;
+
+    EnemyData _enemyData;
 
     // Start is called before the first frame update
     void Start()
     {
-        health = GetComponent<Health>();
-        actions = GetComponent<Action>();
+        _enemyData = gameObject.GetComponent<EnemyData>();
+
+        health = _enemyData.ResourceMan.Health;
+        actions = _enemyData.ResourceMan.Action;
         enemy = GetComponent<NavMeshAgent>();
+        enemyData = GetComponent<EnemyData>();
         onCooldown = false;
         if(ranged)
         {
@@ -49,10 +55,10 @@ public class EnemyBehaviour : MonoBehaviour
             enemy.speed = 0;
             if (!onCooldown)
             {
-                if (Attack.ActionCost <= actions.Value)
+                if (actions.Remove(Attack.ActionCost))
                 {
                     onCooldown = true;
-                    actions.Value = actions.Value - Attack.ActionCost;
+                    //actions.Value = actions.Value - Attack.ActionCost;
                     StartCoroutine(Cooldown());
                     EAttack();
                 }
@@ -70,9 +76,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     void EAttack()
     {
-        Ability abilityObject = Instantiate(Random.Range(1, 3) == 1 ? Attack : Attack2, Attack.IsInstantiateAtDestination ? player.transform.position : gameObject.transform.position, Quaternion.identity);
-        abilityObject.Initialize(gameObject.transform.position, player.transform.position, false);
-        
+        Ability abilityObject = Instantiate(Random.Range(1, 3) == 1 ? Attack : Attack2, Attack is AnywhereAbility ? player.transform.position : gameObject.transform.position, Quaternion.identity);
+        abilityObject.Initialize(gameObject.transform.position, enemyData, player.transform.position, new Ray(transform.position, (player.transform.position - transform.position).normalized), player);
+
         // TODO: gameObject y position keeps falling, skewing srcPos of the instantiated ability
         // Debug.Log(gameObject.transform.position.y.ToString() + " " + player.transform.position.y);
     }
