@@ -99,7 +99,7 @@ public abstract class Ability : MonoBehaviour
     {
         if (CanDealDamageToEntity(target))
         {
-            target.UpdateHealth(-damage);
+            target.Damage(damage);
             if (target is EnemyData)
             {
                 if (playerHitsEnemyEvent != null)
