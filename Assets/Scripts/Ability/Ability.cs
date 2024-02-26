@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static EntityDataTypes;
 
 [DisallowMultipleComponent]
 public abstract class Ability : MonoBehaviour
@@ -18,15 +19,10 @@ public abstract class Ability : MonoBehaviour
         DropOnly
     }
 
-    public enum EElementType
-    {
-        Fire, Water, Ice, Lightning
-    }
-
     [System.Serializable]
     public struct ImbueOption
     {
-        public EElementType elementType;
+        public ElementTypes elementType;
         public Ability resultAbility;
     }
 

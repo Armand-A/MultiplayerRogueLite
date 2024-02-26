@@ -5026,7 +5026,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 3c3ecd4a0f8d493429f922581e9cde82, type: 3}
   acquisitionType: 0
   imbueOptions:
-  - elementType: 0
+  - elementType: 1
     resultAbility: {fileID: -5126752297696998759, guid: 98a0a27cfd814cc439ade1ab19cc3f8e, type: 3}
   - elementType: 2
     resultAbility: {fileID: -3672991140809486018, guid: 7a6350f28fd482841a0b6be8e6e786f7, type: 3}
