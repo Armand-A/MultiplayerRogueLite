@@ -8,6 +8,10 @@ public class TargetedAbility : Ability
     GameObject _targetObject;
     public GameObject TargetObject {  get { return _targetObject; } }
 
+
+
+
+
     public override bool Initialize(Vector3 srcPos, EntityData sourceEntity, Vector3? _, Ray? __, GameObject targetObject = null)
     {
         if (_initialized) return false;
