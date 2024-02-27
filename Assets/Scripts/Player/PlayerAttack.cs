@@ -267,7 +267,7 @@ public class PlayerAttack : MonoBehaviour
         _previewingAbilitySlot = hotbarAbilitySlot;
         if (PreviewingAbility is AnywhereAbility anywhereAbility)
         {
-            _indicator = Instantiate(PreviewingAbility.AttackIndicator).GetComponent<AbIndicator>();
+            _indicator = Instantiate(anywhereAbility.AttackIndicator).GetComponent<AbIndicator>();
             _indicator.Initialize(anywhereAbility);
         } else if (PreviewingAbility is DirectionalAbility)
         {

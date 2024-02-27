@@ -8,6 +8,11 @@ public class DirectionalAbility : Ability
     Ray _direction;
     public Ray Direction { get { return _direction; } }
 
+
+
+
+
+
     public override bool Initialize(Vector3 srcPos, EntityData sourceEntity, Vector3? _, Ray? dir, GameObject __ = null)
     {
         if (_initialized) return false;
