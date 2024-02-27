@@ -33,7 +33,9 @@ public abstract class Ability : MonoBehaviour
 
     // Inspector fields
     [Header("General")]
-    [SerializeField] private Sprite sprite;
+    [SerializeField] string abilityName;
+    [SerializeField] Sprite sprite;
+    [SerializeField] string description;
     [SerializeField] EAcquisitionType acquisitionType;
     [SerializeField] List<ImbueOption> imbueOptions;
     [SerializeField] List<CombineOption> combineOptions;
@@ -57,7 +59,9 @@ public abstract class Ability : MonoBehaviour
     [SerializeField] private GameEvent enemyHitsPlayerEvent;
 
     // Public getters for inspector fields
+    public string AbilityName { get { return abilityName; } }
     public Sprite Sprite { get { return sprite; } }
+    public string Description { get { return description; } }
     public EAcquisitionType AcquisitionType { get { return acquisitionType; } }
     public List<ImbueOption> ImbueOptions { get { return imbueOptions; } }
     public float HealthCost {get {return healthCost;}}

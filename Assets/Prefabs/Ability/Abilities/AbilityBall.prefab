@@ -5022,8 +5022,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd2f4d832f31ed42af06955ca7e42c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackIndicator: {fileID: 6932023746338755616, guid: 92ceec922aafdc34b9abe598852e3ab9, type: 3}
+  abilityName: Ball
   sprite: {fileID: 21300000, guid: 3c3ecd4a0f8d493429f922581e9cde82, type: 3}
+  description: Ball Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
+    eu mollis nisi. In hac habitasse platea dictumst.
   acquisitionType: 0
   imbueOptions:
   - elementType: 1
@@ -5034,8 +5036,8 @@ MonoBehaviour:
   healthCost: 0
   manaCost: 0
   actionCost: 5
-  damage: 5
   cooldownTime: 1
+  damage: 5
   isDestroyOnDamage: 0
   isDealDamageOnInterval: 0
   dealDamageInterval: 0

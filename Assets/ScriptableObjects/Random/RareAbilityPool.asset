@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e34b61499377d746ad38421df3674d9, type: 3}
+  m_Name: RareAbilityPool
+  m_EditorClassIdentifier: 
+  poolContent:
+  - {fileID: 6295138893952409465, guid: 0bca9eaa29ae13844b206978607c7452, type: 3}
+  - {fileID: 2665919354761567180, guid: fe35368d2c32e754f87d59c8f835cd94, type: 3}
+  - {fileID: 4475688329270288143, guid: 951ef0a3bb8bcd84c9a31753c53c66ef, type: 3}
+  - {fileID: 7613103167809536540, guid: ed8f3aed69186674dae2e1e018010595, type: 3}
+  - {fileID: 3401179080289765635, guid: a17573afa8c197343a9d61f1ea4b633d, type: 3}

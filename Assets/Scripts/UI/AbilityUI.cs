@@ -6,7 +6,7 @@ public class AbilityUI : MonoBehaviour
 {
     protected UIManager uiManager = null;
 
-    private void Start()
+    protected void Start()
     {
         if (uiManager == null) throw new System.Exception("UI Manager not found. To open ability UI's, you need to add a UI Manager component in the scene and open the UI through the UI Manager.");
     }

@@ -68,6 +68,13 @@ public class PlayerAbilities : MonoBehaviour
 
         return true;
     }
+    
+    public bool UnlockAbility(Ability newAbility)
+    {
+        // if (abilities.Contains(newAbility)) return false;
+        abilities.Add(newAbility);
+        return true;
+    }
 
     public void EquipAbilityInSlot(Ability newAbility, HotbarAbilitySlot slot)
     {
