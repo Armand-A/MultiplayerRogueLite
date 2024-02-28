@@ -84,6 +84,12 @@ public class StatManager : MonoBehaviour
                 case EntityDataTypes.Stats.AP:
                     Stats[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.AP[0], _initialData.AP[1], _initialData.AP[2]);
                     break;
+                case EntityDataTypes.Stats.HPRegen:
+                    Stats[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.AP[0], _initialData.AP[1], _initialData.AP[2]);
+                    break;
+                case EntityDataTypes.Stats.APRegen:
+                    Stats[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.AP[0], _initialData.AP[1], _initialData.AP[2]);
+                    break;
                 case EntityDataTypes.Stats.Attack:
                     for (int j = 0; j < _elementNames.Count; j++)
                     {

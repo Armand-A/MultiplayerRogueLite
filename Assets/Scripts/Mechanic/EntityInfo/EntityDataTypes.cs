@@ -17,6 +17,8 @@ public class EntityDataTypes
     {
         HP = 0,
         AP = 1,
+        HPRegen = 2,
+        APRegen = 3,
         Attack = 200,
         Defence = 300,
         Atk_Spd = 4,

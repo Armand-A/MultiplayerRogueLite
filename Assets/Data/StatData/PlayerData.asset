@@ -18,6 +18,12 @@ MonoBehaviour:
   _ap: 20
   _minAp: 0
   _maxAp: 1e+9
+  _hpRegen: 1
+  _minHpRegen: 0
+  _maxHpRegen: 1e+9
+  _apRegen: 1
+  _minApRegen: 0
+  _maxApRegen: 1e+9
   _attack:
   - 1
   - 0

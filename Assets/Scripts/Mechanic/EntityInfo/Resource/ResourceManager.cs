@@ -15,6 +15,12 @@ public class ResourceManager : MonoBehaviour
     private Action _action;
     private Currency _currency;
 
+    float _regenInterval = 0.1f;
+
+    public bool HPRegenIsActive = false;
+    public bool APRegenIsActive = true;
+    private CooldownTimer _regenTimer;
+
     public void Initialize()
     {
         if (_health == null)
@@ -23,21 +29,40 @@ public class ResourceManager : MonoBehaviour
             _action = new Action();
     }
 
+    private void Awake()
+    {
+        _regenTimer = new CooldownTimer(_regenInterval, true);
+        _regenTimer.Start();
+    }
+
+    private void OnEnable()
+    {
+        _regenTimer.TimerCompleteEvent += Regen;
+    }
+
+    private void OnDisable()
+    {
+        _regenTimer.TimerCompleteEvent -= Regen;
+    }
+
+    private void FixedUpdate()
+    {       
+        if (HPRegenIsActive || APRegenIsActive)
+        {
+            _regenTimer.Update(Time.deltaTime);
+        }
+    }
+
     public void AddCurrency()
     {
         if (_currency == null)
             _currency = new Currency();
     }
 
-    public void UpdateResourceStats(float hp, float ap)
+    public void UpdateResourceStats(float hp, float ap, float hpRegen = 1, float apRegen = 1)
     {
-        _health.TotalValue = hp;
-        if (_health.Value > _health.TotalValue)
-            _health.Value = _health.TotalValue;
-
-        _action.TotalValue = ap;
-        if (_action.Value > _action.TotalValue)
-            _action.Value = _action.TotalValue;
+        _health.UpdateResource(hp, hpRegen);
+        _action.UpdateResource(ap, apRegen);
     }
 
     public float DamageCalculation(float[] attack, float[] defence)
@@ -50,14 +75,12 @@ public class ResourceManager : MonoBehaviour
         return totalDamage;
     }
 
-/*
-    public float GetValue(EntityDataTypes.Resource resource)
+    private void Regen()
     {
-        return _resourceDict[resource].Value;
+        Debug.Log("Regen");
+        if (HPRegenIsActive)
+            Health.Regen(_regenInterval);
+        if (APRegenIsActive)
+            Action.Regen(_regenInterval);
     }
-
-    public float GetTotalValue(EntityDataTypes.Resource resource)
-    {
-        return _resourceDict[resource].TotalValue;
-    }*/
 }

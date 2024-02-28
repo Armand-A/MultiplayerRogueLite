@@ -20,7 +20,11 @@ public class ResourceTemplate
             _currentValue += value;
             return true;
         }
-        return false;
+        else
+        {
+            _currentValue = _totalValue;
+            return false;
+        }
     }
 
     public virtual bool Remove(float value)

@@ -312,12 +312,11 @@ public class PlayerAttack : MonoBehaviour
     void ResetToIdle()
     {
         _actionCost = 0;
+        //Removes action cost preview
+        _playerData.PreviewActionCost(false);
 
         if (_indicator != null)
         {
-            //Removes action cost preview
-            _playerData.PreviewActionCost(false);
-
             Destroy(_indicator.gameObject);
             _indicator = null;
         }

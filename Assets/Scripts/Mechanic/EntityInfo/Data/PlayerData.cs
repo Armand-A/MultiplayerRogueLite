@@ -12,6 +12,7 @@ public class PlayerData : EntityData
     {
         base.Awake();
         ResourceMan.AddCurrency();
+        ResourceMan.HPRegenIsActive = true;
     }
 
     public void UpdateCurrencyText()

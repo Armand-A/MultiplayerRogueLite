@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class StatTemplate
 {
-    private float _startValue;
+    private float _baseValue;
 
     float _currentVal;
     public float Value { get { return _currentVal; } }
@@ -24,14 +24,14 @@ public class StatTemplate
 
     public StatTemplate(GameObject parent, float startValue = 10, float minVal = 0, float maxVal = 999999999, EntityDataTypes.ValueType statValueType = EntityDataTypes.ValueType.Flat)
     {
-        _startValue = startValue;
+        _baseValue = startValue;
         _currentVal = startValue;
         _minVal = minVal;
         _maxVal = maxVal;
 
         StatValueType = statValueType;
 
-        CheckNewStat(_startValue);
+        CheckNewStat(_currentVal);
         if (CurrentStatus != EntityDataTypes.StatStatus.Normal)
         {
             Debug.LogError(parent.name + " may have issues");
@@ -70,6 +70,6 @@ public class StatTemplate
 
     public virtual float CalculateStat()
     {
-        return (_startValue + _flat) * (_percent/100) * _multi;
+        return (_baseValue + _flat) * (_percent/100) * _multi;
     }
 }

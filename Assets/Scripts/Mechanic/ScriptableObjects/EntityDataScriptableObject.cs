@@ -24,6 +24,16 @@ public class EntityDataScriptableObject : ScriptableObject
     //[Min(0f)]
     [SerializeField] private float _maxAp = 999999999;
 
+    [Header("Health Point Recovery Rate per second")]
+    [SerializeField] private float _hpRegen = 2;
+    [SerializeField] private float _minHpRegen;
+    [SerializeField] private float _maxHpRegen = 999999999;
+
+    [Header("Action Point Recovery Rate per second")]
+    [SerializeField] private float _apRegen = 2;
+    [SerializeField] private float _minApRegen;
+    [SerializeField] private float _maxApRegen = 999999999;
+
     [Header("Attack #")]
     [Tooltip("0(Normal)\n1(Fire)\n2(Water)\n3(Earth)\n4(Air)")]
     [SerializeField] private float[] _attack = new float[Enum.GetNames(typeof(EntityDataTypes.ElementTypes)).Length];
@@ -78,6 +88,9 @@ public class EntityDataScriptableObject : ScriptableObject
 
     public float[] HP { get { return new float[]{ _hp, _minHp, _maxHp}; } }
     public float[] AP { get { return new float[] { _ap, _minAp, _maxAp }; } }
+
+    public float[] HPRegen { get { return new float[] { _hpRegen, _minHpRegen, _maxHpRegen }; } }
+    public float[] APRegen { get { return new float[] { _apRegen, _minApRegen, _maxApRegen }; } }
 
     public float[] Attack { get { return _attack; } }
     public float[] MinMaxAttack { get { return new float[] {_minAttack, _maxAttack}; } }

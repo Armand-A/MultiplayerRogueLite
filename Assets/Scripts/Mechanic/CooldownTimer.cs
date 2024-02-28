@@ -68,6 +68,30 @@ public class CooldownTimer
         }
     }
 
+    public bool UpdateCheck(float timeDelta)
+    {
+        if (TimeRemaining > 0 && IsActive)
+        {
+            TimeRemaining -= timeDelta;
+            if (TimeRemaining <= 0)
+            {
+                if (IsRecurring)
+                {
+                    TimeRemaining = TotalTime;
+                }
+                else
+                {
+                    IsActive = false;
+                }
+
+                TimerCompleteEvent?.Invoke();
+                TimesCounted++;
+            }
+            return true;
+        }
+        return false;
+    }
+
     public void Invoke()
     {
         TimerCompleteEvent?.Invoke();

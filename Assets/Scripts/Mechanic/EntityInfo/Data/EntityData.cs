@@ -56,17 +56,25 @@ public class EntityData : MonoBehaviour
     {
         if (_combatModeTimeout.IsActive)
             _combatModeTimeout.Update(Time.deltaTime);
+        UpdateGauge();
 
+        if (ResourceMan.Health.Value < 0.001f) DeathSequence();
+    }
+
+    protected virtual void UpdateGauge()
+    {
         _healthGauge.UpdateValue(ResourceMan.Health.Value, ResourceMan.Health.TotalValue);
         _actionGauge.UpdateValue(ResourceMan.Action.Value, ResourceMan.Action.TotalValue);
-        if (ResourceMan.Health.Value < 0.001f) DeathSequence();
     }
 
     public void UpdateResourceTotal()
     {
         float hp = StatMan.Stats[(int)EntityDataTypes.Stats.HP].Value;
+        float hpRegen = StatMan.Stats[(int)EntityDataTypes.Stats.HPRegen].Value;
         float ap = StatMan.Stats[(int)EntityDataTypes.Stats.AP].Value;
-        ResourceMan.UpdateResourceStats(hp, ap);
+        float apRegen = StatMan.Stats[(int)EntityDataTypes.Stats.APRegen].Value;
+
+        ResourceMan.UpdateResourceStats(hp, ap, hpRegen, apRegen);
     }
 
     public bool UseAction(float value)
@@ -77,10 +85,18 @@ public class EntityData : MonoBehaviour
     public bool Damage(float incomingAttack)
     {
         EnterCombatMode();
+        return ResourceMan.Health.Remove(incomingAttack);
+    }
+
+    public bool Damage(float[] incomingAttack)
+    {
+        EnterCombatMode();
         float value = 0;
-        //value = ResourceMan.DamageCalculation(incomingattack[], StatMan.GetDefence());
-        value = incomingAttack;
-        return ResourceMan.Health.Remove(value);
+        value = ResourceMan.DamageCalculation(incomingAttack, StatMan.GetDefence());
+        bool result = ResourceMan.Health.Remove(value);
+        if (!result)
+            DeathSequence();
+        return result;
     }
 
     protected virtual void DeathSequence()

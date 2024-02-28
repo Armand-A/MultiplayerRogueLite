@@ -51,10 +51,6 @@ public class GaugeTemplate : MonoBehaviour
     {
         _currentValue = newValue;
         _gauge.maxValue = totalValue;
-    }
-
-    private void Update()
-    {
         UpdateBar();
     }
 
@@ -81,7 +77,7 @@ public class GaugeTemplate : MonoBehaviour
 
     protected void UpdateBar()
     {
-        float previewTotal = _currentValue + _previewCost;
+        float previewTotal = _currentValue - _previewCost;
 
         _gauge.fillRect = RectCost;
         _gauge.value = _isPreviewing ? previewTotal : _currentValue;
