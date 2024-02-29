@@ -21,7 +21,7 @@ public class EntityDataTypes
         APRegen = 3,
         Attack = 200,
         Defence = 300,
-        Atk_Spd = 4,
+        CDReduction = 4,
         Accuracy = 5,
         Evasiveness = 6,
         Crit_Dmg = 7,

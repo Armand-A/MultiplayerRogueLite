@@ -20,7 +20,7 @@ public class StatManager : MonoBehaviour
     List<EntityDataTypes.Stats> _statNames = Enum.GetValues(typeof(EntityDataTypes.Stats)).Cast<EntityDataTypes.Stats>().ToList();
     List<EntityDataTypes.ElementTypes> _elementNames = Enum.GetValues(typeof(EntityDataTypes.ElementTypes)).Cast<EntityDataTypes.ElementTypes>().ToList();
 
-    protected void Awake()
+    public void Initialize()
     {
         if (_initialData == null)
             StatDefault();
@@ -102,7 +102,7 @@ public class StatManager : MonoBehaviour
                         Stats[(int)_statNames[i] + (int)_elementNames[j]] = new StatTemplate(gameObject, _initialData.Defence[j], _initialData.MinMaxDefence[0], _initialData.MinMaxDefence[1]);
                     }
                     break;
-                case EntityDataTypes.Stats.Atk_Spd:
+                case EntityDataTypes.Stats.CDReduction:
                     Stats[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.Atk_Spd[0], _initialData.Atk_Spd[1], _initialData.Atk_Spd[2]);
                     break;
                 case EntityDataTypes.Stats.Accuracy:
@@ -157,5 +157,39 @@ public class StatManager : MonoBehaviour
             defence[j] = Stats[(int)EntityDataTypes.Stats.Defence + (int)_elementNames[j]].Value;
         }
         return defence;
+    }
+
+    public float DamageCalculation(float[] attack, float[] defence)
+    {
+        float totalDamage = 0;
+        for (int i = 0; i < attack.Length; i++)
+        {
+            totalDamage += 10 * attack[i] / (10 + defence[i]);
+        }
+        return totalDamage;
+    }
+
+    /// <summary>
+    /// Damange calculation using
+    /// Crit rate, Crit Damage, Attack, Defence
+    /// </summary>
+    /// <param name="enemyStats"></param>
+    /// <param name="ability"></param>
+    /// <param name="entityStats"></param>
+    /// <returns></returns>
+    public float DamageCalculation(Dictionary<int, StatTemplate> enemyStats, Ability ability, Dictionary<int, StatTemplate> entityStats)
+    {
+        float totalDamage = 0;
+        float critrate = enemyStats[(int)EntityDataTypes.Stats.Crit_Rate].Value;
+        float crit = UnityEngine.Random.Range(critrate, 1);
+
+        for (int i = 0; i < Enum.GetNames(typeof(EntityDataTypes.ElementTypes)).Length; i++)
+        {
+            float attack = crit <= critrate ? enemyStats[(int)EntityDataTypes.Stats.Attack + i].Value * enemyStats[(int)EntityDataTypes.Stats.Crit_Dmg].Value 
+            : enemyStats[(int)EntityDataTypes.Stats.Attack + i].Value;
+
+            totalDamage += 10 * attack / (10 + enemyStats[(int)EntityDataTypes.Stats.Defence + i].Value);
+        }
+        return totalDamage;
     }
 }

@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector3 MoveDir;
     [Tooltip("Base speed force value")]
     [SerializeField] private float BaseSpeed = 250.0f;
+    public float SpeedStat = 1;
     [Tooltip("Player rigidbody mass")]
     [SerializeField] private float PlayerMass = 5.0f;
     [Tooltip("Base sprint value")]

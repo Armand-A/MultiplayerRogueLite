@@ -6,6 +6,7 @@ public class EntityData : MonoBehaviour
 {
     public ResourceManager ResourceMan;
     public StatManager StatMan;
+    protected PlayerMovement _playerMovement;
     protected Transform EntityTransform;
 
     [Header("Data display objects")]
@@ -33,22 +34,26 @@ public class EntityData : MonoBehaviour
             ResourceMan = GetComponent<ResourceManager>();
         if (StatMan == null)
             StatMan = GetComponent<StatManager>();
+        _playerMovement = GetComponent<PlayerMovement>();
 
+        StatMan.Initialize();
         ResourceMan.Initialize();
+        
         EntityTransform = transform;
-
         _combatModeTimeout = new CooldownTimer(CombatTimeout);
+
+        StatUpdateEvent();
     }
     
     protected virtual void OnEnable()
     {
-        StatMan.StatUpdateEvent += UpdateResourceTotal;
+        StatMan.StatUpdateEvent += StatUpdateEvent;
         _combatModeTimeout.TimerCompleteEvent += ExitCombatMode;
     }
 
     protected virtual void OnDisable()
     {
-        StatMan.StatUpdateEvent -= UpdateResourceTotal;
+        StatMan.StatUpdateEvent -= StatUpdateEvent;
         _combatModeTimeout.TimerCompleteEvent -= ExitCombatMode;
     }
     
@@ -67,14 +72,16 @@ public class EntityData : MonoBehaviour
         _actionGauge.UpdateValue(ResourceMan.Action.Value, ResourceMan.Action.TotalValue);
     }
 
-    public void UpdateResourceTotal()
+    public void StatUpdateEvent()
     {
         float hp = StatMan.Stats[(int)EntityDataTypes.Stats.HP].Value;
         float hpRegen = StatMan.Stats[(int)EntityDataTypes.Stats.HPRegen].Value;
+
         float ap = StatMan.Stats[(int)EntityDataTypes.Stats.AP].Value;
         float apRegen = StatMan.Stats[(int)EntityDataTypes.Stats.APRegen].Value;
 
         ResourceMan.UpdateResourceStats(hp, ap, hpRegen, apRegen);
+        _playerMovement.SpeedStat = StatMan.Stats[(int)EntityDataTypes.Stats.Speed].Value;
     }
 
     public bool UseAction(float value)
@@ -87,13 +94,24 @@ public class EntityData : MonoBehaviour
         EnterCombatMode();
         return ResourceMan.Health.Remove(incomingAttack);
     }
-
+/*
     public bool Damage(float[] incomingAttack)
     {
         EnterCombatMode();
         float value = 0;
-        value = ResourceMan.DamageCalculation(incomingAttack, StatMan.GetDefence());
+        value = StatMan.DamageCalculation(incomingAttack, StatMan.GetDefence());
+
         bool result = ResourceMan.Health.Remove(value);
+        if (!result)
+            DeathSequence();
+        return result;
+    }*/
+
+    public bool Damage(EntityData entity, Ability ability)
+    {
+        float value = StatMan.DamageCalculation(entity.StatMan.Stats, ability, StatMan.Stats);
+        bool result = ResourceMan.Health.Remove(value);
+
         if (!result)
             DeathSequence();
         return result;

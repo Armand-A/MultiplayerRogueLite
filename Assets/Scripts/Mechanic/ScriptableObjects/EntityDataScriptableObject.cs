@@ -47,12 +47,12 @@ public class EntityDataScriptableObject : ScriptableObject
     [SerializeField] private float _maxDefence = 999999999;
 
     [Header("Attack Speed #")]
-    [SerializeField] private float _atk_speed = 10;
-    [SerializeField] private float _minAtk_speed = 1;
-    [SerializeField] private float _maxAtk_speed = 999999999;
+    [SerializeField] private float _cdReduction = 10;
+    [SerializeField] private float _min_cdReduction = 1;
+    [SerializeField] private float _max_cdReduction = 999999999;
 
     [Header("Accuracy %")]
-    [SerializeField] private float _accuracy = 100;
+    [SerializeField] private float _accuracy = 1.0f;
     [SerializeField] private float _minAccuracy = 0;
     [SerializeField] private float _maxAccuracy = 999999999;
 
@@ -62,12 +62,12 @@ public class EntityDataScriptableObject : ScriptableObject
     [SerializeField] private float _maxEvasiveness = 999999999;
 
     [Header("Crit Damage %")]
-    [SerializeField] private float _crit_dmg = 200;
+    [SerializeField] private float _crit_dmg = 2.0f;
     [SerializeField] private float _minCrit_dmg = 0;
     [SerializeField] private float _maxCrit_dmg = 999999999;
 
     [Header("Crit Rate %")]
-    [SerializeField] private float _crit_rate = 1;
+    [SerializeField] private float _crit_rate = 0.01f;
     [SerializeField] private float _minCrit_rate = 0;
     [SerializeField] private float _maxCrit_rate = 999999999;
 
@@ -98,7 +98,7 @@ public class EntityDataScriptableObject : ScriptableObject
     public float[] Defence { get { return _defence; } }
     public float[] MinMaxDefence { get { return new float[] {_minDefence, _maxDefence}; } }
 
-    public float[] Atk_Spd { get { return new float[] { _atk_speed, _minAtk_speed, _maxAtk_speed }; } }
+    public float[] Atk_Spd { get { return new float[] { _cdReduction, _min_cdReduction, _max_cdReduction }; } }
     public float[] Accuracy { get { return new float[] { _accuracy, _minAccuracy, _maxAccuracy }; } }
     public float[] Evasiveness { get { return new float[] { _evasiveness, _minEvasiveness, _maxEvasiveness }; } }
     public float[] Crit_Dmg { get {  return new float[] { _crit_dmg, _minCrit_dmg, _maxCrit_dmg }; } }

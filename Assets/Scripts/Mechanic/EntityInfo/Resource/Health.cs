@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : RegenResourceTemplate
+/*public class Health : RegenResourceTemplate
 {
     public override bool Remove(float value)
     {
@@ -16,4 +16,4 @@ public class Health : RegenResourceTemplate
             return false;
         }
     }
-}
+}*/

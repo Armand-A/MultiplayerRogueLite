@@ -23,7 +23,7 @@ public class PlayerData : EntityData
     protected override void Update()
     {
         base.Update();
-        UpdateCurrencyText();
+        CurrencyText.text = (string)ResourceMan.Currency.ToString();
     }
 
     public void PreviewActionCost(bool check, float cost = 0)

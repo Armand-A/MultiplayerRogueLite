@@ -65,19 +65,8 @@ public class ResourceManager : MonoBehaviour
         _action.UpdateResource(ap, apRegen);
     }
 
-    public float DamageCalculation(float[] attack, float[] defence)
-    {
-        float totalDamage = 0;
-        for (int i = 0; i < attack.Length; i++)
-        {
-            totalDamage += 10 * attack[i] / (10 + defence[i]);
-        }
-        return totalDamage;
-    }
-
     private void Regen()
     {
-        Debug.Log("Regen");
         if (HPRegenIsActive)
             Health.Regen(_regenInterval);
         if (APRegenIsActive)
