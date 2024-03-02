@@ -496,13 +496,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2428929483029287576}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fc090b2bc8062a4784f0e5b950e193a, type: 3}
+  m_Script: {fileID: 11500000, guid: 441cb385aa4868944b29a5e8d04939d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Fill: {fileID: 7803021628587321446}
   RectFill: {fileID: 7361886914313605076}
   RectCost: {fileID: 1513023368347827293}
-  DeniedColor: {r: 1, g: 0, b: 0, a: 0.5803922}
+  DeniedColor: {r: 0.2509804, g: 0.35686275, b: 0.81960785, a: 0}
   ValueText: {fileID: 5662415240248964257}
   NotiText: {fileID: 1320845157254174204}
   NotiDuration: 2
@@ -764,7 +764,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2714352134199167300}
   - component: {fileID: 6118441835509483079}
-  - component: {fileID: 5133538324684211618}
+  - component: {fileID: 7913006168403337829}
   m_Layer: 5
   m_Name: HealthGauge
   m_TagString: Untagged
@@ -844,7 +844,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5133538324684211618
+--- !u!114 &7913006168403337829
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -853,7 +853,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5080658333132782913}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e78dc882ab0a7514b9d90cdf851f70f9, type: 3}
+  m_Script: {fileID: 11500000, guid: 441cb385aa4868944b29a5e8d04939d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Fill: {fileID: 2840793444702870507}

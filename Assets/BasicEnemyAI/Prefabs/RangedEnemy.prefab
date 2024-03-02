@@ -499,7 +499,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1418963723935536271}
   - component: {fileID: 12287770364458447}
-  - component: {fileID: 7049144441226187932}
+  - component: {fileID: 4116992855704059095}
   m_Layer: 5
   m_Name: HealthGauge
   m_TagString: Untagged
@@ -578,7 +578,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7049144441226187932
+--- !u!114 &4116992855704059095
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -587,7 +587,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3229292915320669462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e78dc882ab0a7514b9d90cdf851f70f9, type: 3}
+  m_Script: {fileID: 11500000, guid: 441cb385aa4868944b29a5e8d04939d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Fill: {fileID: 1272190381209364148}
@@ -953,8 +953,6 @@ MonoBehaviour:
   ranged: 1
   Attack: {fileID: 5093816141595670697, guid: 547b2b9a35b2bc34f8a3e9575ef55073, type: 3}
   Attack2: {fileID: 925903783233863067, guid: 35ae2f2e86f252240b9c38ff82ec7751, type: 3}
-  actions: {fileID: 0}
-  health: {fileID: 0}
   enemyData: {fileID: 0}
 --- !u!114 &1307321776174165603
 MonoBehaviour:
@@ -970,7 +968,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ResourceMan: {fileID: 3737287468815409089}
   StatMan: {fileID: 5216447522846824032}
-  _healthGauge: {fileID: 7049144441226187932}
+  _healthGauge: {fileID: 4116992855704059095}
   _actionGauge: {fileID: 7689241582844809536}
   CombatMode: 0
   CombatTimeout: 3
@@ -1000,6 +998,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29f960be507f84040ac93135a4b95296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HPRegenIsActive: 0
+  APRegenIsActive: 1
 --- !u!1 &7336106087930792450
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,13 +1098,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7336106087930792450}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fc090b2bc8062a4784f0e5b950e193a, type: 3}
+  m_Script: {fileID: 11500000, guid: 441cb385aa4868944b29a5e8d04939d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Fill: {fileID: 8430568255556016482}
   RectFill: {fileID: 7697049093258127147}
   RectCost: {fileID: 941394060541922016}
-  DeniedColor: {r: 1, g: 0, b: 0, a: 0.5803922}
+  DeniedColor: {r: 0.2509804, g: 0.35686275, b: 0.81960785, a: 0}
   ValueText: {fileID: 0}
   NotiText: {fileID: 0}
   NotiDuration: 2

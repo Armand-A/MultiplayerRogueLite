@@ -6,14 +6,13 @@ public class EntityData : MonoBehaviour
 {
     public ResourceManager ResourceMan;
     public StatManager StatMan;
-    protected PlayerMovement _playerMovement;
     protected Transform EntityTransform;
 
     [Header("Data display objects")]
     [Tooltip("Health gauge script from object")]
-    public HealthGauge _healthGauge;
+    public Gauge _healthGauge;
     [Tooltip("Action gauge script from object")]
-    public ActionGauge _actionGauge;
+    public Gauge _actionGauge;
 
     [Header("Player Status")]
     [Tooltip("Checks if entity is in combat")]
@@ -34,7 +33,6 @@ public class EntityData : MonoBehaviour
             ResourceMan = GetComponent<ResourceManager>();
         if (StatMan == null)
             StatMan = GetComponent<StatManager>();
-        _playerMovement = GetComponent<PlayerMovement>();
 
         StatMan.Initialize();
         ResourceMan.Initialize();
@@ -72,7 +70,7 @@ public class EntityData : MonoBehaviour
         _actionGauge.UpdateValue(ResourceMan.Action.Value, ResourceMan.Action.TotalValue);
     }
 
-    public void StatUpdateEvent()
+    public virtual void StatUpdateEvent()
     {
         float hp = StatMan.Stats[(int)EntityDataTypes.Stats.HP].Value;
         float hpRegen = StatMan.Stats[(int)EntityDataTypes.Stats.HPRegen].Value;
@@ -81,7 +79,6 @@ public class EntityData : MonoBehaviour
         float apRegen = StatMan.Stats[(int)EntityDataTypes.Stats.APRegen].Value;
 
         ResourceMan.UpdateResourceStats(hp, ap, hpRegen, apRegen);
-        _playerMovement.SpeedStat = StatMan.Stats[(int)EntityDataTypes.Stats.Speed].Value;
     }
 
     public bool UseAction(float value)

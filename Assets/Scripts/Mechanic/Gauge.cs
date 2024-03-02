@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class GaugeTemplate : MonoBehaviour
+public class Gauge : MonoBehaviour
 {
     protected Slider _gauge;
 

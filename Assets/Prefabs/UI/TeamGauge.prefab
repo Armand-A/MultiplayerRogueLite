@@ -390,7 +390,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11.35
+  m_fontSize: 19.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -713,7 +713,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11.35
+  m_fontSize: 19.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1264,13 +1264,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1491129709522004975}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fc090b2bc8062a4784f0e5b950e193a, type: 3}
+  m_Script: {fileID: 11500000, guid: 441cb385aa4868944b29a5e8d04939d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Fill: {fileID: 1016333241693764372}
   RectFill: {fileID: 5264904950364806257}
   RectCost: {fileID: 622917941505367498}
-  DeniedColor: {r: 1, g: 0, b: 0, a: 0.5803922}
+  DeniedColor: {r: 0.2509804, g: 0.35686275, b: 0.81960785, a: 0}
   ValueText: {fileID: 1974329191502433339}
   NotiText: {fileID: 0}
   NotiDuration: 2
@@ -1509,7 +1509,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2732440748287661191}
   - component: {fileID: 2709506234275388020}
-  - component: {fileID: 8863372983614045199}
+  - component: {fileID: 312469569231991548}
   m_Layer: 5
   m_Name: HealthGauge
   m_TagString: Untagged
@@ -1589,7 +1589,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8863372983614045199
+--- !u!114 &312469569231991548
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1598,7 +1598,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2856735276995027485}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e78dc882ab0a7514b9d90cdf851f70f9, type: 3}
+  m_Script: {fileID: 11500000, guid: 441cb385aa4868944b29a5e8d04939d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Fill: {fileID: 5372707245034216192}
@@ -1776,7 +1776,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11.35
+  m_fontSize: 19.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1910,7 +1910,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11.35
+  m_fontSize: 19.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2119,7 +2119,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11.35
+  m_fontSize: 19.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2253,7 +2253,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11.35
+  m_fontSize: 19.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2470,13 +2470,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3927251781592684877}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fc090b2bc8062a4784f0e5b950e193a, type: 3}
+  m_Script: {fileID: 11500000, guid: 441cb385aa4868944b29a5e8d04939d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Fill: {fileID: 6134910895506782705}
   RectFill: {fileID: 1761437521411107941}
   RectCost: {fileID: 5720222541120781684}
-  DeniedColor: {r: 1, g: 0, b: 0, a: 0.5803922}
+  DeniedColor: {r: 0.2509804, g: 0.35686275, b: 0.81960785, a: 0}
   ValueText: {fileID: 3356970250167055768}
   NotiText: {fileID: 0}
   NotiDuration: 2
@@ -2986,7 +2986,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11.35
+  m_fontSize: 19.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3421,7 +3421,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 11.35
+  m_fontSize: 19.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4539,13 +4539,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8287464145944979160}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fc090b2bc8062a4784f0e5b950e193a, type: 3}
+  m_Script: {fileID: 11500000, guid: 441cb385aa4868944b29a5e8d04939d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Fill: {fileID: 711597428450253053}
   RectFill: {fileID: 1294161990108633342}
   RectCost: {fileID: 3648364636692722391}
-  DeniedColor: {r: 1, g: 0, b: 0, a: 0.5803922}
+  DeniedColor: {r: 0.2509804, g: 0.35686275, b: 0.81960785, a: 0}
   ValueText: {fileID: 211210834342527232}
   NotiText: {fileID: 0}
   NotiDuration: 2
@@ -4686,13 +4686,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8485914340427363249}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fc090b2bc8062a4784f0e5b950e193a, type: 3}
+  m_Script: {fileID: 11500000, guid: 441cb385aa4868944b29a5e8d04939d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Fill: {fileID: 8035005110314258681}
   RectFill: {fileID: 2761771215206731930}
   RectCost: {fileID: 8804204337260522390}
-  DeniedColor: {r: 1, g: 0, b: 0, a: 0.5803922}
+  DeniedColor: {r: 0.2509804, g: 0.35686275, b: 0.81960785, a: 0}
   ValueText: {fileID: 2578298581453637711}
   NotiText: {fileID: 0}
   NotiDuration: 2

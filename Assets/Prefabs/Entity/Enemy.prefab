@@ -887,13 +887,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3393472260480041820}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fc090b2bc8062a4784f0e5b950e193a, type: 3}
+  m_Script: {fileID: 11500000, guid: 441cb385aa4868944b29a5e8d04939d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Fill: {fileID: 6020975119167681666}
   RectFill: {fileID: 8891023200801372395}
   RectCost: {fileID: 8061440170417144834}
-  DeniedColor: {r: 1, g: 0, b: 0, a: 0.5803922}
+  DeniedColor: {r: 0.2509804, g: 0.35686275, b: 0.81960785, a: 0}
   ValueText: {fileID: 0}
   NotiText: {fileID: 0}
   NotiDuration: 2
@@ -946,9 +946,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53ab215f512bcf240ad1f6ee7b19c927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResourceMan: {fileID: 0}
-  StatMan: {fileID: 0}
-  _healthGauge: {fileID: 111669627266848594}
+  ResourceMan: {fileID: 6518899734363425440}
+  StatMan: {fileID: 4248805295292920887}
+  _healthGauge: {fileID: 1264404265655466593}
   _actionGauge: {fileID: 3714951229989132436}
   CombatMode: 0
   CombatTimeout: 5
@@ -1005,6 +1005,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29f960be507f84040ac93135a4b95296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HPRegenIsActive: 0
+  APRegenIsActive: 1
 --- !u!1 &6228925391245955044
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,7 +1017,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2957286605141957053}
   - component: {fileID: 7250721180806479975}
-  - component: {fileID: 111669627266848594}
+  - component: {fileID: 1264404265655466593}
   m_Layer: 5
   m_Name: HealthGauge
   m_TagString: Untagged
@@ -1094,7 +1096,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &111669627266848594
+--- !u!114 &1264404265655466593
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1103,7 +1105,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6228925391245955044}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e78dc882ab0a7514b9d90cdf851f70f9, type: 3}
+  m_Script: {fileID: 11500000, guid: 441cb385aa4868944b29a5e8d04939d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Fill: {fileID: 5956611632860156752}
