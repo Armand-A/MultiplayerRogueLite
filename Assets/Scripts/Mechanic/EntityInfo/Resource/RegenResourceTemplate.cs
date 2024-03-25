@@ -3,9 +3,15 @@ public class RegenResourceTemplate : ResourceTemplate
 {
     private float regenValue = 1;
 
-    public void UpdateResource(float value, float regen = 1)
+    public RegenResourceTemplate(float value) : base(value)
     {
-        value = TotalValue;
+        Value = value;
+        TotalValue = value;
+    }
+
+    public void UpdateResource(float value, float regen)
+    {
+        TotalValue = value;
         if (Value > TotalValue)
             Value = TotalValue;
         regenValue = regen;
@@ -21,6 +27,12 @@ public class RegenResourceTemplate : ResourceTemplate
 
 public class Health : RegenResourceTemplate
 {
+    public Health(float value) : base(value)
+    {
+        Value = value;
+        TotalValue = value;
+    }
+
     public override bool Remove(float value)
     {
         if (_currentValue - value > 0)
@@ -38,4 +50,9 @@ public class Health : RegenResourceTemplate
 
 public class Action : RegenResourceTemplate
 {
+    public Action(float value) : base(value)
+    {
+        Value = value;
+        TotalValue = value;
+    }
 }

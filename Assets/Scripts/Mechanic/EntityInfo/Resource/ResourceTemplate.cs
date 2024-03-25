@@ -10,8 +10,14 @@ public class ResourceTemplate
     [Tooltip("Total value")]
     [SerializeField] protected float _totalValue = 20;
 
-    public float Value { get { return _currentValue; } set { _currentValue = value; } }
-    public float TotalValue { get { return _totalValue; } set { _totalValue = value; } }
+    public float Value { get { return _currentValue; } protected set { _currentValue = value; } }
+    public float TotalValue { get { return _totalValue; } protected set { _totalValue = value; } }
+
+    public ResourceTemplate(float value)
+    {
+        Value = value;
+        TotalValue = value;
+    }
 
     public virtual bool Add(float value)
     {

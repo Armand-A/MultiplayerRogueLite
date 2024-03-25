@@ -12,55 +12,93 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa0ef1f222681646923a01cec4103af, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  _hp: 100
-  _minHp: 0
-  _maxHp: 1e+9
-  _ap: 20
-  _minAp: 0
-  _maxAp: 1e+9
-  _hpRegen: 1
-  _minHpRegen: 0
-  _maxHpRegen: 1e+9
-  _apRegen: 1
-  _minApRegen: 0
-  _maxApRegen: 1e+9
-  _attack:
-  - 1
-  - 0
-  - 0
-  - 0
-  - 0
-  _minAttack: 0
-  _maxAttack: 1e+9
-  _defence:
-  - 1
-  - 0
-  - 0
-  - 0
-  - 0
-  _minDefence: 0
-  _maxDefence: 1e+9
-  _cdReduction: 10
-  _min_cdReduction: 1
-  _max_cdReduction: 1e+9
-  _accuracy: 1
-  _minAccuracy: 0
-  _maxAccuracy: 1e+9
-  _evasiveness: 0
-  _minEvasiveness: 0
-  _maxEvasiveness: 1e+9
-  _crit_dmg: 2
-  _minCrit_dmg: 0
-  _maxCrit_dmg: 1e+9
-  _crit_rate: 5
-  _minCrit_rate: 0
-  _maxCrit_rate: 1e+9
-  _speed: 1
-  _minSpeed: 1
-  _maxSpeed: 1e+9
-  _luck: 0
-  _minLuck: 0
-  _maxLuck: 1e+9
-  _invicibilityTF: 0
-  _minInvicibilityTF: 0
-  _maxInvicibilityTF: 1e+9
+  stats:
+  - StatType: 0
+    Value: 100
+    Min: 10
+    Max: 1e+9
+  - StatType: 1
+    Value: 30
+    Min: 10
+    Max: 1e+9
+  - StatType: 2
+    Value: 1
+    Min: 0
+    Max: 1e+9
+  - StatType: 3
+    Value: 1
+    Min: 0
+    Max: 1e+9
+  - StatType: 4
+    Value: 0
+    Min: 0
+    Max: 1e+9
+  - StatType: 5
+    Value: 100
+    Min: 0
+    Max: 1e+9
+  - StatType: 6
+    Value: 0
+    Min: 0
+    Max: 1e+9
+  - StatType: 7
+    Value: 200
+    Min: 0
+    Max: 1e+9
+  - StatType: 8
+    Value: 10
+    Min: 0
+    Max: 1e+9
+  - StatType: 9
+    Value: 10
+    Min: 0
+    Max: 1e+9
+  - StatType: 10
+    Value: 10
+    Min: 0
+    Max: 1e+9
+  eStats:
+  - StatType: 200
+    eStats:
+    - elementType: 0
+      Value: 10
+      Min: 0
+      Max: 1e+9
+    - elementType: 1
+      Value: 10
+      Min: 0
+      Max: 1e+9
+    - elementType: 2
+      Value: 10
+      Min: 0
+      Max: 1e+9
+    - elementType: 3
+      Value: 10
+      Min: 0
+      Max: 1e+9
+    - elementType: 4
+      Value: 10
+      Min: 0
+      Max: 1e+9
+  - StatType: 300
+    eStats:
+    - elementType: 0
+      Value: 10
+      Min: 0
+      Max: 1e+9
+    - elementType: 1
+      Value: 10
+      Min: 0
+      Max: 1e+9
+    - elementType: 2
+      Value: 10
+      Min: 0
+      Max: 1e+9
+    - elementType: 3
+      Value: 10
+      Min: 0
+      Max: 1e+9
+    - elementType: 4
+      Value: 10
+      Min: 0
+      Max: 1e+9

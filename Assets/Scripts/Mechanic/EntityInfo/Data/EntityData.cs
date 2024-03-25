@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EntityDataEnums;
 
 public class EntityData : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class EntityData : MonoBehaviour
             StatMan = GetComponent<StatManager>();
 
         StatMan.Initialize();
-        ResourceMan.Initialize();
+        ResourceMan.Initialize(StatMan.Stats[(int)StatsEnum.HP].Value, StatMan.Stats[(int)StatsEnum.AP].Value);
         
         EntityTransform = transform;
         _combatModeTimeout = new CooldownTimer(CombatTimeout);
@@ -72,11 +73,11 @@ public class EntityData : MonoBehaviour
 
     public virtual void StatUpdateEvent()
     {
-        float hp = StatMan.Stats[(int)EntityDataTypes.Stats.HP].Value;
-        float hpRegen = StatMan.Stats[(int)EntityDataTypes.Stats.HPRegen].Value;
+        float hp = StatMan.Stats[(int)StatsEnum.HP].Value;
+        float hpRegen = StatMan.Stats[(int)StatsEnum.HPRegen].Value;
 
-        float ap = StatMan.Stats[(int)EntityDataTypes.Stats.AP].Value;
-        float apRegen = StatMan.Stats[(int)EntityDataTypes.Stats.APRegen].Value;
+        float ap = StatMan.Stats[(int)StatsEnum.AP].Value;
+        float apRegen = StatMan.Stats[(int)StatsEnum.APRegen].Value;
 
         ResourceMan.UpdateResourceStats(hp, ap, hpRegen, apRegen);
     }
@@ -91,18 +92,6 @@ public class EntityData : MonoBehaviour
         EnterCombatMode();
         return ResourceMan.Health.Remove(incomingAttack);
     }
-/*
-    public bool Damage(float[] incomingAttack)
-    {
-        EnterCombatMode();
-        float value = 0;
-        value = StatMan.DamageCalculation(incomingAttack, StatMan.GetDefence());
-
-        bool result = ResourceMan.Health.Remove(value);
-        if (!result)
-            DeathSequence();
-        return result;
-    }*/
 
     public bool Damage(EntityData entity, Ability ability)
     {

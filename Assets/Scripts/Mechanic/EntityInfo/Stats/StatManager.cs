@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using EntityDataEnums;
+using static EntityDataScriptableObject;
 
 public class StatManager : MonoBehaviour
 {
@@ -13,12 +15,9 @@ public class StatManager : MonoBehaviour
 
     bool _statUpdated = false;
 
-    // Sample key Stat[(int)EntityDataTypes.ElementType.Fire + (int)EntityDataTypes.Stats.Attack]
+    // Sample key Stat[(int)EntityDataTypes.ElementType.Fire + (int)StatsEnum.Attack]
     private Dictionary<int, StatTemplate> _stats = new Dictionary<int, StatTemplate>();
     public Dictionary<int, StatTemplate> Stats {  get { return _stats; } }
-
-    List<EntityDataTypes.Stats> _statNames = Enum.GetValues(typeof(EntityDataTypes.Stats)).Cast<EntityDataTypes.Stats>().ToList();
-    List<EntityDataTypes.ElementTypes> _elementNames = Enum.GetValues(typeof(EntityDataTypes.ElementTypes)).Cast<EntityDataTypes.ElementTypes>().ToList();
 
     public void Initialize()
     {
@@ -33,7 +32,7 @@ public class StatManager : MonoBehaviour
     private void Update()
     {
         if (_statUpdated) 
-        { 
+        {
             StatUpdateEvent?.Invoke();
             _statUpdated = false;
         }
@@ -52,19 +51,19 @@ public class StatManager : MonoBehaviour
     */
     public void StatDefault()
     {
-        for (int i = 0; i < _statNames.Count; i++)
+        for (int i = 0; i < DataEnumNames.StatNames.Count; i++)
         {
-            if (_statNames[i] == EntityDataTypes.Stats.Attack || _statNames[i] == EntityDataTypes.Stats.Defence)
+            if (DataEnumNames.StatNames[i] == StatsEnum.Attack || DataEnumNames.StatNames[i] == StatsEnum.Defence)
             {
-                Debug.Log(_statNames[i]);
-                for (int j = 0; j < _elementNames.Count; j++)
+                Debug.Log(DataEnumNames.StatNames[i]);
+                for (int j = 0; j < DataEnumNames.ElementNames.Count; j++)
                 {
-                    Stats[(int)_statNames[i] + (int)_elementNames[j]] = new StatTemplate(gameObject);
+                    Stats[(int)DataEnumNames.StatNames[i] + (int)DataEnumNames.ElementNames[j]] = new StatTemplate(gameObject);
                 }
                 continue;
             }
-            Debug.Log(_statNames[i]);
-            Stats[(int)_statNames[i]] = new StatTemplate(gameObject);
+            Debug.Log(DataEnumNames.StatNames[i]);
+            Stats[(int)DataEnumNames.StatNames[i]] = new StatTemplate(gameObject);
         }
     }
 
@@ -73,88 +72,43 @@ public class StatManager : MonoBehaviour
      */
     public void InitializeStats()
     {
-        for (int i = 0; i < _statNames.Count; i++)
+        StatContainer[] stats = _initialData.GetStats;
+        ElementalContainer[] eStats = _initialData.GetEStats;
+        for (int i = 0; i < stats.Length; i++)
         {
-            //Debug.Log("Stat \"" + _statNames[i] + "\" added");
-            switch (_statNames[i])
+            Stats[(int)stats[i].StatType] = new StatTemplate(gameObject, stats[i].Value, stats[i].Min, stats[i].Max);
+        }
+        for (int i = 0; i < eStats.Length; i++)
+        {
+            for (int j = 0; j < DataEnumNames.ElementNames.Count; j++)
             {
-                case EntityDataTypes.Stats.HP:
-                    Stats[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.HP[0], _initialData.HP[1], _initialData.HP[2]);
-                    break;
-                case EntityDataTypes.Stats.AP:
-                    Stats[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.AP[0], _initialData.AP[1], _initialData.AP[2]);
-                    break;
-                case EntityDataTypes.Stats.HPRegen:
-                    Stats[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.AP[0], _initialData.AP[1], _initialData.AP[2]);
-                    break;
-                case EntityDataTypes.Stats.APRegen:
-                    Stats[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.AP[0], _initialData.AP[1], _initialData.AP[2]);
-                    break;
-                case EntityDataTypes.Stats.Attack:
-                    for (int j = 0; j < _elementNames.Count; j++)
-                    {
-                        Stats[(int)_statNames[i] + (int)_elementNames[j]] = new StatTemplate(gameObject, _initialData.Attack[j], _initialData.MinMaxAttack[0], _initialData.MinMaxAttack[1]);
-                    }
-                    break;
-                case EntityDataTypes.Stats.Defence:
-                    for (int j = 0; j < _elementNames.Count; j++)
-                    {
-                        Stats[(int)_statNames[i] + (int)_elementNames[j]] = new StatTemplate(gameObject, _initialData.Defence[j], _initialData.MinMaxDefence[0], _initialData.MinMaxDefence[1]);
-                    }
-                    break;
-                case EntityDataTypes.Stats.CDReduction:
-                    Stats[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.Atk_Spd[0], _initialData.Atk_Spd[1], _initialData.Atk_Spd[2]);
-                    break;
-                case EntityDataTypes.Stats.Accuracy:
-                    Stats[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.Accuracy[0], _initialData.Accuracy[1], _initialData.Accuracy[2], statValueType:EntityDataTypes.ValueType.Percentage);
-                    break;
-                case EntityDataTypes.Stats.Evasiveness:
-                    Stats[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.Evasiveness[0], _initialData.Evasiveness[1], _initialData.Evasiveness[2], statValueType: EntityDataTypes.ValueType.Percentage);
-                    break;
-                case EntityDataTypes.Stats.Crit_Dmg:
-                    Stats[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.Crit_Dmg[0], _initialData.Crit_Dmg[1], _initialData.Crit_Dmg[2], statValueType: EntityDataTypes.ValueType.Percentage);
-                    break;
-                case EntityDataTypes.Stats.Crit_Rate:
-                    Stats[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.Crit_Rate[0], _initialData.Crit_Rate[1], _initialData.Crit_Rate[2], statValueType: EntityDataTypes.ValueType.Percentage);
-                    break;
-                case EntityDataTypes.Stats.Speed:
-                    Stats[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.Speed[0], _initialData.Speed[1], _initialData.Speed[2]);
-                    break;
-                case EntityDataTypes.Stats.Luck:
-                    Stats[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.Speed[0], _initialData.Speed[1], _initialData.Speed[2]);
-                    break;
-                case EntityDataTypes.Stats.Invincibility_Time_Frame:
-                    Stats[(int)_statNames[i]] = new StatTemplate(gameObject, _initialData.Speed[0], _initialData.Speed[1], _initialData.Speed[2]);
-                    break;
-                default:
-                    Debug.LogError("Stat is not implemented properly");
-                    break;
+                Stats[(int)eStats[i].StatType + (int)eStats[i].eStats[j].elementType] = new StatTemplate(gameObject, eStats[i].eStats[j].Value, eStats[i].eStats[j].Min, eStats[i].eStats[j].Max);
             }
         }
     }
 
-    public void StatUpdate(EntityDataTypes.Stats s, EntityDataTypes.ElementTypes e, float flat, float percent, float multi)
+    public void StatUpdate(StatsEnum s, ElementTypesEnum e, float flat, float percent)
     {
-        Stats[(int)s + (int)e].StatUpdate(flat, percent, multi);
+        Stats[(int)s + (int)e].StatModifier(flat, percent);
         _statUpdated = true;
     }
 
     public float[] GetAttack()
     {
-        float[] attack = new float[_elementNames.Count];
-        for (int j = 0; j < _elementNames.Count; j++)
+        float[] attack = new float[DataEnumNames.ElementNames.Count];
+        for (int j = 0; j < DataEnumNames.ElementNames.Count; j++)
         {
-            attack[j] = Stats[(int)EntityDataTypes.Stats.Attack + (int)_elementNames[j]].Value;
+            attack[j] = Stats[(int)StatsEnum.Attack + (int)DataEnumNames.ElementNames[j]].Value;
         }
         return attack;
     }
 
     public float[] GetDefence()
     {
-        float[] defence = new float[_elementNames.Count];
-        for (int j = 0; j < _elementNames.Count; j++)
+        float[] defence = new float[DataEnumNames.ElementNames.Count];
+        for (int j = 0; j < DataEnumNames.ElementNames.Count; j++)
         {
-            defence[j] = Stats[(int)EntityDataTypes.Stats.Defence + (int)_elementNames[j]].Value;
+            defence[j] = Stats[(int)StatsEnum.Defence + (int)DataEnumNames.ElementNames[j]].Value;
         }
         return defence;
     }
@@ -180,15 +134,15 @@ public class StatManager : MonoBehaviour
     public float DamageCalculation(Dictionary<int, StatTemplate> enemyStats, Ability ability, Dictionary<int, StatTemplate> entityStats)
     {
         float totalDamage = 0;
-        float critrate = enemyStats[(int)EntityDataTypes.Stats.Crit_Rate].Value;
-        float crit = UnityEngine.Random.Range(critrate, 1);
+        float critrate = enemyStats[(int)StatsEnum.Crit_Rate].Value;
+        float randcrit = UnityEngine.Random.Range(0, 100);
 
-        for (int i = 0; i < Enum.GetNames(typeof(EntityDataTypes.ElementTypes)).Length; i++)
+        for (int i = 0; i < Enum.GetNames(typeof(ElementTypesEnum)).Length; i++)
         {
-            float attack = crit <= critrate ? enemyStats[(int)EntityDataTypes.Stats.Attack + i].Value * enemyStats[(int)EntityDataTypes.Stats.Crit_Dmg].Value 
-            : enemyStats[(int)EntityDataTypes.Stats.Attack + i].Value;
+            float attack = randcrit <= critrate ? enemyStats[(int)StatsEnum.Attack + i].Value * (enemyStats[(int)StatsEnum.Crit_Dmg].Value/100)
+            : enemyStats[(int)StatsEnum.Attack + i].Value;
 
-            totalDamage += 10 * attack / (10 + enemyStats[(int)EntityDataTypes.Stats.Defence + i].Value);
+            totalDamage += 10 * attack / (10 + enemyStats[(int)StatsEnum.Defence + i].Value);
         }
         return totalDamage;
     }

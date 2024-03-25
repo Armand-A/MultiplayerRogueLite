@@ -15,6 +15,7 @@ public class PlayerInputHandler : MonoBehaviour
     private PlayerAttack _playerAttack;
     private PlayerMovement _playerMovmement;
     private PlayerInteract _playerInteract;
+    private PlayerUI _playerUI;
     
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class PlayerInputHandler : MonoBehaviour
         _playerAttack = GetComponent<PlayerAttack>();
         _playerCamera = GameObject.FindWithTag("MainCamera").GetComponent<PlayerCamera>();
         _playerInteract = GetComponent<PlayerInteract>();
+        _playerUI = GetComponent<PlayerUI>();
     }
 
     public void DisableInputHandling()

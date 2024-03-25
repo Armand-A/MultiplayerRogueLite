@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Currency : ResourceTemplate
 {
-    public Currency()
+    public Currency(float value) : base(value)
     {
+        Value = value;
         _totalValue = float.MaxValue;
     }
 

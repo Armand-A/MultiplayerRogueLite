@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using EntityDataEnums;
 
 public class PlayerData : EntityData
 {
@@ -11,21 +12,23 @@ public class PlayerData : EntityData
 
     protected override void Awake()
     {
-        base.Awake();
         ResourceMan.AddCurrency();
         ResourceMan.HPRegenIsActive = true;
         _playerMovement = GetComponent<PlayerMovement>();
+        base.Awake();
     }
 
     public void UpdateCurrencyText()
     {
-        CurrencyText.text = (string)ResourceMan.Currency.ToString();
+        CurrencyText.text = (string)ResourceMan.UpgradeCurrency.ToString();
+        //CurrencyText.text = (string)ResourceMan.AbilityCurrency.ToString();
     }
 
     protected override void Update()
     {
         base.Update();
-        CurrencyText.text = (string)ResourceMan.Currency.ToString();
+        CurrencyText.text = (string)ResourceMan.UpgradeCurrency.ToString();
+        //CurrencyText.text = (string)ResourceMan.AbilityCurrency.ToString();
     }
 
     public void PreviewActionCost(bool check, float cost = 0)
@@ -43,6 +46,6 @@ public class PlayerData : EntityData
     public override void StatUpdateEvent()
     {
         base.StatUpdateEvent();
-        _playerMovement.SpeedStat = StatMan.Stats[(int)EntityDataTypes.Stats.Speed].Value;
+        _playerMovement.BaseSpeed = StatMan.Stats[(int)StatsEnum.Speed].Value;
     }
 }

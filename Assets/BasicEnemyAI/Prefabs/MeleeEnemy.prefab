@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.81960785, g: 0.2685613, b: 0.25098035, a: 1}
+  m_Color: {r: 0.8207547, g: 0.2296992, b: 0.21293166, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -652,13 +652,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3490077621445736214}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e78dc882ab0a7514b9d90cdf851f70f9, type: 3}
+  m_Script: {fileID: 11500000, guid: 441cb385aa4868944b29a5e8d04939d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Fill: {fileID: 1906075352364435498}
   RectFill: {fileID: 2327263128663985279}
   RectCost: {fileID: 8255660129215674181}
-  DeniedColor: {r: 1, g: 0, b: 0, a: 0}
+  DeniedColor: {r: 0.81960785, g: 0.23137255, b: 0.21176471, a: 0}
   ValueText: {fileID: 0}
   NotiText: {fileID: 0}
   NotiDuration: 2

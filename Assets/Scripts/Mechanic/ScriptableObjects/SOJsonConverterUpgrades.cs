@@ -1,7 +1,7 @@
 using UnityEngine;
 
 //SO stands for ScriptableObject
-public class SOJsonConverterCopy : MonoBehaviour
+public class SOJsonConverterUpgrades : MonoBehaviour
 {   
     enum Convertion
     {
@@ -9,19 +9,24 @@ public class SOJsonConverterCopy : MonoBehaviour
         ToSO
     }
     [SerializeField] Convertion _convert;
-    [SerializeField] string _path;
+    [SerializeField] Upgrade[] _upgrade;
 
     private void Start()
     {
         if (_convert == Convertion.ToJson) { ConvertToJson(); }
         else { ConvertToSO(); }
     }
-    public virtual void ConvertToJson()
+    public void ConvertToJson()
     {
         
     }
 
-    public virtual void ConvertToSO()
+    public void ConvertToSO()
+    {
+        
+    }
+
+    private void ReadJson()
     {
         
     }
