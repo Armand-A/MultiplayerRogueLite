@@ -6,74 +6,52 @@ using static UpgradeRange;
 
 public class Upgrade
 {
-    List<UpgradeStat> UpgradeStats;
-    UpgradeEStat[] UpgradeEStats;
+    public List<UpgradeStat> UpgradeStats = new List<UpgradeStat>();
+    public List<UpgradeEStat> UpgradeEStats = new List<UpgradeEStat>();
 
-    float _price = 0;
+    int _price = 0;
 
-    int _upgradeID;
-    bool _duplicates = true;
-    int _quantity = 0;
+    Guid _upgradeID;
     int _rating = 1;
     int _rarity = 0;
 
-    public float Price { get { return _price; } }
-    public int UpgradeID { get { return _upgradeID; } }
-    public bool Duplicates { get { return _duplicates; } }
-    public int Quantity { get { return _quantity; } }
-    public int Rating { get { return _rating; } }
-    public int Rarity { get { return _rarity; } }    
+    public int Price { get { return _price; } set { _price = value; } }
+    public Guid UpgradeID { get { return _upgradeID; } }
+    public int Rating { get { return _rating; } set { _rating = value; } }
+    public int Rarity { get { return _rarity; } set { _rarity = value; } }
 
     public Upgrade(int rarity)
     {
+        _upgradeID = Guid.NewGuid();
         _rarity  = rarity;
-        GenerateUpgrade();
     }
 
     public Upgrade(UpgradeScript upgradeScript)
     {
+        _upgradeID = upgradeScript.UpgradeID;
+        _price = upgradeScript.Price;
+        _rarity = upgradeScript.Rarity;
 
-    }
+        for (int i = 0; i < upgradeScript.UpgradeStats.Length; i++)
+            UpgradeStats.Add(upgradeScript.UpgradeStats[i]);
 
-    private void GenerateUpgrade()
-    {
-        switch (_rarity) {
-            case 0:
-                for (int i = 0; i < 3; i++)
-                {
-                    int valueType = UnityEngine.Random.Range(0, Enum.GetNames(typeof(ValueTypeEnum)).Length-1);
-                    UpgradeStat newUpgrade = RandomUpgrade(Common[StatsEnum.HP]);
-                    UpgradeStats.Add(newUpgrade);
-
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
-    private UpgradeStat RandomUpgrade(UpgradeValues range)
-    {
-        
-        return null;
+        for (int i = 0; i < upgradeScript.UpgradeEStats.Length; i++)
+            UpgradeEStats.Add(upgradeScript.UpgradeEStats[i]);
     }
 }
 
 public class UpgradeStat
 {
 
-    protected StatsEnum _statType;
-    protected CalculationOrderEnum _calcType;
+    protected UpgradeableStatsEnum _statType;
     protected float _value;
 
-    public StatsEnum StatType { get { return _statType; } }
-    public CalculationOrderEnum ValueType { get { return _calcType; } }
+    public UpgradeableStatsEnum StatType { get { return _statType; } }
     public float Value { get { return _value; } }
 
-    public UpgradeStat(StatsEnum statType, CalculationOrderEnum calcType, float value)
+    public UpgradeStat(UpgradeableStatsEnum statType, float value)
     {
         _statType = statType;
-        _calcType = calcType;
         _value = value;
     }
 }
@@ -84,7 +62,7 @@ public class UpgradeEStat : UpgradeStat
 
     public ElementTypesEnum Element { get { return _element; } }
 
-    public UpgradeEStat(StatsEnum statType, CalculationOrderEnum calcType, float value, ElementTypesEnum element) : base(statType, calcType, value)
+    public UpgradeEStat(UpgradeableStatsEnum statType, float value, ElementTypesEnum element) : base(statType, value)
     {
         _element = element;
     }

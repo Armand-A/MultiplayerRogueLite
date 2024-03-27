@@ -39,19 +39,21 @@ namespace EntityDataEnums
         Luck = 10, //luck for upgrade draws
     }
 
-    public enum UpgradableStatsEnum
+    public enum UpgradeableStatsEnum
     {
-        HP = 0,
-        AP = 1,
-        HPRegen = 2,
-        APRegen = 3,
-        Attack = 200,
-        Defence = 300,
-        CDReduction = 4,
-        Crit_Dmg = 7,
-        Crit_Rate = 8,
-        Speed = 9,
-        Luck = 10, //luck for upgrade draws
+        HP,
+        AP,
+        HPRegen,
+        APRegen,
+        Attack,
+        Defence,
+        CDReduction,
+        Accuracy,
+        Evasiveness,
+        Crit_Dmg,
+        Crit_Rate,
+        Speed,
+        Luck
     }
 
     public enum ResourceEnum

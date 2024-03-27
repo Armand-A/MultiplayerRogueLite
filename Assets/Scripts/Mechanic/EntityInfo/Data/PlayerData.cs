@@ -6,6 +6,7 @@ using EntityDataEnums;
 
 public class PlayerData : EntityData
 {
+    public PlayerUpgrades playerUpgrade;
     [Tooltip("Currency text")]
     public TMP_Text CurrencyText;
     protected PlayerMovement _playerMovement;

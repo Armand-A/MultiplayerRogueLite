@@ -7,25 +7,25 @@ using EntityDataEnums;
 [CreateAssetMenu(fileName = "New Upgrade", menuName = "Upgrade Data")]
 public class UpgradeScript : ScriptableObject
 {
-    [SerializeField] UpgradeStat[] UpgradeStats;
-    [SerializeField] UpgradeEStat[] UpgradeEStats;
+    public UpgradeStat[] UpgradeStats;
+    public UpgradeEStat[] UpgradeEStats;
 
-    [SerializeField] float _price = 0;
+    [SerializeField] int _price = 0;
 
     string _name;
-    int _upgradeID;
+    Guid _upgradeID;
     bool _duplicates = true;
     int _quantity = 0;
     int _rarity = 0;
 
     public string Name { get { return _name; } }
-    public float Price { get { return _price; } }
-    public int UpgradeID { get { return _upgradeID; } }
+    public int Price { get { return _price; } }
+    public Guid UpgradeID { get { return _upgradeID; } set { _upgradeID = value; } }
     public bool Duplicates { get { return _duplicates; } }
     public int Quantity { get { return _quantity; } }
     public int Rarity { get { return _rarity; } }
 
-    [System.Serializable]
+/*    [System.Serializable]
     public class UpgradeStat
     {   
         
@@ -50,5 +50,5 @@ public class UpgradeScript : ScriptableObject
         public ValueTypeEnum ValueType { get { return _valueType; } }
         public ElementTypesEnum Element { get { return _element; } }
         public float Value { get { return value; } }
-    }
+    }*/
 }
