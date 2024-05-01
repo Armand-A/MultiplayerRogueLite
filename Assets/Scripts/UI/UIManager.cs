@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    Stack<AbilityUI> activeUIStack = new Stack<AbilityUI>();
+    Stack<ShopUI> activeUIStack = new Stack<ShopUI>();
     PlayerInputHandler playerInputHandler;
 
     protected void Awake()
@@ -12,12 +12,12 @@ public class UIManager : MonoBehaviour
         playerInputHandler = FindObjectOfType<PlayerInputHandler>();
     }
 
-    public void OpenUI(AbilityUI uiPrefab)
+    public void OpenUI(ShopUI uiPrefab)
     {
         OpenUIAndGet(uiPrefab);
     }
-
-    public AbilityUI OpenUIAndGet(AbilityUI uiPrefab)
+    
+    public ShopUI OpenUIAndGet(ShopUI uiPrefab)
     {
         if (activeUIStack.Count == 0)
         {
@@ -28,7 +28,7 @@ public class UIManager : MonoBehaviour
             if (playerInputHandler != null) playerInputHandler.DisableInputHandling();
         }
 
-        AbilityUI uiObject = Instantiate(uiPrefab.gameObject).GetComponent<AbilityUI>();
+        ShopUI uiObject = Instantiate(uiPrefab.gameObject).GetComponent<ShopUI>();
         uiObject.SetUIManager(this);
         activeUIStack.Push(uiObject);
         return uiObject;

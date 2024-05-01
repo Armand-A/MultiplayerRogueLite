@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class AbilityEquipUI : AbilityUI
+public class AbilityEquipUI : ShopUI
 {
     [SerializeField] List<GameObject> buttons;
     [SerializeField] AbilityLibraryUI abilityLibraryUI;
@@ -71,17 +71,17 @@ public class AbilityEquipUI : AbilityUI
             abilityLibraryUI.RemoveOnAbilityClickedListener(listener);
         }
         abilitylibraryUiInstance = null;
-        uiManager.CloseUI();
+        CloseUI();
     }
 
     public void OnConfirm()
     {
         CommitChanges();
-        uiManager.CloseUI();
+        CloseUI();
     }
 
     public void OnCancel()
     {
-        uiManager.CloseUI();
+        CloseUI();
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using static AbilityLibraryUI;
 
-public class AbilityLibraryUI : AbilityUI
+public class AbilityLibraryUI : ShopUI
 {
     [SerializeField] GameObject buttonPrefab;
     [SerializeField] GameObject panel;
@@ -18,8 +18,8 @@ public class AbilityLibraryUI : AbilityUI
 
     public enum AbilitiesFilterType
     {
-        All, 
-        Imbueable, 
+        All,
+        Imbueable,
         ImbueOptions
     }
     public Ability AbilityOfImbueOptions { get; set; }
@@ -40,7 +40,7 @@ public class AbilityLibraryUI : AbilityUI
         {
             case AbilitiesFilterType.Imbueable:
                 abilities = playerAbilities.Abilities.FindAll(
-                    (ability) => 
+                    (ability) =>
                         ability.AcquisitionType == Ability.EAcquisitionType.Base
                         && ability.ImbueOptions != null
                         && ability.ImbueOptions.Count > 0
@@ -70,7 +70,8 @@ public class AbilityLibraryUI : AbilityUI
         }
 
         // instantiate ability buttons
-        for (int i = 0; i < abilities.Count; i++) {
+        for (int i = 0; i < abilities.Count; i++)
+        {
             Ability ability = abilities[i];
 
             GameObject buttonObject = Instantiate(buttonPrefab);
@@ -100,10 +101,5 @@ public class AbilityLibraryUI : AbilityUI
     public void RemoveOnAbilityClickedListener(UnityAction<Ability> action)
     {
         onAbilityClicked.RemoveListener(action);
-    }
-
-    public void CloseUI()
-    {
-        uiManager.CloseUI();
     }
 }

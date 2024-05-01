@@ -71,16 +71,4 @@ public class StatTemplate
     {
         return (_baseValue + flat) * (percent / 100);
     }
-
-    public float UpgradeRange(ValueTypeEnum value, float maxIncrease, int rarity)
-    {
-        switch (rarity)
-        {
-            case 0:
-                break;
-            default:
-                break;
-        }
-        return 0;
-    }
 }

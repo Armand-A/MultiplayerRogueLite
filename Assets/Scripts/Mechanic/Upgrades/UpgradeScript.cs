@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using EntityDataEnums;
+using UnityEditor;
 
 [CreateAssetMenu(fileName = "New Upgrade", menuName = "Upgrade Data")]
 public class UpgradeScript : ScriptableObject
@@ -13,17 +14,17 @@ public class UpgradeScript : ScriptableObject
     [SerializeField] int _price = 0;
 
     string _name;
-    Guid _upgradeID;
+    GUID _upgradeID;
     bool _duplicates = true;
     int _quantity = 0;
-    int _rarity = 0;
+    Rarity _rarity = 0;
 
     public string Name { get { return _name; } }
     public int Price { get { return _price; } }
-    public Guid UpgradeID { get { return _upgradeID; } set { _upgradeID = value; } }
+    public GUID UpgradeID { get { return _upgradeID; } set { _upgradeID = value; } }
     public bool Duplicates { get { return _duplicates; } }
     public int Quantity { get { return _quantity; } }
-    public int Rarity { get { return _rarity; } }
+    public Rarity GivenRarity { get { return _rarity; } }
 
 /*    [System.Serializable]
     public class UpgradeStat

@@ -6,14 +6,15 @@ using EntityDataEnums;
 
 public class PlayerData : EntityData
 {
-    public PlayerUpgrades playerUpgrade;
     [Tooltip("Currency text")]
     public TMP_Text CurrencyText;
     protected PlayerMovement _playerMovement;
+    
+    List<Upgrade> upgrades = new List<Upgrade>();
 
     protected override void Awake()
     {
-        ResourceMan.AddCurrency();
+        ResourceMan.InitializeCurrency();
         ResourceMan.HPRegenIsActive = true;
         _playerMovement = GetComponent<PlayerMovement>();
         base.Awake();
@@ -21,14 +22,14 @@ public class PlayerData : EntityData
 
     public void UpdateCurrencyText()
     {
-        CurrencyText.text = (string)ResourceMan.UpgradeCurrency.ToString();
+        CurrencyText.text = (string)ResourceMan.StatCurrency.ToString();
         //CurrencyText.text = (string)ResourceMan.AbilityCurrency.ToString();
     }
 
     protected override void Update()
     {
         base.Update();
-        CurrencyText.text = (string)ResourceMan.UpgradeCurrency.ToString();
+        CurrencyText.text = (string)ResourceMan.StatCurrency.ToString();
         //CurrencyText.text = (string)ResourceMan.AbilityCurrency.ToString();
     }
 
@@ -48,5 +49,26 @@ public class PlayerData : EntityData
     {
         base.StatUpdateEvent();
         _playerMovement.BaseSpeed = StatMan.Stats[(int)StatsEnum.Speed].Value;
+    }
+
+    public void OpenStatUpgradeStore()
+    {
+        
+    }
+
+    public bool PurchaseUpgrade(int price, Upgrade upgrade)
+    {
+        if (ResourceMan.StatCurrency.Remove(price))
+        {
+            return false;
+        }
+        else
+            upgrades.Add(upgrade);
+        return true;
+    }
+
+    public void DisplayPlayerUpgrade()
+    {
+        UpgradeManager.DisplayUpgradeOptions();
     }
 }

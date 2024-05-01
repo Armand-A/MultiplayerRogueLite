@@ -50,7 +50,7 @@ MonoBehaviour:
     Min: 0
     Max: 1e+9
   - StatType: 9
-    Value: 10
+    Value: 250
     Min: 0
     Max: 1e+9
   - StatType: 10

@@ -6,12 +6,12 @@ public class ResourceManager : MonoBehaviour
 {
     public Health Health { get{ return _health; } }
     public Action Action { get{ return _action; } }
-    public Currency UpgradeCurrency { get{ return _upgrade_currency; } }
+    public Currency StatCurrency { get{ return _stat_currency; } }
     public Currency AbilityCurrency { get{ return _ability_currency; } }
 
     private Health _health;
     private Action _action;
-    private Currency _upgrade_currency;
+    private Currency _stat_currency;
     private Currency _ability_currency;
 
     float _regenInterval = 0.1f;
@@ -52,10 +52,10 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
-    public void AddCurrency(float value = 100)
+    public void InitializeCurrency(float value = 100)
     {
-        if (_upgrade_currency == null)
-            _upgrade_currency = new Currency(value);
+        if (_stat_currency == null)
+            _stat_currency = new Currency(value);
 
         if (_ability_currency == null)
             _ability_currency = new Currency(value);
