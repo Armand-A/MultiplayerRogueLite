@@ -42,8 +42,6 @@ public class PlayerInputHandler : MonoBehaviour
     {
         _playerInputAction.Enable();
 
-        _playerInputAction.Player.CamSwap.performed += OnCamSwap;
-
         // Assign functions as event handlers for input values
         _playerInputAction.Player.Move.performed += OnMovement;
         _playerInputAction.Player.Move.canceled += OnMovementStopped;
@@ -57,13 +55,12 @@ public class PlayerInputHandler : MonoBehaviour
         _playerInputAction.Player.Dash.started += OnDash;
         //_playerInputAction.Player.Jump.canceled += OnDash;
 
-        _playerInputAction.Player.EquipAttack1.started += OnEquipAttack1;
-        _playerInputAction.Player.EquipAttack2.started += OnEquipAttack2;
-        _playerInputAction.Player.EquipAttack3.started += OnEquipAttack3;
-        _playerInputAction.Player.EquipAttack4.started += OnEquipAttack4;
+        _playerInputAction.Player.EquipAttack1.started += OnHotbarAbility1Pressed;
+        _playerInputAction.Player.EquipAttack2.started += OnHotbarAbility2Pressed;
+        _playerInputAction.Player.EquipAttack3.started += OnHotbarAbility3Pressed;
+        _playerInputAction.Player.EquipAttack4.started += OnHotbarAbility4Pressed;
 
         _playerInputAction.Player.Attack.started += OnAttack;
-        _playerInputAction.Player.CancelAttack.started += OnCancelAttack;
 
         _playerInputAction.Player.Interact.started += OnInteract;
     }
@@ -87,20 +84,19 @@ public class PlayerInputHandler : MonoBehaviour
         _playerInputAction.Player.Dash.started -= OnDash;
         //_playerInputAction.Player.Jump.canceled -= OnDash;
 
-        _playerInputAction.Player.EquipAttack1.started -= OnEquipAttack1;
-        _playerInputAction.Player.EquipAttack2.started -= OnEquipAttack2;
-        _playerInputAction.Player.EquipAttack3.started -= OnEquipAttack3;
-        _playerInputAction.Player.EquipAttack4.started -= OnEquipAttack4;
+        _playerInputAction.Player.EquipAttack1.started -= OnHotbarAbility1Pressed;
+        _playerInputAction.Player.EquipAttack2.started -= OnHotbarAbility2Pressed;
+        _playerInputAction.Player.EquipAttack3.started -= OnHotbarAbility3Pressed;
+        _playerInputAction.Player.EquipAttack4.started -= OnHotbarAbility4Pressed;
 
         _playerInputAction.Player.Attack.started -= OnAttack;
-        _playerInputAction.Player.CancelAttack.started -= OnCancelAttack;
 
         _playerInputAction.Player.Interact.started -= OnInteract;
     }
 
-    private void OnCamSwap(InputAction.CallbackContext value)
+    private void Update()
     {
-        _playerCamera.SwitchCameraStyle();
+        _playerCamera.LookDelta = _playerInputAction.Player.Look.ReadValue<Vector2>();
     }
 
     private void OnMovement(InputAction.CallbackContext value)
@@ -128,34 +124,29 @@ public class PlayerInputHandler : MonoBehaviour
         _playerMovmement.MoveVector = Vector2.zero;
     }
 
-    private void OnEquipAttack1(InputAction.CallbackContext context)
+    private void OnHotbarAbility1Pressed(InputAction.CallbackContext context)
     {
-        _playerAttack.OnEquipAttack(AttackSlot.Slot1);
+        _playerAttack.OnHotbarAbilityPressed(HotbarAbilitySlot.Slot1);
     }
 
-    private void OnEquipAttack2(InputAction.CallbackContext context)
+    private void OnHotbarAbility2Pressed(InputAction.CallbackContext context)
     {
-        _playerAttack.OnEquipAttack(AttackSlot.Slot2);
+        _playerAttack.OnHotbarAbilityPressed(HotbarAbilitySlot.Slot2);
     }
 
-    private void OnEquipAttack3(InputAction.CallbackContext context)
+    private void OnHotbarAbility3Pressed(InputAction.CallbackContext context)
     {
-        _playerAttack.OnEquipAttack(AttackSlot.Slot3);
+        _playerAttack.OnHotbarAbilityPressed(HotbarAbilitySlot.Slot3);
     }
 
-    private void OnEquipAttack4(InputAction.CallbackContext context)
+    private void OnHotbarAbility4Pressed(InputAction.CallbackContext context)
     {
-        _playerAttack.OnEquipAttack(AttackSlot.Slot4);
+        _playerAttack.OnHotbarAbilityPressed(HotbarAbilitySlot.Slot4);
     }
 
     private void OnAttack(InputAction.CallbackContext value)
     {
         _playerAttack.OnAttack();
-    }
-
-    private void OnCancelAttack(InputAction.CallbackContext context)
-    {
-        _playerAttack.OnCancelAttack();
     }
 
     private void OnInteract(InputAction.CallbackContext context)

@@ -45,13 +45,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialAbilities:
-  - {fileID: 876172793251253612, guid: 98a0a27cfd814cc439ade1ab19cc3f8e, type: 3}
-  - {fileID: 8428844586865778531, guid: 56be11ae81061a14ea21b60243d49785, type: 3}
-  - {fileID: 75311920755393853, guid: 8480dfc97a21d9b4fae366285809bb91, type: 3}
-  - {fileID: 7472535615907482737, guid: 112e35c928a7179428bccb2cd9c36013, type: 3}
+  - {fileID: 6113069975007156162, guid: 27e2a9d04c1606044952b719c5b2be9c, type: 3}
+  - {fileID: 5914154632734680304, guid: 56be11ae81061a14ea21b60243d49785, type: 3}
+  - {fileID: 8442587970940342345, guid: 8480dfc97a21d9b4fae366285809bb91, type: 3}
+  - {fileID: 921194830145796300, guid: 112e35c928a7179428bccb2cd9c36013, type: 3}
+  - {fileID: 2166220721317203768, guid: 9cd0b685b952217468c8cb99af413c28, type: 3}
   equippedAbilites:
-  - {fileID: 876172793251253612, guid: 98a0a27cfd814cc439ade1ab19cc3f8e, type: 3}
-  - {fileID: 0}
+  - {fileID: 6113069975007156162, guid: 27e2a9d04c1606044952b719c5b2be9c, type: 3}
+  - {fileID: 2166220721317203768, guid: 9cd0b685b952217468c8cb99af413c28, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   changeEquippedAbilityEvent: {fileID: 11400000, guid: 02ccb452f3d95e9469eb20b995d1c9f4, type: 2}

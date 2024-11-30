@@ -7,7 +7,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Outline)), RequireComponent(typeof(Image))]
 public class AbilityImage : MonoBehaviour
 {
-    [SerializeField] private AttackSlot slot = AttackSlot.None;
+    [SerializeField] private HotbarAbilitySlot slot = HotbarAbilitySlot.None;
     [SerializeField] private GameObject cooldownOverlay;
     private PlayerAbilities _abilities;
     private PlayerAttack _playerAttack;
@@ -15,17 +15,17 @@ public class AbilityImage : MonoBehaviour
     private Outline _outline;
     private Image _image;
 
-    private UnityAction<AttackSlot> _equipAction;
+    private UnityAction<HotbarAbilitySlot> _equipAction;
     private UnityAction _unequipAction;
 
     private void Start()
     {
-        _equipAction = (AttackSlot attackSlot) => OnPlayerEquipAttack(attackSlot);
+        _equipAction = (HotbarAbilitySlot attackSlot) => OnPlayerEquipAttack(attackSlot);
         _unequipAction = () => OnPlayerUnequipAttack();
 
         _playerAttack = FindObjectOfType<PlayerAttack>();
-        _playerAttack.AddEquipListener(_equipAction);
-        _playerAttack.AddUnequipListener(_unequipAction);
+        _playerAttack.AddStartPreviewAbilityListener(_equipAction);
+        _playerAttack.AddEndPreviewAbilityListener(_unequipAction);
 
         _abilities = FindObjectOfType<PlayerAbilities>();
         _outline = GetComponent<Outline>();
@@ -39,14 +39,14 @@ public class AbilityImage : MonoBehaviour
     {
         if (_playerAttack != null)
         {
-            _playerAttack.RemoveEquipListener(_equipAction);
-            _playerAttack.RemoveUnequipListener(_unequipAction);
+            _playerAttack.RemoveStartPreviewAbilityListener(_equipAction);
+            _playerAttack.RemoveEndPreviewAbilityListener(_unequipAction);
         }
     }
 
     private void Update()
     {
-        if (slot != AttackSlot.None)
+        if (slot != HotbarAbilitySlot.None)
         {
             Vector3 overlayScale = cooldownOverlay.transform.localScale;
             overlayScale.y = 1 - _abilities.GetAbilityCooldownPercentage((int)slot);
@@ -67,9 +67,9 @@ public class AbilityImage : MonoBehaviour
         }
     }
 
-    private void OnPlayerEquipAttack(AttackSlot eventSlot)
+    private void OnPlayerEquipAttack(HotbarAbilitySlot eventSlot)
     {
-        if (slot == AttackSlot.None) return;
+        if (slot == HotbarAbilitySlot.None) return;
         if (slot != eventSlot) return;
 
         _outline.enabled = true;

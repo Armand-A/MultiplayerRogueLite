@@ -1,99 +1,108 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static EntityDataTypes;
 
-[AddComponentMenu("Ability/Ability")]
-public class Ability : MonoBehaviour
+[DisallowMultipleComponent]
+public abstract class Ability : MonoBehaviour
 {
-    // Ability settings
-    [SerializeField] private AbIndicator attackIndicator;
+    // Type definitions
+    public enum EAcquisitionType
+    {
+        Base, 
+        BaseImbued, 
+        DropOnly
+    }
+
+    [System.Serializable]
+    public struct ImbueOption
+    {
+        public ElementTypes elementType;
+        public Ability resultAbility;
+    }
+
+    [System.Serializable]
+    public struct CombineOption
+    {
+        public Ability otherAbility;
+        public Ability resultAbility;
+    }
+
+
+
+
+    // Inspector fields
+    [Header("General")]
     [SerializeField] private Sprite sprite;
-    [SerializeField] private Ability nextUpgrade;
-    [SerializeField] private float nextUpgradePrice;
-    [SerializeField] private bool cannotCastOnEnemy;
-    public AbIndicator AttackIndicator { get { return attackIndicator; } }
-    public Sprite Sprite { get { return sprite; } }
-    public Ability NextUpgrade { get { return nextUpgrade; } }
-    public float NextUpgradePrice { get { return nextUpgradePrice; } }
-    public bool IsCannotCastOnEnemy {  get { return cannotCastOnEnemy; } }
+    [SerializeField] EAcquisitionType acquisitionType;
+    [SerializeField] List<ImbueOption> imbueOptions;
+    [SerializeField] List<CombineOption> combineOptions;
 
-
-
-    // Numerical attributes
+    [Header("Costs")]
     [SerializeField] private float healthCost;
     [SerializeField] private float manaCost;
     [SerializeField] private float actionCost;
-    [SerializeField] private float damage;
+
+    [Header("Cooldown")]
     [SerializeField] private float cooldownTime;
+
+    [Header("Damage")]
+    [SerializeField] private float damage;
+    [SerializeField] private bool isDestroyOnDamage;
+    [SerializeField] private bool isDealDamageOnInterval;
+    [SerializeField] private float dealDamageInterval;
+
+    [Header("Event refs")]
+    [SerializeField] private GameEvent playerHitsEnemyEvent;
+    [SerializeField] private GameEvent enemyHitsPlayerEvent;
+
+    // Public getters for inspector fields
+    public Sprite Sprite { get { return sprite; } }
+    public EAcquisitionType AcquisitionType { get { return acquisitionType; } }
+    public List<ImbueOption> ImbueOptions { get { return imbueOptions; } }
     public float HealthCost {get {return healthCost;}}
     public float ManaCost {get {return manaCost;}}
     public float ActionCost {get {return actionCost;}}
     public float Damage { get { return damage; } }
     public float CooldownTime { get {  return cooldownTime; } }
-
-
-
-    // Damage
-    [SerializeField] private bool isDestroyOnDamage;
-    [SerializeField] private bool isDealDamageOnInterval;
-    [SerializeField] private float dealDamageInterval;
     public bool IsDestroyOnDamage { get { return isDestroyOnDamage; } }
     public bool IsDealDamageOnInterval { get { return isDealDamageOnInterval; } }
     public float DealDamageInterval { get { return dealDamageInterval; } }
 
 
 
-    // Behaviours
-    [SerializeField] private bool isInstantiateAtDestination;
-    public bool IsInstantiateAtDestination { get { return isInstantiateAtDestination; } }
 
-    [SerializeField] private bool useCustomIndicatorLocalPosition;
-    [SerializeField] private Vector3 customIndicatorLocalPosition;
-    [SerializeField] private bool useCustomIndicatorLocalRotation;
-    [SerializeField] private Vector3 customIndicatorLocalRotation;
-    [SerializeField] private bool useCustomIndicatorLocalScale;
-    [SerializeField] private Vector3 customIndicatorLocalScale;
-    public bool UseCustomIndicatorLocalPosition { get {  return useCustomIndicatorLocalPosition; } }
-    public Vector3 CustomIndicatorLocalPosition { get { return customIndicatorLocalPosition; } }
-    public bool UseCustomIndicatorLocalRotation { get {  return useCustomIndicatorLocalRotation; } }
-    public Vector3 CustomIndicatorLocalRotation { get { return customIndicatorLocalRotation; } }
-    public bool UseCustomIndicatorLocalScale { get {  return useCustomIndicatorLocalScale; } }  
-    public Vector3 CustomIndicatorLocalScale { get { return customIndicatorLocalScale; } }
+    // Protected fields
+    protected Vector3 _srcPos = Vector3.zero;
+    protected EntityData _sourceEntity;
+    protected bool _initialized = false;
 
-
-    // Events
-    [SerializeField] private GameEvent playerHitsEnemyEvent;
-    [SerializeField] private GameEvent enemyHitsPlayerEvent;
-
-    Vector3 _srcPos = Vector3.zero;
-    Vector3 _dstPos = Vector3.zero;
-    bool _isFromPlayer = false;
+    // Public getters for protected fields
     public Vector3 SrcPos { get { return _srcPos; } }
-    public Vector3 DstPos { get { return _dstPos; } }
-    public bool IsFromPlayer { get { return _isFromPlayer; } }
+    public EntityData SourceEntity { get { return _sourceEntity; } }
 
 
 
-    bool _initialized = false;
-    public bool Initialize(Vector3 srcPos, Vector3 dstPos, bool isFromPlayer)
-    {
-        if (_initialized) return false;
 
-        _srcPos = srcPos;
-        _dstPos = dstPos;
-        _isFromPlayer = isFromPlayer;
 
-        _initialized = true;
-        return true;
-    }
 
-    public bool CanDealDamageToEntity(EntityData entity) => (entity is EnemyData && _isFromPlayer) || (entity is PlayerData && !_isFromPlayer);
+    // derived classes need to override and implement this
+    public abstract bool Initialize(Vector3 srcPos, EntityData sourceEntity, Vector3? dstPos, Ray? dir, GameObject targetObject = null);
+
+
+
+
+
+    // Public methods
+    public bool CanDealDamageToEntity(EntityData entity) => 
+        (entity is EnemyData && _sourceEntity is PlayerData) ||
+        (entity is PlayerData && _sourceEntity is EnemyData);
 
     public void DealDamageToEntity(EntityData target)
     {
-        target.UpdateHealth(-damage);
         if (CanDealDamageToEntity(target))
         {
+            target.Damage(damage);
             if (target is EnemyData)
             {
                 if (playerHitsEnemyEvent != null)

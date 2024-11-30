@@ -77615,11 +77615,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1113354124278126538, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.0000000045736672
+      value: 0.0000000045736743
       objectReference: {fileID: 0}
     - target: {fileID: 1113354124278126538, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -4.573663e-10
+      value: 4.5736764e-10
       objectReference: {fileID: 0}
     - target: {fileID: 1113354124278126538, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.y
@@ -77627,7 +77627,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1113354124278126538, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 1.3234888e-23
       objectReference: {fileID: 0}
     - target: {fileID: 1596717553995089080, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalPosition.x
@@ -77643,11 +77643,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1596717553995089080, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.000000006195112
+      value: 0.0000000061951155
       objectReference: {fileID: 0}
     - target: {fileID: 1596717553995089080, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -9.2700003e-10
+      value: 9.270009e-10
       objectReference: {fileID: 0}
     - target: {fileID: 1596717553995089080, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.y
@@ -77657,6 +77657,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.048844013
       objectReference: {fileID: 0}
+    - target: {fileID: 2041874018084997371, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2355030256040997562, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -77671,11 +77675,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2355030256040997562, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.0000000062936287
+      value: -0.0000000017983304
       objectReference: {fileID: 0}
     - target: {fileID: 2355030256040997562, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -9.41742e-10
+      value: -2.690923e-10
       objectReference: {fileID: 0}
     - target: {fileID: 2355030256040997562, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.y
@@ -77767,11 +77771,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5709150045112681738, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.000000039853997
+      value: -0.000000047460244
       objectReference: {fileID: 0}
     - target: {fileID: 5709150045112681738, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0000000019877429
+      value: -0.0000000023671092
       objectReference: {fileID: 0}
     - target: {fileID: 5709150045112681738, guid: a586d6c49745a5d4d8ba6646f5e50f07, type: 3}
       propertyPath: m_LocalRotation.y
@@ -161371,7 +161375,7 @@ PrefabInstance:
     - target: {fileID: 6071374978032471927, guid: 42756dc7d6cde8c4cb602caa276cef62, type: 3}
       propertyPath: actionOnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 9003174105408701446, guid: 772afd9b2f8afe747b203eab4eda56da, type: 3}
+      objectReference: {fileID: 7167141795070537511, guid: 772afd9b2f8afe747b203eab4eda56da, type: 3}
     - target: {fileID: 6071374978032471927, guid: 42756dc7d6cde8c4cb602caa276cef62, type: 3}
       propertyPath: actionOnInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: AbilityUI, Assembly-CSharp

@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 2206007730453657979}
   - component: {fileID: 4799074094360775311}
   - component: {fileID: 4137210961123182271}
-  - component: {fileID: 7472535615907482737}
   - component: {fileID: -5006312219185740472}
   - component: {fileID: -2668803266107829937}
+  - component: {fileID: 921194830145796300}
   m_Layer: 0
   m_Name: AbilityPoisonGas
   m_TagString: Untagged
@@ -139,40 +139,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7472535615907482737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1992796365345572444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 697d2c7cfdc971146bed4977482def6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackIndicator: {fileID: 6796803838786837609, guid: b62020c896c68a045b6b6ab0a7e1bb00, type: 3}
-  sprite: {fileID: 21300000, guid: 81b10919c4cb2c34db5f89fbd2b5c1be, type: 3}
-  nextUpgrade: {fileID: 0}
-  nextUpgradePrice: 0
-  cannotCastOnEnemy: 0
-  healthCost: 0
-  manaCost: 0
-  actionCost: 7
-  damage: 2
-  cooldownTime: 1
-  isDestroyOnDamage: 0
-  isDealDamageOnInterval: 1
-  dealDamageInterval: 0.5
-  isInstantiateAtDestination: 1
-  useCustomIndicatorLocalPosition: 0
-  customIndicatorLocalPosition: {x: 0, y: 0, z: 0}
-  useCustomIndicatorLocalRotation: 0
-  customIndicatorLocalRotation: {x: 0, y: 0, z: 0}
-  useCustomIndicatorLocalScale: 1
-  customIndicatorLocalScale: {x: 9, y: 1, z: 9}
-  playerHitsEnemyEvent: {fileID: 11400000, guid: 3de21ae7feb97d445b7c092d4b7f9b9a, type: 2}
-  enemyHitsPlayerEvent: {fileID: 11400000, guid: 08cd2d210d36e044b92c1f3ac5e62cce, type: 2}
 --- !u!114 &-5006312219185740472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901869b303a08a44fbe0e8e762a4505e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ability: {fileID: 7472535615907482737}
+  _ability: {fileID: 921194830145796300}
 --- !u!114 &-2668803266107829937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,6 +165,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBeforeDespawn: 3
+--- !u!114 &921194830145796300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992796365345572444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60ff2481c7f5bde4cb6dbc4c728abdda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackIndicator: {fileID: 6796803838786837609, guid: b62020c896c68a045b6b6ab0a7e1bb00, type: 3}
+  sprite: {fileID: 21300000, guid: 81b10919c4cb2c34db5f89fbd2b5c1be, type: 3}
+  cannotCastOnEnemy: 0
+  acquisitionType: 0
+  imbueOptions: []
+  combineOptions: []
+  healthCost: 0
+  manaCost: 0
+  actionCost: 7
+  damage: 2
+  cooldownTime: 1
+  isDestroyOnDamage: 0
+  isDealDamageOnInterval: 1
+  dealDamageInterval: 0.5
+  isInstantiateAtDestination: 1
+  destinationSphereCastRadius: 0
+  useCustomIndicatorLocalPosition: 0
+  customIndicatorLocalPosition: {x: 0, y: 0, z: 0}
+  useCustomIndicatorLocalRotation: 0
+  customIndicatorLocalRotation: {x: 0, y: 0, z: 0}
+  useCustomIndicatorLocalScale: 1
+  customIndicatorLocalScale: {x: 9, y: 1, z: 9}
+  playerHitsEnemyEvent: {fileID: 11400000, guid: 3de21ae7feb97d445b7c092d4b7f9b9a, type: 2}
+  enemyHitsPlayerEvent: {fileID: 11400000, guid: 08cd2d210d36e044b92c1f3ac5e62cce, type: 2}
 --- !u!1 &2281275275157226097
 GameObject:
   m_ObjectHideFlags: 0

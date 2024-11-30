@@ -134,6 +134,41 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &1489359307756515809
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2365005501515616263}
+  m_Layer: 5
+  m_Name: Ability Buttons Container
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2365005501515616263
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489359307756515809}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1660133596762297482}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7072865198026809493
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,6 +201,7 @@ RectTransform:
   m_Children:
   - {fileID: 1518332693662767560}
   - {fileID: 4527841730541671226}
+  - {fileID: 2365005501515616263}
   m_Father: {fileID: 3181422032682276206}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -329,7 +365,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonPrefab: {fileID: 4924412516167744527, guid: 9a87967d3d6cbe64685e1053cc34d2b4, type: 3}
   panel: {fileID: 7072865198026809493}
+  abilityButtonsContainer: {fileID: 1489359307756515809}
   gap: {x: 16, y: 0}
+  onAbilityClicked:
+    m_PersistentCalls:
+      m_Calls: []
+  abilitiesFilterType: 0
 --- !u!1001 &5419795738024860846
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -458,7 +499,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2457846937435670794, guid: acea6c3c638e8be4fb631f66e8a341ea, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnCancel
+      value: CloseUI
       objectReference: {fileID: 0}
     - target: {fileID: 2457846937435670794, guid: acea6c3c638e8be4fb631f66e8a341ea, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

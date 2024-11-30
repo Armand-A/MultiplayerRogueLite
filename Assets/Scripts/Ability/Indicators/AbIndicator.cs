@@ -11,13 +11,22 @@ public class AbIndicator : MonoBehaviour
     Vector3 _srcPos = Vector3.zero;
     Vector3 _dstPos = Vector3.zero;
     bool _hasEnemyInRange;
-    Ability _parentAbility;
+    AnywhereAbility _parentAbility;
 
     public Vector3 SrcPos { get { return _srcPos; } }
     public Vector3 DstPos { get { return _dstPos; } }
     public bool HasEnemyInRange { get { return _hasEnemyInRange; } }
 
-    public void Initialize(Ability parentAbility)
+    private void Start()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        foreach (Transform g in transform.GetComponentsInChildren<Transform>())
+        {
+            g.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        }
+    }
+
+    public void Initialize(AnywhereAbility parentAbility)
     {
         _parentAbility = parentAbility;
         if (transformDestination != null)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,97 +12,91 @@ public class PlayerCamera : MonoBehaviour
     [Header("References")]
     [Tooltip("To orientate player object's movement based on camera direction")]
     public Transform Orientation;
-    [Tooltip("Where the player would look at during combat")]
-    public Transform CombatLookAt;
     [Tooltip("Player object container")]
     public Transform Player; //
     [Tooltip("Player capsule/player model")]
     public Transform PlayerObj; // To rotate object to face same direction as camera when moving
-    [Tooltip("Player rigidbody")]
-    public Rigidbody Rb;
-    [Tooltip("Top Down Camera")]
-    public GameObject Crosshair;
 
-    [Header("Values")]
-    [Tooltip("Camera's speed of rotation")]
+    [Header("General Configs")]
+    [Tooltip("Speed of player model reorienting towards moving direction")]
     public float RotationSpeed = 5f;
     [Tooltip("Camera View Style")]
     public CameraStyle CurrentCamStyle;
-    [Tooltip("Normal View Camera")]
+
+    [Header("Normal View Camera Configs")]
+    [Tooltip("Reference to Normal View Camera")]
     public GameObject NormalViewCam;
-    [Tooltip("Combat Camera")]
-    public GameObject CombatCam;
-    [Tooltip("Top Down Camera")]
-    public GameObject TopDownCam;
+
+    [Header("Aim Camera Configs")]
+    [Tooltip("Reference to Aim Camera")]
+    public GameObject AimCam;
+    [Tooltip("Reference to Focus of Aim Camera")]
+    public GameObject AimFocus;
+    [Tooltip("Sensitivity/Speed of camera rotation in Aim mode"), SerializeField]
+    float aimSensitivity = 5f;
+    [Tooltip("Max angle of vertical rotation"), Range(0f, 90f), SerializeField]
+    float aimVerticalRotationLimit = 60f;
+
+    public Vector2 LookDelta { get; set; }
     
     public enum CameraStyle
     {
         Basic,
-        Combat,
-        Topdown
+        Aim, 
     }
 
     // Makes sure player's movement is based off of camera's orientation
     public void UpdateCamera(Vector2 playerMovement)
     {
-        if (CurrentCamStyle == CameraStyle.Basic || CurrentCamStyle == CameraStyle.Topdown)
+        if (CurrentCamStyle == CameraStyle.Basic)
         {
             // camera rotation orientation
             Vector3 viewDir = Player.position - new Vector3(transform.position.x, Player.position.y, transform.position.z);
             Orientation.forward = viewDir.normalized;
 
-            float horizontalInput = 0;
-            float verticalInput = 0;
-            horizontalInput = playerMovement.x;
-            verticalInput = playerMovement.y;
+            float horizontalInput = playerMovement.x;
+            float verticalInput = playerMovement.y;
             Vector3 inputDir = Orientation.forward * verticalInput + Orientation.right * horizontalInput;
 
             if (inputDir != Vector3.zero)
                 PlayerObj.forward = Vector3.Slerp(PlayerObj.forward, inputDir.normalized, Time.deltaTime * RotationSpeed);
         }
-        else
+        else if (CurrentCamStyle == CameraStyle.Aim)
         {
-            // camera rotation orientation to face CombatLookAt Gameobject
-            Vector3 combatViewDir = CombatLookAt.position - new Vector3(transform.position.x, Player.position.y, transform.position.z);
-            Orientation.forward = combatViewDir.normalized;
+            Vector2 rotInput = LookDelta;
 
-            PlayerObj.forward = combatViewDir.normalized;
+            Vector3 rot = PlayerObj.transform.eulerAngles;
+            rot.y += rotInput.x * aimSensitivity * Time.deltaTime;
+            PlayerObj.transform.rotation = Quaternion.Euler(rot);
+            Orientation.transform.rotation = Quaternion.Euler(rot);
+
+            if (AimFocus != null)
+            {
+                rot = AimFocus.transform.localRotation.eulerAngles;
+                rot.x -= rotInput.y * aimSensitivity * Time.deltaTime;
+                if (rot.x > 180f) rot.x -= 360f;
+                rot.x = Mathf.Clamp(rot.x, -aimVerticalRotationLimit, aimVerticalRotationLimit);
+                AimFocus.transform.localRotation = Quaternion.Euler(rot);
+            }
         }
     }
 
-    //for switching different camera styles if needed
-    public void SwitchCameraStyle()
+    public void SwitchCameraStyle(CameraStyle camStyle)
     {
+        if (camStyle == CurrentCamStyle) return;
+
         NormalViewCam.SetActive(false);
-        CombatCam.SetActive(false);
-        TopDownCam.SetActive(false);
-        Crosshair.SetActive(false);
+        AimCam.SetActive(false);
 
-        // if (newStyle == CameraStyle.Basic)
-        //     NormalViewCam.SetActive(true);
-        // if (newStyle == CameraStyle.Combat)
-        //     CombatCam.SetActive(true);
-        // if (newStyle == CameraStyle.Topdown)
-        //     TopDownCam.SetActive(true);
-
-        if (CurrentCamStyle == CameraStyle.Basic)
+        CurrentCamStyle = camStyle;
+        switch (CurrentCamStyle)
         {
-            CombatCam.SetActive(true);
-            Crosshair.SetActive(true);
-            CurrentCamStyle = CameraStyle.Combat;
+            case CameraStyle.Basic:
+                NormalViewCam.SetActive(true);
+                break;
+            case CameraStyle.Aim:
+                AimCam.SetActive(true);
+                break;
         }
-        else if (CurrentCamStyle == CameraStyle.Combat)
-        {
-            TopDownCam.SetActive(true);
-            CurrentCamStyle = CameraStyle.Topdown;
-
-        }
-        else if (CurrentCamStyle == CameraStyle.Topdown)
-        {
-            NormalViewCam.SetActive(true);
-            CurrentCamStyle = CameraStyle.Basic;
-        }
-        
-        // CurrentCamStyle = newStyle;
     }
 }

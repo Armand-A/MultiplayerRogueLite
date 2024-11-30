@@ -15,4 +15,9 @@ public class AbilityUI : MonoBehaviour
     {
         this.uiManager = uiManager;
     }
+
+    public void OpenUI(AbilityUI uiPrefab)
+    {
+        uiManager.OpenUIAndGet(uiPrefab);
+    }
 }

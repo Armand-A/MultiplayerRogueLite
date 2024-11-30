@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4151682587670450213}
   - component: {fileID: 4497895759808671814}
   - component: {fileID: 901539224883860523}
-  - component: {fileID: 75311920755393853}
   - component: {fileID: -6358432458901213615}
+  - component: {fileID: 8442587970940342345}
   m_Layer: 6
   m_Name: AbilityObstacle
   m_TagString: Untagged
@@ -107,37 +107,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &75311920755393853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4873085143038728622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 697d2c7cfdc971146bed4977482def6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackIndicator: {fileID: 7723271941295842916, guid: 7f6cc4f6c99fd00449d84e44df76319a, type: 3}
-  sprite: {fileID: 21300000, guid: 1e11d124fba623a48b19078cb8bbd508, type: 3}
-  nextUpgrade: {fileID: 0}
-  nextUpgradePrice: 0
-  cannotCastOnEnemy: 0
-  healthCost: 0
-  manaCost: 0
-  actionCost: 10
-  damage: 0
-  cooldownTime: 3
-  isInstantiateAtDestination: 1
-  useCustomIndicatorLocalPosition: 0
-  customIndicatorLocalPosition: {x: 0, y: 0, z: 0}
-  useCustomIndicatorLocalRotation: 0
-  customIndicatorLocalRotation: {x: 0, y: 0, z: 0}
-  useCustomIndicatorLocalScale: 1
-  customIndicatorLocalScale: {x: 3, y: 3, z: 3}
-  playerHitsEnemyEvent: {fileID: 11400000, guid: 3de21ae7feb97d445b7c092d4b7f9b9a, type: 2}
-  enemyHitsPlayerEvent: {fileID: 11400000, guid: 08cd2d210d36e044b92c1f3ac5e62cce, type: 2}
 --- !u!114 &-6358432458901213615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,3 +120,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBeforeDespawn: 5
+--- !u!114 &8442587970940342345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4873085143038728622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60ff2481c7f5bde4cb6dbc4c728abdda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackIndicator: {fileID: 7723271941295842916, guid: 7f6cc4f6c99fd00449d84e44df76319a, type: 3}
+  sprite: {fileID: 21300000, guid: 1e11d124fba623a48b19078cb8bbd508, type: 3}
+  cannotCastOnEnemy: 1
+  acquisitionType: 0
+  imbueOptions: []
+  combineOptions: []
+  aimMode: 0
+  healthCost: 0
+  manaCost: 0
+  actionCost: 10
+  damage: 0
+  cooldownTime: 3
+  isDestroyOnDamage: 0
+  isDealDamageOnInterval: 0
+  dealDamageInterval: 0
+  isInstantiateAtDestination: 1
+  destinationSphereCastRadius: 0
+  useCustomIndicatorLocalPosition: 0
+  customIndicatorLocalPosition: {x: 0, y: 0, z: 0}
+  useCustomIndicatorLocalRotation: 0
+  customIndicatorLocalRotation: {x: 0, y: 0, z: 0}
+  useCustomIndicatorLocalScale: 1
+  customIndicatorLocalScale: {x: 3, y: 3, z: 3}
+  playerHitsEnemyEvent: {fileID: 11400000, guid: 3de21ae7feb97d445b7c092d4b7f9b9a, type: 2}
+  enemyHitsPlayerEvent: {fileID: 11400000, guid: 08cd2d210d36e044b92c1f3ac5e62cce, type: 2}

@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 2421128643724397502}
   - component: {fileID: 1179701774020087669}
   - component: {fileID: 3509557009506120850}
-  - component: {fileID: 142932621525757926}
   - component: {fileID: 5809807754448003237}
-  - component: {fileID: 2803802523605152814}
-  - component: {fileID: 7749108294256407283}
   - component: {fileID: 8763173034161154672}
+  - component: {fileID: 5093816141595670697}
+  - component: {fileID: 7681270276576081836}
+  - component: {fileID: 6022347935393130465}
   m_Layer: 0
   m_Name: EnemyAbilityRanged
   m_TagString: Untagged
@@ -139,31 +139,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &142932621525757926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3781331974297468100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 697d2c7cfdc971146bed4977482def6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackIndicator: {fileID: 0}
-  sprite: {fileID: 0}
-  nextUpgrade: {fileID: 0}
-  nextUpgradePrice: 0
-  cannotCastOnEnemy: 0
-  healthCost: 0
-  manaCost: 0
-  actionCost: 5
-  damage: 5
-  cooldownTime: 3
-  isInstantiateAtDestination: 0
-  playerHitsEnemyEvent: {fileID: 11400000, guid: 3de21ae7feb97d445b7c092d4b7f9b9a, type: 2}
-  enemyHitsPlayerEvent: {fileID: 11400000, guid: 08cd2d210d36e044b92c1f3ac5e62cce, type: 2}
 --- !u!114 &5809807754448003237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,35 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901869b303a08a44fbe0e8e762a4505e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ability: {fileID: 142932621525757926}
-  isDestroyOnDamage: 0
---- !u!114 &2803802523605152814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3781331974297468100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba8963a1045bf92428db4f3877dad4fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxDisplacement: 15
---- !u!114 &7749108294256407283
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3781331974297468100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 544293412afc1ac4cb6beadd04237098, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 15
-  isHoming: 0
+  _ability: {fileID: 5093816141595670697}
 --- !u!114 &8763173034161154672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,9 +164,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2deaa5cf7cd4641b3245ba378aee94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ability: {fileID: 142932621525757926}
+  _ability: {fileID: 5093816141595670697}
   collidingLayerNames:
   - Block Attack
+--- !u!114 &5093816141595670697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3781331974297468100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd2f4d832f31ed42af06955ca7e42c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackIndicator: {fileID: 0}
+  sprite: {fileID: 0}
+  acquisitionType: 0
+  imbueOptions: []
+  combineOptions: []
+  healthCost: 0
+  manaCost: 0
+  actionCost: 5
+  damage: 1
+  cooldownTime: 3
+  isDestroyOnDamage: 1
+  isDealDamageOnInterval: 0
+  dealDamageInterval: 0
+  playerHitsEnemyEvent: {fileID: 11400000, guid: 3de21ae7feb97d445b7c092d4b7f9b9a, type: 2}
+  enemyHitsPlayerEvent: {fileID: 11400000, guid: 08cd2d210d36e044b92c1f3ac5e62cce, type: 2}
+--- !u!114 &7681270276576081836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3781331974297468100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba8963a1045bf92428db4f3877dad4fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDisplacement: 15
+--- !u!114 &6022347935393130465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3781331974297468100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27e4ad310fa0faf4bb2df145adf861fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 15
+  isHoming: 0
 --- !u!1 &4442301186425333478
 GameObject:
   m_ObjectHideFlags: 0

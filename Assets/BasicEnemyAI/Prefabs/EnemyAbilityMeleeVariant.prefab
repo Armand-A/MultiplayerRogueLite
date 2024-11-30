@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 222362333406401216}
   - component: {fileID: 7981150000538159126}
   - component: {fileID: 8120767207164130173}
-  - component: {fileID: 5089003309796478249}
-  - component: {fileID: 5069773152617083829}
-  - component: {fileID: 1015677882726900682}
+  - component: {fileID: 5482130532420223599}
+  - component: {fileID: 3597752419836684547}
+  - component: {fileID: 8166287791950473029}
   m_Layer: 0
   m_Name: EnemyAbilityMeleeVariant
   m_TagString: Untagged
@@ -137,7 +137,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5089003309796478249
+--- !u!114 &5482130532420223599
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,23 +146,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 3168194142316774515}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 697d2c7cfdc971146bed4977482def6c, type: 3}
+  m_Script: {fileID: 11500000, guid: 7bd2f4d832f31ed42af06955ca7e42c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackIndicator: {fileID: 0}
   sprite: {fileID: 0}
-  nextUpgrade: {fileID: 0}
-  nextUpgradePrice: 0
-  cannotCastOnEnemy: 0
+  acquisitionType: 0
+  imbueOptions: []
+  combineOptions: []
   healthCost: 0
   manaCost: 0
-  actionCost: 5
-  damage: 5
+  actionCost: 10
+  damage: 4
   cooldownTime: 3
-  isInstantiateAtDestination: 0
+  isDestroyOnDamage: 0
+  isDealDamageOnInterval: 0
+  dealDamageInterval: 0
   playerHitsEnemyEvent: {fileID: 11400000, guid: 3de21ae7feb97d445b7c092d4b7f9b9a, type: 2}
   enemyHitsPlayerEvent: {fileID: 11400000, guid: 08cd2d210d36e044b92c1f3ac5e62cce, type: 2}
---- !u!114 &5069773152617083829
+--- !u!114 &3597752419836684547
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfdb6b3d990f6a1439c6c4c85f0ce2b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1015677882726900682
+--- !u!114 &8166287791950473029
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5136,5 +5138,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901869b303a08a44fbe0e8e762a4505e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ability: {fileID: 5089003309796478249}
-  isDestroyOnDamage: 0
+  _ability: {fileID: 5482130532420223599}

@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8933056887149832765}
-  - component: {fileID: 4644109299625121686}
-  - component: {fileID: 2683133737252218691}
-  - component: {fileID: 3660874536503080321}
+  - component: {fileID: 6817335229055006732}
+  - component: {fileID: 903018068472930233}
+  - component: {fileID: 2550849918490322948}
   m_Layer: 0
   m_Name: EnemyAbilityMelee
   m_TagString: Untagged
@@ -35,7 +35,7 @@ Transform:
   - {fileID: 814694131439997750}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4644109299625121686
+--- !u!114 &6817335229055006732
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,35 +44,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 3168194142316774515}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 697d2c7cfdc971146bed4977482def6c, type: 3}
+  m_Script: {fileID: 11500000, guid: 7bd2f4d832f31ed42af06955ca7e42c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackIndicator: {fileID: 0}
   sprite: {fileID: 0}
-  nextUpgrade: {fileID: 0}
-  nextUpgradePrice: 0
-  cannotCastOnEnemy: 0
+  acquisitionType: 0
+  imbueOptions: []
+  combineOptions: []
   healthCost: 0
   manaCost: 0
-  actionCost: 5
-  damage: 5
+  actionCost: 10
+  damage: 3
   cooldownTime: 3
-  isInstantiateAtDestination: 0
+  isDestroyOnDamage: 0
+  isDealDamageOnInterval: 0
+  dealDamageInterval: 0
   playerHitsEnemyEvent: {fileID: 11400000, guid: 3de21ae7feb97d445b7c092d4b7f9b9a, type: 2}
   enemyHitsPlayerEvent: {fileID: 11400000, guid: 08cd2d210d36e044b92c1f3ac5e62cce, type: 2}
---- !u!114 &2683133737252218691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3168194142316774515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfdb6b3d990f6a1439c6c4c85f0ce2b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3660874536503080321
+--- !u!114 &903018068472930233
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -84,7 +74,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d98063db180f2664f818d70628219d0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBeforeDespawn: 1
+  timeBeforeDespawn: 3
+--- !u!114 &2550849918490322948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3168194142316774515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdb6b3d990f6a1439c6c4c85f0ce2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4233158837071047333
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,5 +205,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901869b303a08a44fbe0e8e762a4505e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ability: {fileID: 4644109299625121686}
-  isDestroyOnDamage: 0
+  _ability: {fileID: 6817335229055006732}

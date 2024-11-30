@@ -118,24 +118,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Cancel Attack"",
-                    ""type"": ""Button"",
-                    ""id"": ""bc5ae9e9-3cf8-4150-9743-c8688e9e98e3"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""CamSwap"",
-                    ""type"": ""Value"",
-                    ""id"": ""22df46bf-45ad-4c3c-9c61-cc5fd5daf86f"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""19560c4f-93f0-45ec-8880-2ece93d31720"",
@@ -143,6 +125,15 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""614e4437-09b4-4543-a1c0-1f507060cb39"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -291,17 +282,6 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""fa7e6733-a88a-4f8c-997a-cf8d6b296a58"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Player"",
-                    ""action"": ""Cancel Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""28828253-cf0a-4351-a5c8-a5a64f4cfbf5"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
@@ -324,23 +304,23 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""588e9f6e-03e5-4639-b8e1-2a5e3e59d95b"",
-                    ""path"": ""<Keyboard>/c"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Player"",
-                    ""action"": ""CamSwap"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""c173cc03-4355-4bf3-92e6-669ad1b0c535"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Player"",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c230ba75-6fde-407c-ae2d-458e2ee74eb9"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -367,9 +347,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Player_EquipAttack4 = m_Player.FindAction("Equip Attack 4", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
-        m_Player_CancelAttack = m_Player.FindAction("Cancel Attack", throwIfNotFound: true);
-        m_Player_CamSwap = m_Player.FindAction("CamSwap", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -441,9 +420,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_EquipAttack4;
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Attack;
-    private readonly InputAction m_Player_CancelAttack;
-    private readonly InputAction m_Player_CamSwap;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_Look;
     public struct PlayerActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -458,9 +436,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         public InputAction @EquipAttack4 => m_Wrapper.m_Player_EquipAttack4;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
-        public InputAction @CancelAttack => m_Wrapper.m_Player_CancelAttack;
-        public InputAction @CamSwap => m_Wrapper.m_Player_CamSwap;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -500,15 +477,12 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
-            @CancelAttack.started += instance.OnCancelAttack;
-            @CancelAttack.performed += instance.OnCancelAttack;
-            @CancelAttack.canceled += instance.OnCancelAttack;
-            @CamSwap.started += instance.OnCamSwap;
-            @CamSwap.performed += instance.OnCamSwap;
-            @CamSwap.canceled += instance.OnCamSwap;
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -543,15 +517,12 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
-            @CancelAttack.started -= instance.OnCancelAttack;
-            @CancelAttack.performed -= instance.OnCancelAttack;
-            @CancelAttack.canceled -= instance.OnCancelAttack;
-            @CamSwap.started -= instance.OnCamSwap;
-            @CamSwap.performed -= instance.OnCamSwap;
-            @CamSwap.canceled -= instance.OnCamSwap;
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -590,8 +561,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         void OnEquipAttack4(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
-        void OnCancelAttack(InputAction.CallbackContext context);
-        void OnCamSwap(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
     }
 }

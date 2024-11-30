@@ -18,25 +18,25 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Movement input vector")]
     public Vector2 MoveVector = Vector2.zero;
     [Tooltip("Object that help orient player movement direction based on camera")]
-    [SerializeField] Transform Orientation;
+    [SerializeField] private Transform Orientation;
     [Tooltip("Movement direction")]
-    [SerializeField] Vector3 MoveDir;
+    [SerializeField] private Vector3 MoveDir;
     [Tooltip("Base speed force value")]
-    [SerializeField] float BaseSpeed = 250.0f;
+    [SerializeField] private float BaseSpeed = 250.0f;
     [Tooltip("Player rigidbody mass")]
-    [SerializeField] float PlayerMass = 5.0f;
-    [Tooltip("Base speed value")]
-    public float SprintMultiplyer = 2.0f;
+    [SerializeField] private float PlayerMass = 5.0f;
+    [Tooltip("Base sprint value")]
+    [SerializeField] private float SprintMultiplyer = 2.0f;
     [Tooltip("Sprinting input")]
     public float SprintBool = 0.0f;
     [Tooltip("Speed Multiplyer")]
-    public float SpeedBoost = 1.0f;
+    [SerializeField] private float SpeedBoost = 1.0f;
     [Tooltip("Ground Drag for simulating air resistance when running")]
-    public float GroundDrag = 3.0f;
+    [SerializeField] private float GroundDrag = 3.0f;
     [Tooltip("How fast player's movement should be mid air")]
-    public float AirMultiplyer = 0.1f;
+    [SerializeField] private float AirMultiplyer = 0.1f;
     [Tooltip("Multiplyer for speed decrese during combat")]
-    public float CombatSpeedMultiplyer = 0.5f;
+    [SerializeField] private float CombatSpeedMultiplyer = 0.5f;
 
     [Header("Stair/Slope Movement")]
     [Tooltip("Allowed height for stepping up")]
@@ -45,11 +45,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float stepSmooth = 2f;
     [Tooltip("Maximum allowed slope to climb")]
     [SerializeField] private float maxSlopeAngle = 70f;
+    [Tooltip("Collider to visualize and position the stair detecter")]
+    [SerializeField] private GameObject stairDetector;
+
     private Collider stepTarget;
     private RaycastHit slopeHit;
     private bool exitingSlope;
-    [Tooltip("Collider to visualize and position the stair detecter")]
-    [SerializeField] private GameObject stairDetector;
 
     /// <summary>
     /// Vertical Jump movement variables
@@ -64,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("The force of jump")]
     [SerializeField] float JumpForce = 10f;
     [Tooltip("Gravity value for character")]
-    [SerializeField] float Gravity = -15.0f;
+    [SerializeField] float Gravity = -100;
     [Tooltip("Interval between jumps")]
     [SerializeField] float JumpIntervalCD = 0.5f;
     [Tooltip("Time required before being able to jump again. Set to 0f to instantly jump again")]
@@ -138,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         _jumpCDTimer.TimerCompleteEvent+= JumpRecharge;
-        _dashCDTimer.TimerCompleteEvent += DashReset;
+        _dashCDTimer.TimerCompleteEvent += DashRecharge;
     }
 
     /// <summary>
@@ -147,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnDisable()
     {
         _jumpCDTimer.TimerCompleteEvent -= JumpRecharge;
-        _dashCDTimer.TimerCompleteEvent -= DashReset;
+        _dashCDTimer.TimerCompleteEvent -= DashRecharge;
     }
 
     /// <summary>
@@ -401,7 +402,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (DashBool > 0 && (DashRemaining > 0 || !_combatMode))
         {   
-            if (_playerData.UpdateAction(-DashCost))
+            if (_playerData.UseAction(DashCost))
                 _rigidBody.AddForce(MoveDir.normalized * DashForce , ForceMode.Impulse);
 
             if (_combatMode)
@@ -419,7 +420,7 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// Reset Dash cooldown
     /// </summary>
-    private void DashReset()
+    private void DashRecharge()
     {
         if (DashRemaining < MaxDash)
         {
